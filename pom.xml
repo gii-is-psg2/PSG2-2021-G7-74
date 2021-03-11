@@ -33,6 +33,15 @@
 	        <role>developer</role>
 	      </roles>
 	    </developer>
+	    <developer>
+	      <id>juagomram4</id>
+	      <name>Juan Carlos Gomez</name>
+	      <email>juagomram4@alum.us.es</email>
+	      <url>https://github.com/juagomram</url>
+	      <roles>
+	        <role>developer</role>
+	      </roles>
+	    </developer>
   	</developers>
 
     <properties>
