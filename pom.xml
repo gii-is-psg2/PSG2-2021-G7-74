@@ -13,6 +13,18 @@
         <version>2.2.4.RELEASE</version>
     </parent>
     <name>petclinic</name>
+    
+    <developers>
+	    <developer>
+	      <id>ferangmor</id>
+	      <name>Fernando Angulo</name>
+	      <email>ferangmor@alum.us.es</email>
+	      <url>https://github.com/ferangmor</url>
+	      <roles>
+	        <role>developer</role>
+	      </roles>
+	    </developer>
+  	</developers>
 
     <properties>
 
