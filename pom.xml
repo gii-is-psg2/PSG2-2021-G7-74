@@ -3,16 +3,16 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.springframework.samples</groupId>
-    <artifactId>spring-petclinic</artifactId>
-    <version>2.2.0.BUILD-SNAPSHOT</version>
+    <groupId>es.us.psg2</groupId>
+    <artifactId>spring-petclinic.psg2.2021-G7-74</artifactId>
+    <version>1.0.0</version>
+    <name>PSG2-2021-G7-74 Petclinic</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.4.RELEASE</version>
     </parent>
-    <name>petclinic</name>
     
     <developers>
 	    <developer>
@@ -51,7 +51,16 @@
 	        <role>developer</role>
 	      </roles>
 	    </developer>
-	    
+	    <developer>
+	      <id>alesancor</id>
+	      <name>Alejandro Santisteban</name>
+	      <email>alesancor1@alum.us.es</email>
+	      <url>https://github.com/alesancor1</url>
+	      <roles>
+	        <role>developer</role>
+	        <role>Scrum Master</role>
+	      </roles>
+	    </developer>	    
   	</developers>
 
     <properties>
