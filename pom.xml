@@ -24,6 +24,15 @@
 	        <role>developer</role>
 	      </roles>
 	    </developer>
+   	    <developer>
+	      <id>caraticar</id>
+	      <name>Carlos Atienza</name>
+	      <email>caraticar@alum.us.es</email>
+	      <url>https://github.com/carlosatyca</url>
+	      <roles>
+	        <role>developer</role>
+	      </roles>
+	    </developer>
   	</developers>
 
     <properties>
