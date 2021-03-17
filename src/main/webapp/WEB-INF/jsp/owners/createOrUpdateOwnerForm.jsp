@@ -8,26 +8,33 @@
 
 <petclinic:layout pageName="owners">
     <h2>
-        <c:if test="${owner['new']}">New </c:if> Owner
+        <c:if test="${owner['new']}"><fmt:message key="createOrUpdateOwnerForm.title.new"/> </c:if> <fmt:message key="createOrUpdateOwnerForm.title.owner"/>
     </h2>
     <form:form modelAttribute="owner" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
-            <petclinic:inputField label="First Name" name="firstName"/>
-            <petclinic:inputField label="Last Name" name="lastName"/>
-            <petclinic:inputField label="Address" name="address"/>
-            <petclinic:inputField label="City" name="city"/>
-            <petclinic:inputField label="Telephone" name="telephone"/>
-            <petclinic:inputField label="Username" name="user.username"/>
-            <petclinic:inputField label="Password" name="user.password"/>
+        <fmt:message key="createOwnerForm.label.firstName" var = "firstNameFmt"/>
+        	<fmt:message key="createOrUpdateOwnerForm.label.lastName" var = "lastNameFmt"/>
+        	<fmt:message key="createOrUpdateOwnerForm.label.address" var = "addressFmt"/>
+        	<fmt:message key="createOrUpdateOwnerForm.label.city" var = "cityFmt"/>
+        	<fmt:message key="createOrUpdateOwnerForm.label.telephone" var = "telephoneFmt"/>
+        	<fmt:message key="createOrUpdateOwnerForm.label.username" var = "usernameFmt"/>
+        	<fmt:message key="createOrUpdateOwnerForm.label.password" var = "passwordFmt"/>
+            <petclinic:inputField label="${firstNameFmt}" name="firstName"/>
+            <petclinic:inputField label="${lastNameFmt}" name="lastName"/>
+            <petclinic:inputField label="${addressFmt}" name="address"/>
+            <petclinic:inputField label="${cityFmt}" name="city"/>
+            <petclinic:inputField label="${telephoneFmt}" name="telephone"/>
+            <petclinic:inputField label="${usernameFmt}" name="user.username"/>
+            <petclinic:inputField label="${passwordFmt}" name="user.password"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
                     <c:when test="${owner['new']}">
-                        <button class="btn btn-default" type="submit">Add Owner</button>
+                        <button class="btn btn-default" type="submit"><fmt:message key="createOrUpdateOwnerForm.button.add"/></button>
                     </c:when>
                     <c:otherwise>
-                        <button class="btn btn-default" type="submit">Update Owner</button>
+                        <button class="btn btn-default" type="submit"><fmt:message key="createOrUpdateOwnerForm.button.update"/></button>
                     </c:otherwise>
                 </c:choose>
             </div>

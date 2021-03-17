@@ -5,13 +5,13 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="vets">
-    <h2>Veterinarians</h2>
+    <h2><fmt:message key="vetList.title"/></h2>
 
     <table id="vetsTable" class="table table-striped">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Specialties</th>
+            <th><fmt:message key="vetList.name"/></th>
+            <th><fmt:message key="vetList.specialties"/></th>
         </tr>
         </thead>
         <tbody>
@@ -34,7 +34,7 @@
     <table class="table-buttons">
         <tr>
             <td>
-                <a href="<spring:url value="/vets.xml" htmlEscape="true" />">View as XML</a>
+                <a href="<spring:url value="/vets.xml" htmlEscape="true" />"><fmt:message key="vestList.button"/></a>
             </td>            
         </tr>
     </table>
