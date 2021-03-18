@@ -62,6 +62,9 @@ public class Pet extends NamedEntity {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
 	private Set<Visit> visits;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
+	private Set<HotelBook> hotelBooks;
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
@@ -93,9 +96,20 @@ public class Pet extends NamedEntity {
 		}
 		return this.visits;
 	}
+	
+	protected Set<HotelBook> getHotelBooksInternal() {
+		if (this.hotelBooks == null) {
+			this.hotelBooks = new HashSet<>();
+		}
+		return this.hotelBooks;
+	}
 
 	protected void setVisitsInternal(Set<Visit> visits) {
 		this.visits = visits;
+	}
+	
+	protected void setHotelBooks(Set<HotelBook> hotelBooks) {
+		this.hotelBooks = hotelBooks;
 	}
 
 	public List<Visit> getVisits() {
@@ -103,10 +117,21 @@ public class Pet extends NamedEntity {
 		PropertyComparator.sort(sortedVisits, new MutableSortDefinition("date", false, false));
 		return Collections.unmodifiableList(sortedVisits);
 	}
+	
+	public List<HotelBook> getHotelBoos() {
+		List<HotelBook> sortedHotelBooks = new ArrayList<>(getHotelBooksInternal());
+		PropertyComparator.sort(sortedHotelBooks, new MutableSortDefinition("startDate",false,false));
+		return Collections.unmodifiableList(sortedHotelBooks);
+	}
 
 	public void addVisit(Visit visit) {
 		getVisitsInternal().add(visit);
 		visit.setPet(this);
+	}
+	
+	public void addHotelBook(HotelBook hotelBook) {
+		getHotelBooksInternal().add(hotelBook);
+		hotelBook.setPet(this);
 	}
 
 }
