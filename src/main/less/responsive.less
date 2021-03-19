@@ -1,31 +1,20 @@
-@media (max-width: 768px) {
+// medium dektop
+@media (max-width: 1200px) {
   .navbar-toggle {
     position:absolute;
     z-index: 9999;
     left:0px;
-  top:0px;
+  	top:0px;
   }
 
   .navbar a.navbar-brand {
-    display: block;
-    margin: 0 auto 0 auto;
-    width: 148px;
-    height: 50px;
-    float: none;
-    background: url("../images/spring-logo-dataflow-mobile.png") 0 center no-repeat;
+	width: 70px;
+    background: url("../images/spring-responsive-logo-dataflow.png") -1px -1px no-repeat;
   }
 
   .homepage-billboard .homepage-subtitle {
     font-size: 21px;
     line-height: 21px;
-  }
-
-  .navbar a.navbar-brand span {
-    display: none;
-  }
-
-  .navbar {
-    border-top-width: 0;
   }
 
   .xd-container {
@@ -37,5 +26,92 @@
     margin-top: 10px;
     margin-bottom: 30px;
   }
+
+}
+
+@media(max-width: 1000px){
+	
+	.option-text{//navbar icon buttons
+		display: none;
+	}
+	#main-navbar > ul::before, #main-navbar > ul::after{
+		display: none;
+	}
+	#main-navbar > ul{
+		display: grid;
+		width: 40%;
+		grid-template-rows: 1fr;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+	}
+	#main-navbar > ul > li{
+		width: 100%;
+		text-align: center;
+	}
+}
+
+// mobile
+@media(max-width: 765px){
+
+	.navbar a.navbar-brand span{
+    	display: none;
+  	}
+	.body-layout {
+		grid-template-rows: 50px 1fr 100px;
+	}
+	.navbar a.navbar-brand {
+	    display: block;
+	    margin: 0 auto 0 auto;
+	    width: 148px;
+	    height: 50px;
+	    float: none;
+	    background: url("../images/spring-logo-dataflow-mobile.png") 0 center no-repeat;
+  	}
+	// Copllapsed bar
+	.navbar-collapse{
+		background-color: #bb914b ;
+		margin-top: -5px;
+	}
+	
+	#main-navbar > ul::before, #main-navbar > ul::after{
+		display: block;
+	}
+	.option-text{
+		display: block;
+	}
+	#main-navbar > ul{
+		display: block;
+		width: 100%;
+	}
+	#main-navbar > ul > li{
+		width: 100%;
+		text-align: start;
+	}
+	#main-navbar > ul > li > a{
+		width: 100%;
+		display: inline-flex;
+	}
+	#main-navbar > ul > li > a > span{
+		margin-left: 5px;
+		margin-right: 5px;
+	}
+	
+	.welcome-message {
+		width: 300px;
+		font-size: 40px;
+		line-height: 50px;
+		text-align: center;
+	}
+	#user-dropdown > a {
+		justify-content: unset;
+	}
+	
+	// Find Owners page ******************************************
+	.addOwner-btn-text, .findOwner-btn-text {
+		display: none;
+	}
+	.title-and-button > a{
+		display: flex;
+		align-items: center;
+	}
 
 }
