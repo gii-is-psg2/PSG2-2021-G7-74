@@ -10,26 +10,27 @@
 <petclinic:htmlHeader/>
 
 <body>
-<petclinic:bodyHeader menuName="${pageName}"/>
-
-<div class="container-fluid">
-    <div class="container xd-container">
-	<c:if test="${not empty message}" >
-	<div class="alert alert-${not empty messageType ? messageType : 'info'}" role="alert">
-  		<c:out value="${message}"></c:out>
-   		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    		<span aria-hidden="true">&times;</span>
-  		</button> 
+	<div class = "body-layout">
+		<petclinic:bodyHeader menuName="${pageName}"/>
+		
+		<div style="position: relative;">
+			<c:if test="${not empty message}" >
+			<div class="alert alert-${not empty messageType ? messageType : 'info'}" role="alert">
+		  		<c:out value="${message}"></c:out>
+		   		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    		<span aria-hidden="true">&times;</span>
+		  		</button> 
+			</div>
+			</c:if>
+        	<jsp:doBody/>
+   		</div>
+        
+        <div>
+		    <petclinic:pivotal/>
+			<petclinic:footer/>
+		</div>
 	</div>
-	</c:if>
-
-        <jsp:doBody/>
-
-        <petclinic:pivotal/>
-    </div>
-</div>
-<petclinic:footer/>
-<jsp:invoke fragment="customScript" />
+	<jsp:invoke fragment="customScript" />
 
 </body>
 

@@ -1,10 +1,11 @@
 .navbar {
-  border-top: 4px solid #6db33f;
-  background-color: #90ee90;
+  border-top: 4px solid #94643c;
+  background-color: #bb914b;
   margin-bottom: 0px;
   border-bottom: 0;
   border-left: 0;
   border-right: 0;
+  z-index: 9999;
 }
 
 .navbar a.navbar-brand {
@@ -70,4 +71,32 @@
     height: 3px;
   }
 
+}
+// Logged user dorpdown menu
+#user-dropdown {
+	grid-column: 4;
+}
+#user-dropdown > a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: space-between;
+}
+#user-dropdown > a > .glyphicon-chevron-down{
+	margin-left: 10px;
+}
+#user-dropdown > a > .glyphicon-user{
+	margin-right: 8px;
+	margin-bottom: 5px;
+}
+#user-dropdown-menu {
+	background-color: #bb914b;
+	border-radius: 10px;
+}
+#user-dropdown-menu > li > div{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+#dropdown-user-text, #dropdown-user-icon{
+	color: white;
 }

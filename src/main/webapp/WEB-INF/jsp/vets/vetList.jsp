@@ -5,37 +5,39 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="vets">
-    <h2><fmt:message key="vetList.title"/></h2>
-
-    <table id="vetsTable" class="table table-striped">
-        <thead>
-        <tr>
-            <th><fmt:message key="vetList.name"/></th>
-            <th><fmt:message key="vetList.specialties"/></th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${vets.vetList}" var="vet">
-            <tr>
-                <td>
-                    <c:out value="${vet.firstName} ${vet.lastName}"/>
-                </td>
-                <td>
-                    <c:forEach var="specialty" items="${vet.specialties}">
-                        <c:out value="${specialty.name} "/>
-                    </c:forEach>
-                    <c:if test="${vet.nrOfSpecialties == 0}">none</c:if>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
-
-    <table class="table-buttons">
-        <tr>
-            <td>
-                <a href="<spring:url value="/vets.xml" htmlEscape="true" />"><fmt:message key="vestList.button"/></a>
-            </td>            
-        </tr>
-    </table>
+	<div class = "page-body">
+	    <h2 class = "page-title" id = "vetList-title"><fmt:message key="vetList.title"/></h2>
+	
+	    <table id="vetsTable" class="table table-striped">
+	        <thead>
+	        <tr>
+	            <th><fmt:message key="vetList.name"/></th>
+	            <th><fmt:message key="vetList.specialties"/></th>
+	        </tr>
+	        </thead>
+	        <tbody>
+	        <c:forEach items="${vets.vetList}" var="vet">
+	            <tr>
+	                <td>
+	                    <c:out value="${vet.firstName} ${vet.lastName}"/>
+	                </td>
+	                <td>
+	                    <c:forEach var="specialty" items="${vet.specialties}">
+	                        <c:out value="${specialty.name} "/>
+	                    </c:forEach>
+	                    <c:if test="${vet.nrOfSpecialties == 0}">none</c:if>
+	                </td>
+	            </tr>
+	        </c:forEach>
+	        </tbody>
+	    </table>
+	
+	    <table class="table-buttons">
+	        <tr>
+	            <td>
+	                <a href="<spring:url value="/vets.xml" htmlEscape="true" />"><fmt:message key="vestList.button"/></a>
+	            </td>            
+	        </tr>
+	    </table>
+    </div>
 </petclinic:layout>

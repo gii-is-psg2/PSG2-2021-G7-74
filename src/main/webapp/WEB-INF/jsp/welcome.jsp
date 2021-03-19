@@ -5,11 +5,9 @@
 <!-- %@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %-->  
 
 <petclinic:layout pageName="home">
-    <h2><fmt:message key="welcome"/></h2>
-    <div class="row">
-        <div class="col-md-12">
-            <spring:url value="/resources/images/lince.png" htmlEscape="true" var="linceImage"/>
-            <img class="img-responsive" src="${linceImage}" height="300px" width="400px"/>
-        </div>
-    </div>
+	<div class = "welcome-body">
+	    <h2 class = "welcome-message"><fmt:message key="welcome"/></h2>
+		<spring:url value="/resources/images/lince.png" htmlEscape="true" var="linceImage"/>
+		<img class="bg-image" src="${linceImage}"/>
+	</div>
 </petclinic:layout>
