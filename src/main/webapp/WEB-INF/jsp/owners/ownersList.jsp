@@ -18,6 +18,7 @@
 	            <th><fmt:message key="ownerList.city"/></th>
 	            <th style="width: 120px"><fmt:message key="ownerList.telephone"/></th>
 	            <th><fmt:message key="ownerList.pets"/></th>
+	            <th>Acciones</th>
 	        </tr>
 	        </thead>
 	        <tbody>
@@ -43,6 +44,10 @@
 	                        <c:out value="${pet.name} "/>
 	                    </c:forEach>
 	                </td>
+        	        <td>
+                		<spring:url value="/owners/delete/${owner.id}" var="deleteOwner"></spring:url>
+               			<a href="${fn:escapeXml(deleteOwner)}" class="btn btn-default">Borrar</a>
+                	</td>
 	                
 	      
 	<!--

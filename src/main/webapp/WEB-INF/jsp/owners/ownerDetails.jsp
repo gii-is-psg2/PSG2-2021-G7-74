@@ -40,7 +40,9 @@
 	        <spring:param name="ownerId" value="${owner.id}"/>
 	    </spring:url>
 	    <a href="${fn:escapeXml(addUrl)}" class="btn btn-default"><fmt:message key="ownerDetails.petsAndVisits.pet.button.add"/></a>
-	
+	        	      
+   		<spring:url value="/owners/delete/${owner.id}" var="deleteOwner"></spring:url>
+        	<a href="${fn:escapeXml(deleteOwner)}" class="btn btn-default">Borrar Dueno</a>
 	    <br/>
 	    <br/>
 	    <br/>
@@ -66,6 +68,7 @@
 	                        <tr>
 	                            <th><fmt:message key="ownerDetails.petsAndVisits.pet.visit.date"/></th>
 	                            <th><fmt:message key="ownerDetails.petsAndVisits.pet.visit.description"/></th>
+	                            <th>Acciones</th>
 	                        </tr>
 	                        </thead>
 	                        <c:forEach var="visit" items="${pet.visits}">
@@ -89,6 +92,13 @@
 	                                </spring:url>
 	                                <a href="${fn:escapeXml(visitUrl)}"><fmt:message key="ownerDetails.petsAndVisits.pet.visit.button.add"/></a>
 	                            </td>
+	                            <td>
+                                <spring:url value="/owners/{ownerId}/pets/delete/{petId}" var="deletePet">
+                                    <spring:param name="ownerId" value="${owner.id}"/>
+                                    <spring:param name="petId" value="${pet.id}"/>
+                                </spring:url>
+                                <a href="${fn:escapeXml(deletePet)}">Borrar Mascota</a>
+                            </td>
 	                        </tr>
 	                    </table>
 	                </td>
