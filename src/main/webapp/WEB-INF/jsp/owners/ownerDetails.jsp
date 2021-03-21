@@ -6,93 +6,105 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="owners">
-
-    <h2><fmt:message key="ownerDetails.title.name"/></h2>
-
-
-    <table class="table table-striped">
-        <tr>
-            <th><fmt:message key="ownerDetails.name"/></th>
-            <td><b><c:out value="${owner.firstName} ${owner.lastName}"/></b></td>
-        </tr>
-        <tr>
-            <th><fmt:message key="ownerDetails.address"/></th>
-            <td><c:out value="${owner.address}"/></td>
-        </tr>
-        <tr>
-            <th><fmt:message key="ownerDetails.city"/></th>
-            <td><c:out value="${owner.city}"/></td>
-        </tr>
-        <tr>
-            <th><fmt:message key="ownerDetails.telephone"/></th>
-            <td><c:out value="${owner.telephone}"/></td>
-        </tr>
-    </table>
-
-    <spring:url value="{ownerId}/edit" var="editUrl">
-        <spring:param name="ownerId" value="${owner.id}"/>
-    </spring:url>
-    <a href="${fn:escapeXml(editUrl)}" class="btn btn-default"><fmt:message key="ownerDetails.petsAndVisits.owner.button.update"/></a>
-
-    <spring:url value="{ownerId}/pets/new" var="addUrl">
-        <spring:param name="ownerId" value="${owner.id}"/>
-    </spring:url>
-    <a href="${fn:escapeXml(addUrl)}" class="btn btn-default"><fmt:message key="ownerDetails.petsAndVisits.pet.button.add"/></a>
-
-    <br/>
-    <br/>
-    <br/>
-    <h2><fmt:message key="ownerDetails.title.petsAndVisits"/></h2>
-
-    <table class="table table-striped">
-        <c:forEach var="pet" items="${owner.pets}">
-
-            <tr>
-                <td valign="top">
-                    <dl class="dl-horizontal">
-                        <dt><fmt:message key="ownerDetails.petsAndVisits.pet.name"/></dt>
-                        <dd><c:out value="${pet.name}"/></dd>
-                        <dt><fmt:message key="ownerDetails.petsAndVisits.pet.birthDate"/></dt>
-                        <dd><petclinic:localDate date="${pet.birthDate}" pattern="yyyy-MM-dd"/></dd>
-                        <dt><fmt:message key="ownerDetails.petsAndVisits.pet.type"/></dt>
-                        <dd><c:out value="${pet.type.name}"/></dd>
-                    </dl>
-                </td>
-                <td valign="top">
-                    <table class="table-condensed">
-                        <thead>
-                        <tr>
-                            <th><fmt:message key="ownerDetails.petsAndVisits.pet.visit.date"/></th>
-                            <th><fmt:message key="ownerDetails.petsAndVisits.pet.visit.description"/></th>
-                        </tr>
-                        </thead>
-                        <c:forEach var="visit" items="${pet.visits}">
-                            <tr>
-                                <td><petclinic:localDate date="${visit.date}" pattern="yyyy-MM-dd"/></td>
-                                <td><c:out value="${visit.description}"/></td>
-                            </tr>
-                        </c:forEach>
-                        <tr>
-                            <td>
-                                <spring:url value="/owners/{ownerId}/pets/{petId}/edit" var="petUrl">
+	
+	<div class = "page-body">
+		
+	    <h2 class = "page-title"><fmt:message key="ownerDetails.title.name"/></h2>
+	
+	
+	    <table class="table table-striped">
+	        <tr>
+	            <th><fmt:message key="ownerDetails.name"/></th>
+	            <td><b><c:out value="${owner.firstName} ${owner.lastName}"/></b></td>
+	        </tr>
+	        <tr>
+	            <th><fmt:message key="ownerDetails.address"/></th>
+	            <td><c:out value="${owner.address}"/></td>
+	        </tr>
+	        <tr>
+	            <th><fmt:message key="ownerDetails.city"/></th>
+	            <td><c:out value="${owner.city}"/></td>
+	        </tr>
+	        <tr>
+	            <th><fmt:message key="ownerDetails.telephone"/></th>
+	            <td><c:out value="${owner.telephone}"/></td>
+	        </tr>
+	    </table>
+	
+	    <spring:url value="{ownerId}/edit" var="editUrl">
+	        <spring:param name="ownerId" value="${owner.id}"/>
+	    </spring:url>
+	    <a href="${fn:escapeXml(editUrl)}" class="btn btn-default"><fmt:message key="ownerDetails.petsAndVisits.owner.button.update"/></a>
+	
+	    <spring:url value="{ownerId}/pets/new" var="addUrl">
+	        <spring:param name="ownerId" value="${owner.id}"/>
+	    </spring:url>
+	    <a href="${fn:escapeXml(addUrl)}" class="btn btn-default"><fmt:message key="ownerDetails.petsAndVisits.pet.button.add"/></a>
+	        	      
+   		<spring:url value="/owners/delete/${owner.id}" var="deleteOwner"></spring:url>
+        	<a href="${fn:escapeXml(deleteOwner)}" class="btn btn-default">Borrar Dueno</a>
+	    <br/>
+	    <br/>
+	    <br/>
+	    <h2><fmt:message key="ownerDetails.title.petsAndVisits"/></h2>
+	
+	    <table class="table table-striped">
+	        <c:forEach var="pet" items="${owner.pets}">
+	
+	            <tr>
+	                <td valign="top">
+	                    <dl class="dl-horizontal">
+	                        <dt><fmt:message key="ownerDetails.petsAndVisits.pet.name"/></dt>
+	                        <dd><c:out value="${pet.name}"/></dd>
+	                        <dt><fmt:message key="ownerDetails.petsAndVisits.pet.birthDate"/></dt>
+	                        <dd><petclinic:localDate date="${pet.birthDate}" pattern="yyyy-MM-dd"/></dd>
+	                        <dt><fmt:message key="ownerDetails.petsAndVisits.pet.type"/></dt>
+	                        <dd><c:out value="${pet.type.name}"/></dd>
+	                    </dl>
+	                </td>
+	                <td valign="top">
+	                    <table class="table-condensed">
+	                        <thead>
+	                        <tr>
+	                            <th><fmt:message key="ownerDetails.petsAndVisits.pet.visit.date"/></th>
+	                            <th><fmt:message key="ownerDetails.petsAndVisits.pet.visit.description"/></th>
+	                            <th>Acciones</th>
+	                        </tr>
+	                        </thead>
+	                        <c:forEach var="visit" items="${pet.visits}">
+	                            <tr>
+	                                <td><petclinic:localDate date="${visit.date}" pattern="yyyy-MM-dd"/></td>
+	                                <td><c:out value="${visit.description}"/></td>
+	                            </tr>
+	                        </c:forEach>
+	                        <tr>
+	                            <td>
+	                                <spring:url value="/owners/{ownerId}/pets/{petId}/edit" var="petUrl">
+	                                    <spring:param name="ownerId" value="${owner.id}"/>
+	                                    <spring:param name="petId" value="${pet.id}"/>
+	                                </spring:url>
+	                                <a href="${fn:escapeXml(petUrl)}"><fmt:message key="ownerDetails.petsAndVisits.pet.visit.edit.pet"/></a>
+	                            </td>
+	                            <td>
+	                                <spring:url value="/owners/{ownerId}/pets/{petId}/visits/new" var="visitUrl">
+	                                    <spring:param name="ownerId" value="${owner.id}"/>
+	                                    <spring:param name="petId" value="${pet.id}"/>
+	                                </spring:url>
+	                                <a href="${fn:escapeXml(visitUrl)}"><fmt:message key="ownerDetails.petsAndVisits.pet.visit.button.add"/></a>
+	                            </td>
+	                            <td>
+                                <spring:url value="/owners/{ownerId}/pets/delete/{petId}" var="deletePet">
                                     <spring:param name="ownerId" value="${owner.id}"/>
                                     <spring:param name="petId" value="${pet.id}"/>
                                 </spring:url>
-                                <a href="${fn:escapeXml(petUrl)}"><fmt:message key="ownerDetails.petsAndVisits.pet.visit.edit.pet"/></a>
+                                <a href="${fn:escapeXml(deletePet)}">Borrar Mascota</a>
                             </td>
-                            <td>
-                                <spring:url value="/owners/{ownerId}/pets/{petId}/visits/new" var="visitUrl">
-                                    <spring:param name="ownerId" value="${owner.id}"/>
-                                    <spring:param name="petId" value="${pet.id}"/>
-                                </spring:url>
-                                <a href="${fn:escapeXml(visitUrl)}"><fmt:message key="ownerDetails.petsAndVisits.pet.visit.button.add"/></a>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-
-        </c:forEach>
-    </table>
-
+	                        </tr>
+	                    </table>
+	                </td>
+	            </tr>
+	
+	        </c:forEach>
+	    </table>
+	</div>
 </petclinic:layout>

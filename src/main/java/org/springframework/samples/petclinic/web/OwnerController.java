@@ -141,4 +141,10 @@ public class OwnerController {
 		return mav;
 	}
 
+	@GetMapping(value="/owners/delete/{ownerId}")
+	public String deleteOwner(@PathVariable("ownerId") int ownerId) {
+		this.ownerService.deleteOwnerById(ownerId);
+		return "redirect:/owners?lastName=";
+	}
+	
 }
