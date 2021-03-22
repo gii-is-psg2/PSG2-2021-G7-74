@@ -9,7 +9,9 @@
               description="Names in the list" %>
 <%@ attribute name="size" required="true" rtexprvalue="true"
               description="Size of Select" %>
-
+<%@ attribute name="multiple" required="false" rtexprvalue="true"
+              description="Multiple" %>
+              
 <spring:bind path="${name}">
     <c:set var="cssGroup" value="form-group ${status.error ? 'error' : '' }"/>
     <c:set var="valid" value="${not status.error and not empty status.actualValue}"/>
