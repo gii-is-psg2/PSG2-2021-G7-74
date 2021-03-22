@@ -15,23 +15,24 @@
 
 @spring-green:      #6db33f;
 @spring-dark-green: #5fa134;
-@spring-brown:      #34302D;
+@spring-dark-brown: #7a5331;
 @spring-grey:       #838789;
 @spring-light-grey: #f1f1f1;
-@spring-light-red:#FF6347;
+@spring-brown:	    #94643c;
+@spring-light-brown:#bb914b;
 
 @body-bg:                           @spring-light-grey;
 @text-color:                        @spring-brown;
-@link-color:                        @spring-dark-green;
-@link-hover-color:                  @spring-dark-green;
+@link-color:                        @spring-light-brown;
+@link-hover-color:                  @spring-light-brown;
 
 @navbar-default-link-color:         @spring-light-grey;
 @navbar-default-link-active-color:  @spring-light-grey;
 @navbar-default-link-hover-color:   @spring-light-grey;
-@navbar-default-link-hover-bg:      @spring-light-red;
+@navbar-default-link-hover-bg:      @spring-brown;
 @navbar-default-toggle-icon-bar-bg: @spring-light-grey;
 @navbar-default-toggle-hover-bg:    transparent;
-@navbar-default-link-active-bg:     @spring-light-red;
+@navbar-default-link-active-bg:     @spring-brown;
 
 @border-radius-base:             0;
 @border-radius-large:            0;
@@ -39,7 +40,7 @@
 
 @btn-default-color:              @spring-light-grey;
 @btn-default-bg:                 @spring-brown;
-@btn-default-border:             @spring-green;
+@btn-default-border:             @spring-brown;
 
 @nav-tabs-active-link-hover-color:        @spring-light-grey;
 @nav-tabs-active-link-hover-bg:           @spring-brown;
@@ -50,9 +51,15 @@
 @pagination-active-border:                @spring-green;
 @table-border-color:                      @spring-brown;
 
+.table > thead > tr > th:first-child {
+  border-top-left-radius:10px;
+}
+.table > thead > tr > th:last-child {
+  border-top-right-radius:10px;
+}
 .table > thead > tr > th {
-  background-color: @spring-light-grey;
-  color: black;
+  background-color: @spring-light-brown;
+  color: white;
 }
 
 .table-filter {
@@ -66,6 +73,7 @@
 
 .btn-default {
   border-width: 2px;
+  border-radius: 5px;
   transition: border 0.15s;
   -webkit-transition: border 0.15s;
   -moz-transition: border 0.15s;
@@ -77,8 +85,8 @@
   &:active,
   &.active,
   .open .dropdown-toggle& {
-    background-color: @spring-brown;
-    border-color: @spring-brown;
+    background-color: @spring-dark-brown;
+    border-color: @spring-dark-brown;
   }
 }
 
@@ -237,4 +245,5 @@ hr {
 
 @import "typography.less";
 @import "header.less";
+@import "customstyle.less";
 @import "responsive.less";
