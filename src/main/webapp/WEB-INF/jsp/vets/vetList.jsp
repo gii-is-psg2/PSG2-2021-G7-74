@@ -8,12 +8,12 @@
 <petclinic:layout pageName="vets">
 
 	<div class = "page-body">
-		<div class = "title-and-button">
-	    	<h2 class = "page-title" id = "vetList-title"><fmt:message key="vetList.title"/></h2>
+		<div class = "title-and-button" id = "vetList-title">
+	    	<h2 class = "page-title"><fmt:message key="vetList.title"/></h2>
 			<a class="btn btn-default" href='<spring:url value="/vets/new" htmlEscape="true"/>'>
 					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 					<span class="addOwner-btn-text" aria-hidden="true"><fmt:message key="vetList.button.add"/></span>
-				</a>
+			</a>
 			
 		</div>
 	

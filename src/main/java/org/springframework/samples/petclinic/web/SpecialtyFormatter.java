@@ -21,8 +21,8 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.model.Specialty;
+import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.stereotype.Component;
 
 /**
@@ -41,29 +41,29 @@ import org.springframework.stereotype.Component;
  * @author Michael Isvy
  */
 @Component
-public class PetTypeFormatter implements Formatter<PetType> {
+public class SpecialtyFormatter implements Formatter<Specialty> {
 
-	private final PetService peService;
+	private final VetService veService;
 
 	@Autowired
-	public PetTypeFormatter(PetService petService) {
-		this.peService = petService;
+	public SpecialtyFormatter(VetService vetService) {
+		this.veService = vetService;
 	}
 
 	@Override
-	public String print(PetType petType, Locale locale) {
-		return petType.getName();
+	public String print(Specialty specialty, Locale locale) {
+		return specialty.getName();
 	}
 
 	@Override
-	public PetType parse(String text, Locale locale) throws ParseException {
-		Collection<PetType> findPetTypes = this.peService.findPetTypes();
-		for (PetType type : findPetTypes) {
-			if (type.getName().equals(text)) {
-				return type;
+	public Specialty parse(String text, Locale locale) throws ParseException {
+		Collection<Specialty> findSpec = this.veService.findSpecialties();
+		for (Specialty spec : findSpec) {
+			if (spec.getName().equals(text)) {
+				return spec;
 			}
 		}
-		throw new ParseException("type not found: " + text, 0);
+		throw new ParseException("specialty not found: " + text, 0);
 	}
 
 }

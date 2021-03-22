@@ -27,7 +27,6 @@
 		
 		<div class="control-group">
 			<petclinic:selectField name="specialties" label="${specialty}" names="${specialties}" size="5" multiple="true"/>
-		
 		</div>
 		
 		
