@@ -15,7 +15,7 @@ import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "hotel_books")
-public class HotelBook extends NamedEntity{
+public class HotelBook extends BaseEntity{
 	
 	@NotNull
 	@Column(name = "start_date")
@@ -31,6 +31,11 @@ public class HotelBook extends NamedEntity{
 	@JoinColumn(name = "pet_id")
 	private Pet pet;
 	
+	
+	public HotelBook() {
+		super();
+	}
+
 	public Pet getPet() {
 		return this.pet;
 	}
