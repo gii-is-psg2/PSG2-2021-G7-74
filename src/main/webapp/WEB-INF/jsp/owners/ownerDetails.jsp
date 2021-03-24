@@ -102,6 +102,34 @@
 	                        </tr>
 	                    </table>
 	                </td>
+	                
+	                <td valign="top">
+	                    <table class="table-condensed">
+	                        <thead>
+	                        <tr>
+	                            <th><fmt:message key="ownerDetails.petsAndVisits.pet.hotelBook.startDate"/></th>
+	                            <th><fmt:message key="ownerDetails.petsAndVisits.pet.hotelBook.endDate"/></th>
+	                            <th>Acciones</th>
+	                        </tr>
+	                        </thead>
+	                        <c:forEach var="hotelBook" items="${pet.hotelBooks}">
+	                            <tr>
+	                                <td><petclinic:localDate date="${hotelBook.startDate}" pattern="yyyy-MM-dd"/></td>
+	                                <td><petclinic:localDate date="${hotelBook.endDate}" pattern="yyyy-MM-dd"/></td>
+	                            </tr>
+	                        </c:forEach>
+	                        <tr>
+	                            <td>
+	                                <spring:url value="/owners/{ownerId}/pets/{petId}/hotelBooks/new" var="hotelBookUrl">
+	                                    <spring:param name="ownerId" value="${owner.id}"/>
+	                                    <spring:param name="petId" value="${pet.id}"/>
+	                                </spring:url>
+	                                <a href="${fn:escapeXml(hotelBookUrl)}"><fmt:message key="ownerDetails.petsAndVisits.pet.hotelBook.button.add"/></a>
+	                            </td>
+	                            
+	                        </tr>
+	                    </table>
+	                </td>
 	            </tr>
 	
 	        </c:forEach>
