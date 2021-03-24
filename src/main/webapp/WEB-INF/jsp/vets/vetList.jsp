@@ -40,10 +40,10 @@
 	                </td>
 	                <td>
                 		<spring:url value="/vets/delete/${vet.id}" var="deleteVet"></spring:url>
-               			<a href="${fn:escapeXml(deleteVet)}" class="btn btn-default">Borrar</a>
+               			<a href="${fn:escapeXml(deleteVet)}" class="btn btn-default"><fmt:message key="vet.deleteVet"/></a>
                			
                			<spring:url value="/vets/${vet.id}/edit" var="editVet"></spring:url>
-               			<a href="${fn:escapeXml(editVet)}" class="btn btn-default">Editar</a>
+               			<a href="${fn:escapeXml(editVet)}" class="btn btn-default"><fmt:message key="vet.editVet"/></a>
                 	</td>
                 	
                 	
