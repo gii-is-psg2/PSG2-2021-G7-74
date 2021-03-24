@@ -7,10 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.PastOrPresent;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.sun.istack.NotNull;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -20,17 +21,19 @@ public class HotelBook extends BaseEntity{
 	@NotNull
 	@Column(name = "start_date")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	@PastOrPresent(message = "La fecha debe ser pasada o presente")
 	private LocalDate startDate;
 	
 	@NotNull
 	@Column(name = "end_date")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	@FutureOrPresent(message = "La fecha debe ser presente o futura")
 	private LocalDate endDate;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "pet_id")
 	private Pet pet;
-	
 	
 	public HotelBook() {
 		super();
@@ -56,5 +59,6 @@ public class HotelBook extends BaseEntity{
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
+
 
 }

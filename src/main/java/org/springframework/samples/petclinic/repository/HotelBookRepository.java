@@ -13,4 +13,6 @@ public interface HotelBookRepository extends Repository<HotelBook, Integer> {
 	void save(HotelBook hotelBook) throws DataAccessException;
 	
 	List<HotelBook> findByPetId(Integer petId);
+	
+	Integer findAll();
 }

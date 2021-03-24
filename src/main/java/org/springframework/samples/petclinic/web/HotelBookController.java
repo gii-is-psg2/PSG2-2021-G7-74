@@ -5,11 +5,12 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.HotelBook;
 import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.HotelBookService;
 import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.service.exceptions.EndDateNotAfterStartDateException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -18,8 +19,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class HotelBookController {
@@ -53,12 +52,22 @@ public class HotelBookController {
 	}
 
 	@PostMapping(value = "/owners/{ownerId}/pets/{petId}/hotelBooks/new")
-	public String processNewHotelBookForm(@Valid HotelBook hotelBook, BindingResult result) {
+	public String processNewHotelBookForm(@Valid HotelBook hotelBook, BindingResult result){
 		if (result.hasErrors()) {
 			return "pets/createOrUpdateHotelBookForm";
-		} else {
-			this.hotelBookService.saveHotelBook(hotelBook);
-			return "redirect:/owners/{ownerId}";
+		} else {			
+			try {
+				this.hotelBookService.saveHotelBook(hotelBook);
+				return "redirect:/owners/{ownerId}";
+			} catch (DataAccessException e) {
+				e.printStackTrace();
+				return "dateException";
+
+			} catch (EndDateNotAfterStartDateException e) {
+				e.printStackTrace();
+				return "dateException";
+			}
+			
 		}
 	}
 
