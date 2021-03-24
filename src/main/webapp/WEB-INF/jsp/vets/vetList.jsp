@@ -6,8 +6,17 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <petclinic:layout pageName="vets">
+
 	<div class = "page-body">
-	    <h2 class = "page-title" id = "vetList-title"><fmt:message key="vetList.title"/></h2>
+		<div class = "title-and-button" id = "vetList-title">
+	    	<h2 class = "page-title"><fmt:message key="vetList.title"/></h2>
+			<a class="btn btn-default" href='<spring:url value="/vets/new" htmlEscape="true"/>'>
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					<span class="addOwner-btn-text" aria-hidden="true"><fmt:message key="vetList.button.add"/></span>
+			</a>
+			
+		</div>
+	
 	
 	    <table id="vetsTable" class="table table-striped">
 	        <thead>
@@ -32,7 +41,12 @@
 	                <td>
                 		<spring:url value="/vets/delete/${vet.id}" var="deleteVet"></spring:url>
                			<a href="${fn:escapeXml(deleteVet)}" class="btn btn-default">Borrar</a>
+               			
+               			<spring:url value="/vets/${vet.id}/edit" var="editVet"></spring:url>
+               			<a href="${fn:escapeXml(editVet)}" class="btn btn-default">Editar</a>
                 	</td>
+                	
+                	
 	            </tr>
 	        </c:forEach>
 	        </tbody>
@@ -43,6 +57,7 @@
 	            <td>
 	                <a href="<spring:url value="/vets.xml" htmlEscape="true" />"><fmt:message key="vestList.button"/></a>
 	            </td>            
+	            
 	        </tr>
 	    </table>
     </div>
