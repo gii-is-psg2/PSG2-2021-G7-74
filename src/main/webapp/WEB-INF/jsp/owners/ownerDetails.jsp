@@ -42,7 +42,7 @@
 	    <a href="${fn:escapeXml(addUrl)}" class="btn btn-default"><fmt:message key="ownerDetails.petsAndVisits.pet.button.add"/></a>
 	        	      
    		<spring:url value="/owners/delete/${owner.id}" var="deleteOwner"></spring:url>
-        	<a href="${fn:escapeXml(deleteOwner)}" class="btn btn-default">Borrar Dueno</a>
+        	<a href="${fn:escapeXml(deleteOwner)}" class="btn btn-default"><fmt:message key="owner.deleteOwner"/></a>
 	    <br/>
 	    <br/>
 	    <br/>
@@ -68,7 +68,7 @@
 	                        <tr>
 	                            <th><fmt:message key="ownerDetails.petsAndVisits.pet.visit.date"/></th>
 	                            <th><fmt:message key="ownerDetails.petsAndVisits.pet.visit.description"/></th>
-	                            <th>Acciones</th>
+	                            <th><fmt:message key="header.acciones"/></th>
 	                        </tr>
 	                        </thead>
 	                        <c:forEach var="visit" items="${pet.visits}">
@@ -97,7 +97,7 @@
                                     <spring:param name="ownerId" value="${owner.id}"/>
                                     <spring:param name="petId" value="${pet.id}"/>
                                 </spring:url>
-                                <a href="${fn:escapeXml(deletePet)}">Borrar Mascota</a>
+                                <a href="${fn:escapeXml(deletePet)}"><fmt:message key="owner.deletePet"/></a>
                             </td>
 	                        </tr>
 	                    </table>
@@ -109,7 +109,7 @@
 	                        <tr>
 	                            <th><fmt:message key="ownerDetails.petsAndVisits.pet.hotelBook.startDate"/></th>
 	                            <th><fmt:message key="ownerDetails.petsAndVisits.pet.hotelBook.endDate"/></th>
-	                            <th>Acciones</th>
+	                            <th><fmt:message key="header.acciones"/></th>
 	                        </tr>
 	                        </thead>
 	                        <c:forEach var="hotelBook" items="${pet.hotelBooks}">
