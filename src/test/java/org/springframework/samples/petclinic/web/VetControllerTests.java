@@ -9,10 +9,7 @@ import org.springframework.samples.petclinic.configuration.SecurityConfiguration
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.service.VetService;
-import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.hamcrest.xml.HasXPath.hasXPath;
 import static org.mockito.BDDMockito.given;
@@ -22,7 +19,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
+
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -32,9 +32,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 		excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
 		excludeAutoConfiguration= SecurityConfiguration.class)
 class VetControllerTests {
-
-	@Autowired
-	private VetController vetController;
 
 	@MockBean
 	private VetService clinicService;
@@ -73,6 +70,72 @@ class VetControllerTests {
 		mockMvc.perform(get("/vets.xml").accept(MediaType.APPLICATION_XML)).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_XML_VALUE))
 				.andExpect(content().node(hasXPath("/vets/vetList[id=1]/id")));
+	}
+	
+	@WithMockUser(value = "spring")
+	@Test
+	void testDeleteVet() throws Exception {
+		mockMvc.perform(get("/vets/delete/{vetId}", 1)
+								.with(csrf()))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/vets"));
+	}
+	
+	// CREATION AND EDITING TESTS
+	@WithMockUser(value = "spring")
+    @Test
+	void testInitCreationForm() throws Exception {
+		mockMvc.perform(get("/vets/new")).andExpect(status().isOk()).andExpect(model().attributeExists("vet"))
+				.andExpect(view().name("vets/createOrUpdateVetForm"));
+	}
+	
+	@WithMockUser(value = "spring")
+    @Test
+	void testProcessCreationFormSuccess() throws Exception {
+		mockMvc.perform(post("/vets/new")
+							.with(csrf())
+							.param("firstName", "Vet")
+							.param("lastName", "Example"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/vets"));
+	}
+	
+	@WithMockUser(value = "spring")
+    @Test
+	void testProcessCreationFormHasErrors() throws Exception {
+		mockMvc.perform(post("/vets/new")
+							.with(csrf())
+							.param("firstName", ""))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeHasErrors("vet"))
+				.andExpect(model().attributeHasFieldErrors("vet", "firstName"))
+				.andExpect(model().attributeHasFieldErrors("vet", "lastName"))
+				.andExpect(view().name("vets/createOrUpdateVetForm"));
+	}
+	
+    @WithMockUser(value = "spring")
+	@Test
+	void testProcessUpdateVetFormSuccess() throws Exception {
+		mockMvc.perform(post("/vets/{vetId}/edit", 1)
+							.with(csrf())
+							.param("firstName", "Vet")
+							.param("lastName", "Example"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/vets"));
+	}
+    
+    @WithMockUser(value = "spring")
+	@Test
+	void testProcessUpdateVetFormHasErrors() throws Exception {
+		mockMvc.perform(post("/vets/{vetId}/edit", 1)
+							.with(csrf())
+							.param("firstName", "")
+							.param("lastName", ""))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeHasErrors("vet"))
+				.andExpect(model().attributeHasFieldErrors("vet", "firstName"))
+				.andExpect(model().attributeHasFieldErrors("vet", "lastName"))
+				.andExpect(view().name("vets/createOrUpdateVetForm"));
 	}
 
 }

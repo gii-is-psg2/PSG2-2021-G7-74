@@ -63,6 +63,7 @@ public class VisitController {
 		Pet pet = this.petService.findPetById(petId);
 		Visit visit = new Visit();
 		pet.addVisit(visit);
+		
 		return visit;
 	}
 
