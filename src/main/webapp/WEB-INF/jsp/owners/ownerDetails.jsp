@@ -68,7 +68,6 @@
 	                        <tr>
 	                            <th><fmt:message key="ownerDetails.petsAndVisits.pet.visit.date"/></th>
 	                            <th><fmt:message key="ownerDetails.petsAndVisits.pet.visit.description"/></th>
-	                            <th><fmt:message key="header.acciones"/></th>
 	                        </tr>
 	                        </thead>
 	                        <c:forEach var="visit" items="${pet.visits}">
@@ -77,29 +76,6 @@
 	                                <td><c:out value="${visit.description}"/></td>
 	                            </tr>
 	                        </c:forEach>
-	                        <tr>
-	                            <td>
-	                                <spring:url value="/owners/{ownerId}/pets/{petId}/edit" var="petUrl">
-	                                    <spring:param name="ownerId" value="${owner.id}"/>
-	                                    <spring:param name="petId" value="${pet.id}"/>
-	                                </spring:url>
-	                                <a href="${fn:escapeXml(petUrl)}"><fmt:message key="ownerDetails.petsAndVisits.pet.visit.edit.pet"/></a>
-	                            </td>
-	                            <td>
-	                                <spring:url value="/owners/{ownerId}/pets/{petId}/visits/new" var="visitUrl">
-	                                    <spring:param name="ownerId" value="${owner.id}"/>
-	                                    <spring:param name="petId" value="${pet.id}"/>
-	                                </spring:url>
-	                                <a href="${fn:escapeXml(visitUrl)}"><fmt:message key="ownerDetails.petsAndVisits.pet.visit.button.add"/></a>
-	                            </td>
-	                            <td>
-                                <spring:url value="/owners/{ownerId}/pets/delete/{petId}" var="deletePet">
-                                    <spring:param name="ownerId" value="${owner.id}"/>
-                                    <spring:param name="petId" value="${pet.id}"/>
-                                </spring:url>
-                                <a href="${fn:escapeXml(deletePet)}"><fmt:message key="owner.deletePet"/></a>
-                            </td>
-	                        </tr>
 	                    </table>
 	                </td>
 	                
@@ -109,7 +85,6 @@
 	                        <tr>
 	                            <th><fmt:message key="ownerDetails.petsAndVisits.pet.hotelBook.startDate"/></th>
 	                            <th><fmt:message key="ownerDetails.petsAndVisits.pet.hotelBook.endDate"/></th>
-	                            <th><fmt:message key="header.acciones"/></th>
 	                        </tr>
 	                        </thead>
 	                        <c:forEach var="hotelBook" items="${pet.hotelBooks}">
@@ -118,20 +93,56 @@
 	                                <td><petclinic:localDate date="${hotelBook.endDate}" pattern="yyyy-MM-dd"/></td>
 	                            </tr>
 	                        </c:forEach>
-	                        <tr>
-	                            <td>
+	                        
+	                    </table>
+	                </td>
+	                <td>
+                        <table>
+                        	<thead>
+                        	<tr>
+                        		<th><fmt:message key="header.acciones"/></th>
+                        	</tr>
+                        	</thead>
+                            <tr>
+	                          	<td>
 	                                <spring:url value="/owners/{ownerId}/pets/{petId}/hotelBooks/new" var="hotelBookUrl">
 	                                    <spring:param name="ownerId" value="${owner.id}"/>
 	                                    <spring:param name="petId" value="${pet.id}"/>
 	                                </spring:url>
 	                                <a href="${fn:escapeXml(hotelBookUrl)}"><fmt:message key="ownerDetails.petsAndVisits.pet.hotelBook.button.add"/></a>
 	                            </td>
-	                            
-	                        </tr>
-	                    </table>
-	                </td>
+                            </tr>
+                            <tr>
+	                            <td>
+	                                <spring:url value="/owners/{ownerId}/pets/{petId}/edit" var="petUrl">
+	                                    <spring:param name="ownerId" value="${owner.id}"/>
+	                                    <spring:param name="petId" value="${pet.id}"/>
+	                                </spring:url>
+	                                <a href="${fn:escapeXml(petUrl)}"><fmt:message key="ownerDetails.petsAndVisits.pet.visit.edit.pet"/></a>
+	                            </td>
+                            </tr>
+                            <tr>
+	                            <td>
+	                                <spring:url value="/owners/{ownerId}/pets/{petId}/visits/new" var="visitUrl">
+	                                    <spring:param name="ownerId" value="${owner.id}"/>
+	                                    <spring:param name="petId" value="${pet.id}"/>
+	                                </spring:url>
+	                                <a href="${fn:escapeXml(visitUrl)}"><fmt:message key="ownerDetails.petsAndVisits.pet.visit.button.add"/></a>
+	                            </td>
+                            </tr>
+                            <tr>
+	                            <td>
+	                                <spring:url value="/owners/{ownerId}/pets/delete/{petId}" var="deletePet">
+	                                    <spring:param name="ownerId" value="${owner.id}"/>
+	                                    <spring:param name="petId" value="${pet.id}"/>
+	                                </spring:url>
+	                                <a href="${fn:escapeXml(deletePet)}"><fmt:message key="owner.deletePet"/></a>
+	                           	</td>
+                           	</tr>
+                     	</table>
+                    </td>
 	            </tr>
-	
+				
 	        </c:forEach>
 	    </table>
 	</div>
