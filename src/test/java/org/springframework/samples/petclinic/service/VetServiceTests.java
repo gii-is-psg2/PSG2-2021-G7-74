@@ -24,6 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.samples.petclinic.model.Authorities;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Service;
@@ -83,6 +85,47 @@ class VetServiceTests {
 		
 		Collection<Vet> vets = this.vetService.findVets();
 		assertThrows(ObjectRetrievalFailureException.class, () -> EntityUtils.getById(vets, Vet.class, 1));
+	}
+	
+	@Test
+	@Transactional
+	public void shouldInsertVet() {
+		Collection<Vet> vets = this.vetService.findVets();
+		int found = vets.size();
+
+		Vet vet = new Vet();
+		vet.setFirstName("Sam");
+		vet.setLastName("Example");
+		
+	        User user=new User();
+	        user.setUsername("VetExample");
+	        user.setPassword("1234");
+	        user.setEnabled(true);
+	        
+	        Authorities auth = new Authorities();
+            auth.setUser(user);
+            auth.setAuthority("veterinarians");
+                
+		this.vetService.saveVet(vet);
+		assertThat(vet.getId().longValue()).isNotEqualTo(0);
+
+		vets = this.vetService.findVets();
+		assertThat(vets.size()).isEqualTo(found + 1);
+	}
+	
+	@Test
+	@Transactional
+	void shouldUpdateVet() {
+		Vet vet = this.vetService.findVetById(1);
+		String oldLastName = vet.getLastName();
+		String newLastName = oldLastName + "X";
+
+		vet.setLastName(newLastName);
+		this.vetService.saveVet(vet);
+
+		// retrieving new name from database
+		vet = this.vetService.findVetById(1);
+		assertThat(vet.getLastName()).isEqualTo(newLastName);
 	}
 
 

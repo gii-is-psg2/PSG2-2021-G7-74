@@ -95,7 +95,7 @@ public class VetController {
 	}
 
 	@PostMapping(value = "/vets/new")
-	public String processCreationForm(@Valid Vet vet, String[] specialties, BindingResult result) {
+	public String processCreationForm(@Valid Vet vet, BindingResult result, String[] specialties) {
 		if (result.hasErrors()) {
 			return VIEWS_VET_CREATE_OR_UPDATE_FORM;
 		} else {
@@ -116,7 +116,7 @@ public class VetController {
 	}
 
 	@PostMapping(value = "/vets/{vetId}/edit")
-	public String processUpdateVetForm(@Valid Vet vet, String[] specialties, BindingResult result, @PathVariable("vetId") int vetId) {
+	public String processUpdateVetForm(@Valid Vet vet, BindingResult result, String[] specialties, @PathVariable("vetId") int vetId) {
 		if (result.hasErrors()) {
 			return VIEWS_VET_CREATE_OR_UPDATE_FORM;
 		} else {

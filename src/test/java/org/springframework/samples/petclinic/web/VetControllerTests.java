@@ -10,6 +10,7 @@ import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.test.web.servlet.MockMvc;
+
 import static org.hamcrest.xml.HasXPath.hasXPath;
 import static org.mockito.BDDMockito.given;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -21,6 +22,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -77,6 +79,63 @@ class VetControllerTests {
 								.with(csrf()))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/vets"));
+	}
+	
+	// CREATION AND EDITING TESTS
+	@WithMockUser(value = "spring")
+    @Test
+	void testInitCreationForm() throws Exception {
+		mockMvc.perform(get("/vets/new")).andExpect(status().isOk()).andExpect(model().attributeExists("vet"))
+				.andExpect(view().name("vets/createOrUpdateVetForm"));
+	}
+	
+	@WithMockUser(value = "spring")
+    @Test
+	void testProcessCreationFormSuccess() throws Exception {
+		mockMvc.perform(post("/vets/new")
+							.with(csrf())
+							.param("firstName", "Vet")
+							.param("lastName", "Example"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/vets"));
+	}
+	
+	@WithMockUser(value = "spring")
+    @Test
+	void testProcessCreationFormHasErrors() throws Exception {
+		mockMvc.perform(post("/vets/new")
+							.with(csrf())
+							.param("firstName", ""))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeHasErrors("vet"))
+				.andExpect(model().attributeHasFieldErrors("vet", "firstName"))
+				.andExpect(model().attributeHasFieldErrors("vet", "lastName"))
+				.andExpect(view().name("vets/createOrUpdateVetForm"));
+	}
+	
+    @WithMockUser(value = "spring")
+	@Test
+	void testProcessUpdateVetFormSuccess() throws Exception {
+		mockMvc.perform(post("/vets/{vetId}/edit", 1)
+							.with(csrf())
+							.param("firstName", "Vet")
+							.param("lastName", "Example"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/vets"));
+	}
+    
+    @WithMockUser(value = "spring")
+	@Test
+	void testProcessUpdateVetFormHasErrors() throws Exception {
+		mockMvc.perform(post("/vets/{vetId}/edit", 1)
+							.with(csrf())
+							.param("firstName", "")
+							.param("lastName", ""))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeHasErrors("vet"))
+				.andExpect(model().attributeHasFieldErrors("vet", "firstName"))
+				.andExpect(model().attributeHasFieldErrors("vet", "lastName"))
+				.andExpect(view().name("vets/createOrUpdateVetForm"));
 	}
 
 }
