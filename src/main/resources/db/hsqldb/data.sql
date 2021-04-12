@@ -88,3 +88,8 @@ INSERT INTO hotel_books(id, start_date, end_date, pet_id) VALUES (2, '2021-09-07
 INSERT INTO hotel_books(id, start_date, end_date, pet_id) VALUES (3, '2021-09-07', '2021-10-07', 3);
 INSERT INTO hotel_books(id, start_date, end_date, pet_id) VALUES (4, '2021-09-07', '2021-10-07', 4);
 
+
+INSERT INTO causes(id,name,description,budget_target,organization,cause_active) VALUES (1,'Lince extincion','El lince iberico esta en plena extincion, salvemoslo',26000.50,'GreenPace',true);
+INSERT INTO donations(id,amount,client,donation_date,cause_id) VALUES(1,1500.5,'Paco Antonio Valle Gomez','2021-03-04',1);
+INSERT INTO donations(id,amount,client,donation_date,cause_id) VALUES(2,100.5,'Jesus Antonio Naranjo Ramirez','2021-02-04',1);
+
