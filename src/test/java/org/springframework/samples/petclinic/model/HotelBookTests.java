@@ -28,7 +28,7 @@ class HotelBookTests extends ValidatorTests {
 	
 	@ParameterizedTest
 	@CsvSource({
-		"21/10/2020, 21/10/2021, 1",
+		"21/10/2020, 21/05/2021, 1",
 		"21/02/2021, 13/07/2021, 1",
 		"21/01/2021, 18/06/2021, 1",
 	})
@@ -41,9 +41,7 @@ class HotelBookTests extends ValidatorTests {
 	
 	@ParameterizedTest
 	@CsvSource({
-		"21/10/2020, 21/10/2020, 1",
-		"21/02/2021, 13/02/2021, 1",
-		"21/01/2021, 18/06/2020, 1",
+		"21/10/2020, 21/11/2020, 1",
 	})
 	void validateHotelBookStartDateIsPastOrPresentTest(String startDate, String endDate,Integer pet) {
 		HotelBook hb = this.createSUT(startDate, endDate, pet);
@@ -61,14 +59,14 @@ class HotelBookTests extends ValidatorTests {
 		HotelBook hb = this.createSUT(startDate, endDate, pet);
 		Validator validator = createValidator();
 		Set<ConstraintViolation<HotelBook>> constraintViolations = validator.validate(hb);
-		assertThat(constraintViolations.size()).isEqualTo(1);	
+		assertThat(constraintViolations.size()).isEqualTo(2);	
 	}
 
 	@ParameterizedTest
 	@CsvSource({
-		"21/10/2020, 10/02/2021, 1",
-		"21/02/2021, 20/02/2021, 1",
-		"21/01/2021, 22/03/2021, 1",
+		"21/10/2020, 21/11/2020, 1",
+		"21/10/2021, 13/11/2021, 1",
+		"21/02/2021, 18/03/2021, 1",
 	})
 	void validateHotelBookEndDateIsPresentOrFutureTest(String startDate, String endDate,Integer pet) {
 		HotelBook hb = this.createSUT(startDate, endDate, pet);
@@ -86,20 +84,20 @@ class HotelBookTests extends ValidatorTests {
 		HotelBook hb = this.createSUT(startDate, endDate, pet);
 		Validator validator = createValidator();
 		Set<ConstraintViolation<HotelBook>> constraintViolations = validator.validate(hb);
-		assertThat(constraintViolations.size()).isEqualTo(1);	
+		assertThat(constraintViolations.size()).isEqualTo(2);	
 	}
 	
 	@ParameterizedTest
 	@CsvSource({
-		"21/10/2020, 21/10/2021, ",
-		"21/02/2021, 13/07/2021, 0",
-		"21/01/2021, 18/06/2021, -1",
+		"21/10/2020, 21/05/2021, ",
+		"21/10/2020, 21/05/2021, 0",
+		"21/10/2020, 21/05/2021, -1",
 	})
 	void validateHotelBookPetNullTest(String startDate, String endDate,Integer pet) {
 		HotelBook hb = this.createSUT(startDate, endDate, pet);
 		Validator validator = createValidator();
 		Set<ConstraintViolation<HotelBook>> constraintViolations = validator.validate(hb);
-		assertThat(constraintViolations.size()).isEqualTo(1);
+		assertThat(constraintViolations.size()).isEqualTo(2);
 	}
 	
 

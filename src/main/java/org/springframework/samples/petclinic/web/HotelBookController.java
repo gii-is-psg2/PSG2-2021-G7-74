@@ -12,6 +12,8 @@ import org.springframework.samples.petclinic.service.HotelBookService;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.exceptions.EndDateNotAfterStartDateException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class HotelBookController {
@@ -52,8 +55,9 @@ public class HotelBookController {
 	}
 
 	@PostMapping(value = "/owners/{ownerId}/pets/{petId}/hotelBooks/new")
-	public String processNewHotelBookForm(@Valid HotelBook hotelBook, BindingResult result){
+	public String processNewHotelBookForm(@Valid HotelBook hotelBook, BindingResult result, ModelMap model){
 		if (result.hasErrors()) {
+			model.put("hotelBook", hotelBook);
 			return "pets/createOrUpdateHotelBookForm";
 		} else {			
 			try {

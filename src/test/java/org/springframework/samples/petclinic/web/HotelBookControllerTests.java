@@ -3,6 +3,10 @@ package org.springframework.samples.petclinic.web;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -14,8 +18,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
+import org.springframework.samples.petclinic.model.HotelBook;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
+import org.springframework.samples.petclinic.repository.HotelBookRepository;
 import org.springframework.samples.petclinic.service.HotelBookService;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
@@ -43,6 +49,9 @@ public class HotelBookControllerTests {
 	@MockBean
 	private OwnerService ownerService;
 	
+	@MockBean
+	private HotelBookRepository hotelBookRepository;
+	
 	@Autowired
 	private MockMvc mockMvc;
 	
@@ -53,6 +62,7 @@ public class HotelBookControllerTests {
 		
 		given(this.petService.findPetById(PET_ID_TEST)).willReturn(new Pet());
 		given(this.ownerService.findOwnerById(OWNER_ID_TEST)).willReturn(new Owner());
+		given(this.hotelBookRepository.findByPetId(1)).willReturn((List<HotelBook>) new ArrayList<HotelBook>());
 		
 	}
 	
@@ -69,7 +79,7 @@ public class HotelBookControllerTests {
 		mockMvc.perform(post("/owners/*/pets/{petId}/hotelBooks/new",PET_ID_TEST)
 				.param("startDate", "2020/10/21")
 				.param("endDate", "2021/10/21")
-				.with(csrf()))			
+				.with(csrf()))
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/owners/{ownerId}"));
 	}

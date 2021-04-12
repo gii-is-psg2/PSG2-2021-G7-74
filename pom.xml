@@ -122,11 +122,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- validation 
         <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
-        </dependency>-->
+                <version>6.0.10.Final</version>
+        </dependency>
         <!-- caching -->
         <dependency>
             <groupId>javax.cache</groupId>

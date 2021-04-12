@@ -10,10 +10,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.PastOrPresent;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.samples.petclinic.validators.HotelBookConstraint;
 
 import javax.validation.constraints.NotNull;
 
-
+@HotelBookConstraint
 @Entity
 @Table(name = "hotel_books")
 public class HotelBook extends BaseEntity{

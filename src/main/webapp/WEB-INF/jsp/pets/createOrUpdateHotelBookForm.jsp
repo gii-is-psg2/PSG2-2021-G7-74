@@ -45,6 +45,8 @@
 	                <petclinic:inputField label="${startDate}" name="startDate"/>
 	                <petclinic:inputField label="${endDate}" name="endDate"/>
 	            </div>
+	            
+	            <form:errors/>
 	
 	            <div class="form-group">
 	                <div class="col-sm-offset-2 col-sm-10">
@@ -53,7 +55,7 @@
 	                </div>
 	            </div>
 	        </form:form>
-	
+			<form:errors path="phone" cssClass="error" />
 	        <br/>
 	        <b><fmt:message key="createOrUpdateHotelBookForm.hotelBook.previousHotelBooks"/></b>
 
