@@ -32,9 +32,12 @@ In the retrospective meeting, the team has a discussion about those results.
 
 ## Sprint Template
 
-| Day           | AMARQUEZ    | Fernando  | Carlos     | Alfonso     | Juan Carlos     | Alejandro     |
-| ------------- | ------------- | -------------  | -------------  | -------------  | -------------  | -------------  |
-| Day 1         | :smile:        |      :smile:          |      :smile:          |       :smile:         |        :smile:        |     :smile:           |
-| Day 2         |               |                |                |                |                |                |
-| Day 3         |               |                |                |                |                |                |
-| Day 4         |              |               |                |                |                |                |
+| Day           | AMARQUEZ      | Fernando       | Carlos         | Alfonso        | Juan Carlos    | Alejandro     |
+| ------------- | ------------- | -------------  | -------------  | -------------  | -------------  | ------------- |
+| Day 1         | :smile:       |      :smile:   |    :smile:     |     :smile:    |        :smile: |     :smile:   |
+| Day 2         |               |     :smile:    |    :smile:     |    :smile:     | :neutral_face: |  :smile:      |
+| Day 3         |               |     :smile:           |    :smile:          |   :smile:             |   :smile:             |  :smile: |
+| Day 4         |               |     :smile:          |      :smile:          |  :smile:              |   :smile:             |  :smile: |
+| Day 5         |               |     :smile:           |       :neutral_face:  |  :smile:              |   :smile:             |  :smile: |
+| Day 6         |               |     :smile:          |      :smile:          |   :smile:             |   :smile:             |  :smile: |
+| Day 7         |               |     :smile:          |      :smile:          |   :smile:             |   :smile:            |  :smile: |
