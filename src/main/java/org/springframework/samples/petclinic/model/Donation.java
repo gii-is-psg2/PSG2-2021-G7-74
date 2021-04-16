@@ -1,16 +1,13 @@
 package org.springframework.samples.petclinic.model;
 
 import java.time.LocalDate;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-
+import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -21,6 +18,7 @@ public class Donation extends BaseEntity{
 	
 	@Column(name = "amount")
 	@Min(0)
+	@NotNull
 	private Double amount;
 	
 	@Column(name = "donation_date")
@@ -31,7 +29,8 @@ public class Donation extends BaseEntity{
 	@NotEmpty
 	private String client;
 	
-	@ManyToOne
+	@NotNull
+	@ManyToOne(optional=false)
 	private Cause cause;
 
 	public Double getAmount() {
@@ -65,5 +64,14 @@ public class Donation extends BaseEntity{
 	public void setCause(Cause cause) {
 		this.cause = cause;
 	}
+
+	public Donation() {
+		this.donation_date = LocalDate.now();
+		this.cause = new Cause();
+	}
+
+
+
+
 
 }

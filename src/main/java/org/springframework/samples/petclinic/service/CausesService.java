@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Cause;
+import org.springframework.samples.petclinic.model.Donation;
 import org.springframework.samples.petclinic.repository.CauseRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,9 +24,13 @@ public class CausesService {
 	@Transactional(readOnly=true)
 	public Cause findCause(Integer id) throws DataAccessException{
 		return causeRepository.findById(id);
-		
 	}
 	
+	//buscar por name
+	@Transactional(readOnly=true)
+	public Collection<Cause> findCauseByName(String name) throws DataAccessException{
+		return causeRepository.findByName(name);
+	}
 	
 	//buscar todos
 	@Transactional(readOnly=true)
@@ -35,32 +40,22 @@ public class CausesService {
 	
 	//guardar
 	@Transactional
-	public void saveCause(Cause cause) {
+	public void saveCause(Cause cause) throws DataAccessException {
+		cause.setCause_active(true);
 		causeRepository.save(cause);
 	}
 	
-	
-	
-	
-	//borrar
-	public void deleteCause(Integer id) {
-		causeRepository.deleteById(id);
+	//Devolver todas las donaciones
+	@Transactional(readOnly = true)
+	public Collection<Donation> getAllDonations(Integer id)  throws DataAccessException{
+		return causeRepository.findById(id).getDonations();
 	}
-	
-	
-	
+
 	//total alcanzado
 	public Double currentBudget(Integer id) {
 		return causeRepository.findById(id).getDonations().stream().mapToDouble(x->x.getAmount()).sum();
 	}
-	
-	
-	//cuanto falta
-	public Double remainingBudgetTarget(Integer id) {
-		Double target=causeRepository.findById(id).getBudgetTarget();
-		
-		return target - currentBudget(id);
-	}
+
 	
 	
 	

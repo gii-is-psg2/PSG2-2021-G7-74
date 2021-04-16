@@ -9,7 +9,9 @@ public interface DonationRepository extends Repository<Donation, Integer>{
 
 	
 	Donation findById(Integer id);
+	
 	void save(Donation donation);
+	
 	Collection<Donation> findAll();
 	
 }

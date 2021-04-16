@@ -90,6 +90,9 @@ INSERT INTO hotel_books(id, start_date, end_date, pet_id) VALUES (4, '2021-09-07
 
 
 INSERT INTO causes(id,name,description,budget_target,organization,cause_active) VALUES (1,'Lince extincion','El lince iberico esta en plena extincion, salvemoslo',26000.50,'GreenPace',true);
+INSERT INTO causes(id,name,description,budget_target,organization,cause_active) VALUES (2,'Lince iberico andalucia','El lince iberico corre peligro en andalucia',16000.50,'LinceXtintion',true);
+INSERT INTO causes(id,name,description,budget_target,organization,cause_active) VALUES (3,'Tortugas contra el plastico','El plastico que hay en nuestras playas esta destrozando el habitat de las tortugas',5000.50,'TrotuPlastic',true);
+
 INSERT INTO donations(id,amount,client,donation_date,cause_id) VALUES(1,1500.5,'Paco Antonio Valle Gomez','2021-03-04',1);
 INSERT INTO donations(id,amount,client,donation_date,cause_id) VALUES(2,100.5,'Jesus Antonio Naranjo Ramirez','2021-02-04',1);
 
