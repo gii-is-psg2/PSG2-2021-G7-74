@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <petclinic:layout pageName="owners">
 	
@@ -31,21 +32,24 @@
 	        </tr>
 	    </table>
 	
-	    <spring:url value="{ownerId}/edit" var="editUrl">
-	        <spring:param name="ownerId" value="${owner.id}"/>
-	    </spring:url>
-	    <a href="${fn:escapeXml(editUrl)}" class="btn btn-default"><fmt:message key="ownerDetails.petsAndVisits.owner.button.update"/></a>
+	    <sec:authorize access="hasAuthority('admin')">
+	    	<spring:url value="{ownerId}/edit" var="editUrl">
+	        	<spring:param name="ownerId" value="${owner.id}"/>
+	    	</spring:url>
+	    	<a href="${fn:escapeXml(editUrl)}" class="btn btn-default"><fmt:message key="ownerDetails.petsAndVisits.owner.button.update"/></a>
 	
-	    <spring:url value="{ownerId}/pets/new" var="addUrl">
-	        <spring:param name="ownerId" value="${owner.id}"/>
-	    </spring:url>
-	    <a href="${fn:escapeXml(addUrl)}" class="btn btn-default"><fmt:message key="ownerDetails.petsAndVisits.pet.button.add"/></a>
+	    	<spring:url value="{ownerId}/pets/new" var="addUrl">
+	       	 <spring:param name="ownerId" value="${owner.id}"/>
+	   		</spring:url>
+	   		<a href="${fn:escapeXml(addUrl)}" class="btn btn-default"><fmt:message key="ownerDetails.petsAndVisits.pet.button.add"/></a>
 	        	      
-   		<spring:url value="/owners/delete/${owner.id}" var="deleteOwner"></spring:url>
-        	<a href="${fn:escapeXml(deleteOwner)}" class="btn btn-default"><fmt:message key="owner.deleteOwner"/></a>
-	    <br/>
-	    <br/>
-	    <br/>
+   			<spring:url value="/owners/delete/${owner.id}" var="deleteOwner"></spring:url>
+        		<a href="${fn:escapeXml(deleteOwner)}" class="btn btn-default"><fmt:message key="owner.deleteOwner"/></a>
+	    	<br/>
+	    	<br/>
+	    	<br/>
+	    	</sec:authorize>
+	    
 	    <h2><fmt:message key="ownerDetails.title.petsAndVisits"/></h2>
 	
 	    <table class="table table-striped">
@@ -145,5 +149,68 @@
 				
 	        </c:forEach>
 	    </table>
+	    
+	    
+	    
+	    
+	    
+	
+		<h2><fmt:message key="ownerDetails.title.adoptions"/></h2>
+		<table class="table table-striped">
+		
+			     <tr>
+	                <td valign="top">
+	                    <dl class="dl-horizontal">
+	                        <dt><fmt:message key="ownerDetails.petsAndVisits.pet.name"/></dt>
+	                        <dd><c:out value="${pet.name}"/></dd>
+	                        <dt><fmt:message key="ownerDetails.petsAndVisits.pet.birthDate"/></dt>
+	                        <dd><petclinic:localDate date="${pet.birthDate}" pattern="yyyy-MM-dd"/></dd>
+	                        <dt><fmt:message key="ownerDetails.petsAndVisits.pet.type"/></dt>
+	                        <dd><c:out value="${pet.type.name}"/></dd>
+	                    </dl>
+	                </td>
+	                
+	                <td valign="top">
+	                     <table class="table-condensed">
+	                        <thead>
+	                        <tr>
+	                            <th><fmt:message key="ownerDetails.petsAndVisits.adoptions.date"/></th>
+	                        </tr>
+	                        </thead>   
+	                    </table>
+	                   
+	                </td>
+	                
+	                 <td valign="top">
+	                    <table class="table-condensed">
+	                        <thead>
+	                        <tr>
+	                            <th><fmt:message key="ownerDetails.petsAndVisits.adoptions.status"/></th>
+	                        </tr>
+	                        </thead>
+	                    </table>
+	                </td>
+	                
+	                <td valign="top">
+	                    <table class="table-condensed">
+                        	<thead>
+                        	<tr>
+                        		<th><fmt:message key="header.acciones"/></th>
+                        	</tr>
+                        	</thead>
+                        </table>
+                    </td>
+	                
+				</tr>
+
+				
+				
+				
+					
+		
+		</table>
+		
+		
+		
 	</div>
 </petclinic:layout>
