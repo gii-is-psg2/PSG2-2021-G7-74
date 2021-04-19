@@ -63,6 +63,9 @@ public class Owner extends Person {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
 	private Set<Pet> pets;
 	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "applicant")
+	private Set<Adoptions> adoptions;
+	
 	//
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username")
@@ -117,6 +120,16 @@ public class Owner extends Person {
 		PropertyComparator.sort(sortedPets, new MutableSortDefinition("name", true, true));
 		return Collections.unmodifiableList(sortedPets);
 	}
+	
+	public List<Adoptions> getAdoptions(){
+		List<Adoptions> sortedAdoptions = new ArrayList<>(getAdoptionsInternal());
+		PropertyComparator.sort(sortedAdoptions, new MutableSortDefinition("date", true, true));
+		return Collections.unmodifiableList(sortedAdoptions);
+	}
+	
+	public boolean removeAdoption(Adoptions adoption) {
+		return getAdoptionsInternal().remove(adoption);
+	}
 
 	public void addPet(Pet pet) {
 		getPetsInternal().add(pet);
@@ -165,6 +178,22 @@ public class Owner extends Person {
 			}
 		}
 		return null;
+	}
+	
+	protected Set<Adoptions> getAdoptionsInternal() {
+		if (this.adoptions == null) {
+			this.adoptions = new HashSet<>();
+		}
+		return this.adoptions;
+	}
+	
+	protected void setAdoptionsInternal(Set<Adoptions> adoptions) {
+		this.adoptions = adoptions;
+	}
+	
+	public void addAdoption(Adoptions adoption) {
+		getAdoptionsInternal().add(adoption);
+		adoption.setApplicant(this);
 	}
 
 	@Override

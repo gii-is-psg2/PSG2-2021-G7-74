@@ -64,6 +64,8 @@
 	                        <dd><petclinic:localDate date="${pet.birthDate}" pattern="yyyy-MM-dd"/></dd>
 	                        <dt><fmt:message key="ownerDetails.petsAndVisits.pet.type"/></dt>
 	                        <dd><c:out value="${pet.type.name}"/></dd>
+	                        <dt><fmt:message key="ownerDetails.petsAndVisits.pet.adoptable"/></dt>
+	                        <dd><c:out value="${pet.adoptable}"/></dd>
 	                    </dl>
 	                </td>
 	                <td valign="top">
@@ -157,16 +159,16 @@
 	
 		<h2><fmt:message key="ownerDetails.title.adoptions"/></h2>
 		<table class="table table-striped">
-		
+	        <c:forEach var="adoption" items="${owner.adoptions}">	
 			     <tr>
 	                <td valign="top">
 	                    <dl class="dl-horizontal">
 	                        <dt><fmt:message key="ownerDetails.petsAndVisits.pet.name"/></dt>
-	                        <dd><c:out value="${pet.name}"/></dd>
+	                        <dd><c:out value="${adoption.pet.name}"/></dd>
 	                        <dt><fmt:message key="ownerDetails.petsAndVisits.pet.birthDate"/></dt>
-	                        <dd><petclinic:localDate date="${pet.birthDate}" pattern="yyyy-MM-dd"/></dd>
+	                        <dd><petclinic:localDate date="${adoption.pet.birthDate}" pattern="yyyy-MM-dd"/></dd>
 	                        <dt><fmt:message key="ownerDetails.petsAndVisits.pet.type"/></dt>
-	                        <dd><c:out value="${pet.type.name}"/></dd>
+	                        <dd><c:out value="${adoption.pet.type.name}"/></dd>
 	                    </dl>
 	                </td>
 	                
@@ -176,7 +178,10 @@
 	                        <tr>
 	                            <th><fmt:message key="ownerDetails.petsAndVisits.adoptions.date"/></th>
 	                        </tr>
-	                        </thead>   
+	                        </thead>
+                            <tr>
+                                <td><petclinic:localDate date="${adoption.date}" pattern="yyyy-MM-dd"/></td>
+                            </tr>
 	                    </table>
 	                   
 	                </td>
@@ -188,6 +193,9 @@
 	                            <th><fmt:message key="ownerDetails.petsAndVisits.adoptions.status"/></th>
 	                        </tr>
 	                        </thead>
+	                        <tr>
+                                <td><c:out value="${adoption.status}"/></td>
+                            </tr>
 	                    </table>
 	                </td>
 	                
@@ -198,16 +206,21 @@
                         		<th><fmt:message key="header.acciones"/></th>
                         	</tr>
                         	</thead>
+                        	<c:if test="${adoption.status == 'EN_PROCESO'}">
+	                        	<tr>
+		                          	<td>
+		                                <spring:url value="/owners/{ownerId}/adoptions/{adoptionId}/delete" var="adoptionDeleteUrl">
+		                                    <spring:param name="adoptionId" value="${adoption.id}"/>
+		                                    <spring:param name="ownerId" value="${owner.id}"/>     
+		                                </spring:url>
+		                                <a href="${fn:escapeXml(adoptionDeleteUrl)}"><fmt:message key="ownerDetails.petsAndVisits.pet.adoption.button.delete"/></a>
+		                            </td>
+	                            </tr>
+                            </c:if>
                         </table>
-                    </td>
-	                
-				</tr>
-
-				
-				
-				
-					
-		
+                    </td>	                
+				</tr>			
+	       </c:forEach>
 		</table>
 		
 		
