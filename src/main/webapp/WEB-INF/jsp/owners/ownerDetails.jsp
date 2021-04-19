@@ -157,6 +157,17 @@
 	                                </a>
 	                           	</td>
                            	</tr>
+                           	<c:if test="${pet.adoptable}">
+	                           	<tr>
+		                            <td>
+		                                <spring:url value="/owners/{ownerId}/adoptions/pets/{petId}" var="adoptionRequests">
+		                                    <spring:param name="ownerId" value="${owner.id}"/>
+		                                    <spring:param name="petId" value="${pet.id}"/>
+		                                </spring:url>
+		                                <a href="${fn:escapeXml(adoptionRequests)}"><fmt:message key="owner.petAdoptionRequest"/></a>
+		                           	</td>
+	                           	</tr>
+                           	</c:if>
                      	</table>
                     </td>
 	            </tr>

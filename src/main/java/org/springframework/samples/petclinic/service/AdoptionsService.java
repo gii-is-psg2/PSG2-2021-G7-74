@@ -21,7 +21,7 @@ public class AdoptionsService {
 	@Transactional(rollbackFor = DuplicatedAdoptionException.class)
 	public void save (Adoptions adoptions) throws DataAccessException,DuplicatedAdoptionException {
 		
-		if(adoptionsRepository.findAll().contains(adoptions)) {
+		if(adoptions.isNew() && adoptionsRepository.findAll().contains(adoptions)) {
 			throw new DuplicatedAdoptionException("No puede haber 2 adopciones a la misma mascota");
 		} else {
 			adoptionsRepository.save(adoptions);
