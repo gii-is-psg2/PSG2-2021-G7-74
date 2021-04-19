@@ -34,8 +34,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -66,6 +64,9 @@ public class Pet extends NamedEntity {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
 	private Set<HotelBook> hotelBooks;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
+	private Set<Adoptions> adoptions;
 	
 	@NotNull
 	@JoinColumn(name = "adoptable")
@@ -117,6 +118,13 @@ public class Pet extends NamedEntity {
 		}
 		return this.hotelBooks;
 	}
+	
+	protected Set<Adoptions> getAdoptionsInternal(){
+		if (this.adoptions == null) {
+			this.adoptions = new HashSet<>();
+		}
+		return this.adoptions;
+	}
 
 	protected void setVisitsInternal(Set<Visit> visits) {
 		this.visits = visits;
@@ -124,6 +132,10 @@ public class Pet extends NamedEntity {
 	
 	protected void setHotelBooks(Set<HotelBook> hotelBooks) {
 		this.hotelBooks = hotelBooks;
+	}
+	
+	protected void setAdoptionsInternal(Set<Adoptions> adoptions) {
+		this.adoptions = adoptions;
 	}
 
 	public List<Visit> getVisits() {
@@ -137,6 +149,12 @@ public class Pet extends NamedEntity {
 		PropertyComparator.sort(sortedHotelBooks, new MutableSortDefinition("startDate",false,false));
 		return Collections.unmodifiableList(sortedHotelBooks);
 	}
+	
+	public List<Adoptions> getAdoptions(){
+		List<Adoptions> sortedAdoptions = new ArrayList<>(getAdoptionsInternal());
+		PropertyComparator.sort(sortedAdoptions, new MutableSortDefinition("date",false,false));
+		return Collections.unmodifiableList(sortedAdoptions);
+	}
 
 	public void addVisit(Visit visit) {
 		getVisitsInternal().add(visit);
@@ -147,5 +165,9 @@ public class Pet extends NamedEntity {
 		getHotelBooksInternal().add(hotelBook);
 		hotelBook.setPet(this);
 	}
-
+	
+	public void addAdoption(Adoptions adoption) {
+		getAdoptionsInternal().add(adoption);
+		adoption.setPet(this);
+	}
 }

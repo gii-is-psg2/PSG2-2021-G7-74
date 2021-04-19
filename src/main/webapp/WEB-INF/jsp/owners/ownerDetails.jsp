@@ -145,6 +145,18 @@
 	                                <a href="${fn:escapeXml(deletePet)}"><fmt:message key="owner.deletePet"/></a>
 	                           	</td>
                            	</tr>
+                           	<tr>
+	                            <td>
+	                                <spring:url value="/owners/{ownerId}/pets/{petId}/toogleAdoptable" var="togglePetAdoptable">
+	                                    <spring:param name="ownerId" value="${owner.id}"/>
+	                                    <spring:param name="petId" value="${pet.id}"/>
+	                                </spring:url>
+	                                <a href="${fn:escapeXml(togglePetAdoptable)}">
+	                                	<c:if test="${!pet.adoptable}"><fmt:message key="owner.setAdoptable"/></c:if>
+	                                	<c:if test="${pet.adoptable}"><fmt:message key="owner.cancelAdoptable"/></c:if>                        	
+	                                </a>
+	                           	</td>
+                           	</tr>
                      	</table>
                     </td>
 	            </tr>
