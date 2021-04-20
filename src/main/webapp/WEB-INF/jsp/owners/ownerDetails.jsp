@@ -175,12 +175,12 @@
 	        </c:forEach>
 	    </table>
 	    
-	    
-	    
-	    
-	    
-	
-		<h2><fmt:message key="ownerDetails.title.adoptions"/></h2>
+   
+		<div style="display:flex; justify-content: space-between; width: 100%; align-items: flex-end; margin-bottom: 10px;">
+			<h2 style="margin:0px"><fmt:message key="ownerDetails.title.adoptions"/></h2>
+			<spring:url value="/adoptions" var="adoptionList"></spring:url>
+			<a style="height:30px" class="btn btn-default" href = "${fn:escapeXml(adoptionList)}"><fmt:message key="owner.viewAdoptionList"/></a>	
+		</div>
 		<table class="table table-striped">
 	        <c:forEach var="adoption" items="${owner.adoptions}">	
 			     <tr>

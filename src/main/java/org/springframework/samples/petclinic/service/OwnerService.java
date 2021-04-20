@@ -30,6 +30,8 @@ import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.repository.VetRepository;
 import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -79,6 +81,11 @@ public class OwnerService {
 	@Transactional
 	public void deleteOwnerById(int id) throws DataAccessException{	
 		ownerRepository.deleteById(id);
+	}
+	
+	@Transactional
+	public Owner findByUsername(String username) throws DataAccessException{
+		return ownerRepository.findByUserUsername(username);
 	}
 
 }

@@ -170,4 +170,8 @@ public class Pet extends NamedEntity {
 		getAdoptionsInternal().add(adoption);
 		adoption.setPet(this);
 	}
+	
+	public void removeAdoption(Adoptions adoption) {
+		getAdoptionsInternal().remove(adoption);
+	}
 }

@@ -1,5 +1,8 @@
 package org.springframework.samples.petclinic.web;
 
+import java.time.LocalDate;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Adoptions;
 import org.springframework.samples.petclinic.model.Owner;
@@ -9,18 +12,19 @@ import org.springframework.samples.petclinic.service.AdoptionsService;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedAdoptionException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-@RequestMapping("/owners/{ownerId}/adoptions")
 public class AdoptionsController {
-	
+		
 	private final AdoptionsService adoptionService;
 	private final OwnerService ownerService;
 	private final PetService petService;
@@ -36,31 +40,28 @@ public class AdoptionsController {
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
 	}
-//	
-//	@ModelAttribute("adoptions")
-//	public Adoptions loadOwnerWithAdoptions(@PathVariable("ownerId") int ownerId) {
-//		Owner owner = this.ownerService.findOwnerById(ownerId);
-//		Adoptions adoption = new Adoptions();
-//		owner.addAdoption(adoption);
-//		return adoption;
-//	}
-//	
-	@GetMapping("/{adoptionId}/delete")
+	
+	@GetMapping("/owners/{ownerId}/adoptions/{adoptionId}/delete")
 	public String deleteById(@PathVariable("ownerId") int ownerId, @PathVariable("adoptionId") int adoptionId) {
+		Adoptions adoption = adoptionService.findAdoptionById(adoptionId);
 		Owner own = ownerService.findOwnerById(ownerId);
-    	own.removeAdoption(adoptionService.findAdoptionById(adoptionId));
+		Pet pet = adoption.getPet();
+		
+		pet.removeAdoption(adoption);
+    	own.removeAdoption(adoption);
+    	
 		this.adoptionService.deleteAdoptionById(adoptionId);
 		return "redirect:/owners/{ownerId}";
 	}
 	
-	@GetMapping("/pets/{petId}")
+	@GetMapping("/owners/{ownerId}/adoptions/pets/{petId}")
 	public String initAdoptionsList(@PathVariable("petId") int petId, ModelMap model) {
 		Pet pet = this.petService.findPetById(petId);
 		model.put("pet", pet);
 		return "pets/petAdoptionsList";
 	}
 	
-	@GetMapping("/{adoptionId}/accept")
+	@GetMapping("/owners/{ownerId}/adoptions/{adoptionId}/accept")
 	public String acceptRequest(@PathVariable("adoptionId") int adoptionId) {
 		//accept the request
 		Adoptions adoption = this.adoptionService.findAdoptionById(adoptionId);
@@ -82,10 +83,22 @@ public class AdoptionsController {
 			e.printStackTrace();
 		}
 		
+		//deny the rest of requests
+		pet.getAdoptions().forEach(a -> {
+			if(a.getStatus().equals(Status.EN_PROCESO)) {
+				a.setStatus(Status.DENEGADA);
+				try {
+					this.adoptionService.save(a);
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
 		return "redirect:/owners/"+ oldOwner.getId();
 	}
 	
-	@GetMapping("/{adoptionId}/deny")
+	@GetMapping("/owners/{ownerId}/adoptions/{adoptionId}/deny")
 	public String denyRequest(@PathVariable("adoptionId") int adoptionId) {
 		//deny the request
 		Adoptions adoption = this.adoptionService.findAdoptionById(adoptionId);
@@ -99,5 +112,38 @@ public class AdoptionsController {
 		}
 		
 		return "redirect:/owners/"+ adoption.getPet().getOwner().getId() +"/adoptions/pets/" + adoption.getPet().getId();
+	}
+	
+	@GetMapping("/adoptions")
+	public String showList(ModelMap model) {
+		Owner owner = this.ownerService.findByUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+		model.put("today", LocalDate.now());
+		model.put("adoptablePet", 
+				this.petService.findAll().stream()
+					.filter(p -> owner.getAdoptions().stream().noneMatch(a->a.getPet().equals(p)) 
+							&& p.getOwner().getId() != owner.getId() 
+							&& p.getAdoptable())
+					.collect(Collectors.toList()));
+		return "adoptions/adoptionList";
+	}
+	
+	@PostMapping("/adoptions")
+	public String newAdoption(Adoptions adoption, int petId) {
+		Pet pet = this.petService.findPetById(petId);
+		Owner applicant = this.ownerService.findByUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+		
+		adoption.setDate(LocalDate.now());
+		
+		pet.addAdoption(adoption);
+		applicant.addAdoption(adoption);
+		
+		if(pet != null && applicant != null) {
+			try {
+				this.adoptionService.save(adoption);
+			} catch (DuplicatedAdoptionException e) {
+				e.printStackTrace();
+			}
+		}
+		return "redirect:/adoptions";
 	}
 }
