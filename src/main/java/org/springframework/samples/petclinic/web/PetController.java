@@ -27,6 +27,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.OperationNotSupportedException;
 import javax.validation.Valid;
 
 import java.util.Collection;
@@ -34,6 +35,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * @author Juergen Hoeller
@@ -152,14 +155,20 @@ public class PetController {
 	}
 
 	@GetMapping(value = "/pets/{petId}/toogleAdoptable")
-	public String toggleAdoptable(@PathVariable("petId") int petId, @PathVariable("ownerId") int ownerId) throws DataAccessException, DuplicatedPetNameException {
-		Pet pet = this.petService.findPetById(petId);
-		pet.setAdoptable(!pet.getAdoptable());
-		if (!pet.getAdoptable()) {
-			pet.getAdoptions().forEach(x -> {if(x.getStatus().equals(Status.EN_PROCESO)) x.setStatus(Status.DENEGADA);});
+	public String toggleAdoptable(@PathVariable("petId") int petId, @PathVariable("ownerId") int ownerId) throws DataAccessException, DuplicatedPetNameException, OperationNotSupportedException {
+		Owner loggedOwner = this.ownerService.findByUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+		
+		if(ownerId == loggedOwner.getId()) {
+			Pet pet = this.petService.findPetById(petId);
+			pet.setAdoptable(!pet.getAdoptable());
+			if (!pet.getAdoptable()) {
+				pet.getAdoptions().forEach(x -> {if(x.getStatus().equals(Status.EN_PROCESO)) x.setStatus(Status.DENEGADA);});
+			}
+			this.petService.savePet(pet);
+			return "redirect:/owners/{ownerId}";
+		} else {
+			throw new OperationNotSupportedException("You cannot set this property from a non-propertary user's account");
 		}
-		this.petService.savePet(pet);
-		return "redirect:/owners/{ownerId}";
 	}
 
 }

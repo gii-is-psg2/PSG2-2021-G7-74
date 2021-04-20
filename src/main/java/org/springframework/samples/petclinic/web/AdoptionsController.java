@@ -3,6 +3,8 @@ package org.springframework.samples.petclinic.web;
 import java.time.LocalDate;
 import java.util.stream.Collectors;
 
+import javax.naming.OperationNotSupportedException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Adoptions;
 import org.springframework.samples.petclinic.model.Owner;
@@ -42,23 +44,36 @@ public class AdoptionsController {
 	}
 	
 	@GetMapping("/owners/{ownerId}/adoptions/{adoptionId}/delete")
-	public String deleteById(@PathVariable("ownerId") int ownerId, @PathVariable("adoptionId") int adoptionId) {
-		Adoptions adoption = adoptionService.findAdoptionById(adoptionId);
-		Owner own = ownerService.findOwnerById(ownerId);
-		Pet pet = adoption.getPet();
+	public String deleteById(@PathVariable("ownerId") int ownerId, @PathVariable("adoptionId") int adoptionId) throws OperationNotSupportedException {
+		Owner loggedOwner = this.ownerService.findByUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
 		
-		pet.removeAdoption(adoption);
-    	own.removeAdoption(adoption);
-    	
-		this.adoptionService.deleteAdoptionById(adoptionId);
-		return "redirect:/owners/{ownerId}";
+		if(ownerId == loggedOwner.getId()) {
+			Adoptions adoption = adoptionService.findAdoptionById(adoptionId);
+			Owner own = ownerService.findOwnerById(ownerId);
+			Pet pet = adoption.getPet();
+			
+			pet.removeAdoption(adoption);
+	    	own.removeAdoption(adoption);
+	    	
+			this.adoptionService.deleteAdoptionById(adoptionId);
+			return "redirect:/owners/{ownerId}";
+		} else {
+			throw new OperationNotSupportedException("You cannot delete other user's requests");
+		}
 	}
 	
 	@GetMapping("/owners/{ownerId}/adoptions/pets/{petId}")
-	public String initAdoptionsList(@PathVariable("petId") int petId, ModelMap model) {
-		Pet pet = this.petService.findPetById(petId);
-		model.put("pet", pet);
-		return "pets/petAdoptionsList";
+	public String initAdoptionsList(@PathVariable("petId") int petId, ModelMap model, @PathVariable("ownerId") int ownerId) throws OperationNotSupportedException {
+		Owner loggedOwner = this.ownerService.findByUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+		
+		if(ownerId == loggedOwner.getId()) {
+
+			Pet pet = this.petService.findPetById(petId);
+			model.put("pet", pet);
+			return "pets/petAdoptionsList";
+		} else {
+			throw new OperationNotSupportedException("You cannot access other user's adoptions requests");
+		}
 	}
 	
 	@GetMapping("/owners/{ownerId}/adoptions/{adoptionId}/accept")
