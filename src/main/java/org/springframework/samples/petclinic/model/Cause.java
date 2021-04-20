@@ -14,8 +14,7 @@ import javax.validation.constraints.NotEmpty;
 @Table(name="causes")
 
 public class Cause extends BaseEntity {
-
-
+	
 	@Column(name = "name")
 	@NotEmpty
 	private String name;
@@ -33,13 +32,11 @@ public class Cause extends BaseEntity {
 	private String organization;
 	
 	@Column(name="cause_active")
-	private Boolean cause_active;
+	private Boolean causeActive;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cause")
 	private Set<Donation> donations;
-	
-	private Double achievedTarget;
-	
+		
 	public Set<Donation> getDonations() {
 		return donations;
 	}
@@ -49,12 +46,12 @@ public class Cause extends BaseEntity {
 	}
 
 	public Boolean getCause_active() {
-		return cause_active;
+		return causeActive;
 	}
 
 
 	public void setCause_active(Boolean cause_active) {
-		this.cause_active = cause_active;
+		this.causeActive = cause_active;
 	}
 
 
@@ -119,8 +116,6 @@ public class Cause extends BaseEntity {
 		return getDonationsInternal().stream().mapToDouble(x->x.getAmount()).sum();
 	}
 
-	public void setAchievedTarget(Double achievedTarget) {
-		this.achievedTarget = achievedTarget;
-	}
+
 
 }

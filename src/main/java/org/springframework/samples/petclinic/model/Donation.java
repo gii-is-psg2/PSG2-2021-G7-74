@@ -23,7 +23,7 @@ public class Donation extends BaseEntity{
 	
 	@Column(name = "donation_date")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	private LocalDate donation_date;
+	private LocalDate donationDate;
 	
 	@Column(name="client")
 	@NotEmpty
@@ -42,11 +42,11 @@ public class Donation extends BaseEntity{
 	}
 
 	public LocalDate getDonation_date() {
-		return donation_date;
+		return donationDate;
 	}
 
 	public void setDonation_date(LocalDate donation_date) {
-		this.donation_date = donation_date;
+		this.donationDate = donation_date;
 	}
 
 	public String getClient() {
@@ -66,7 +66,7 @@ public class Donation extends BaseEntity{
 	}
 
 	public Donation() {
-		this.donation_date = LocalDate.now();
+		this.donationDate = LocalDate.now();
 		this.cause = new Cause();
 	}
 
