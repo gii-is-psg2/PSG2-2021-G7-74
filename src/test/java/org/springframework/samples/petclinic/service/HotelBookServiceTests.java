@@ -15,6 +15,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.HotelBook;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.service.exceptions.BusyBookException;
+import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.samples.petclinic.service.exceptions.EndDateNotAfterStartDateException;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,9 @@ class HotelBookServiceTests {
 	
 	@Autowired
 	protected HotelBookService hotelBookService;
+	
+	@Autowired
+	protected PetService petService;
 	
 	@Test
 	@Transactional
@@ -47,6 +52,8 @@ class HotelBookServiceTests {
 		} catch (DataAccessException e) {
 			 Logger.getLogger(HotelBookServiceTests.class.getName()).log(Level.SEVERE, null, e);
 		} catch (EndDateNotAfterStartDateException e) {
+			 Logger.getLogger(HotelBookServiceTests.class.getName()).log(Level.SEVERE, null, e);
+		}catch (BusyBookException e) {
 			 Logger.getLogger(HotelBookServiceTests.class.getName()).log(Level.SEVERE, null, e);
 		}
 		
@@ -118,6 +125,56 @@ class HotelBookServiceTests {
 		
 		assertThrows(EndDateNotAfterStartDateException.class, () -> {hotelBookService.saveHotelBook(hb);});
 		
+	}
+	
+	@Test
+	@Transactional
+	@DisplayName("Nuevo HotelBook -- caso negativo(Ya existe una reserva para esas fechas!)")
+	void shouldNotSaveHotelBookThereIsAlreadyBookForTheseDates() throws DataAccessException, EndDateNotAfterStartDateException, BusyBookException, DuplicatedPetNameException {
+		
+		HotelBook hb = new HotelBook();
+		hb.setStartDate(hotelBookService.listHotelBookByPetId(1).get(0).getStartDate().plusDays(2));
+		hb.setEndDate(hotelBookService.listHotelBookByPetId(1).get(0).getEndDate().minusDays(1));
+		hb.setPet(petService.findPetById(1));
+
+		assertThrows(BusyBookException.class, () -> {hotelBookService.saveHotelBook(hb);});
+	}
+	
+	@Test
+	@Transactional
+	@DisplayName("Nuevo HotelBook -- caso negativo(Ya existe una reserva para esas fechas!)")
+	void shouldNotSaveHotelBookThereIsAlreadyBookForTheseDatesTwo() throws DataAccessException, EndDateNotAfterStartDateException, BusyBookException, DuplicatedPetNameException {
+		
+		HotelBook hb = new HotelBook();
+		hb.setStartDate(hotelBookService.listHotelBookByPetId(1).get(0).getStartDate().minusDays(2));
+		hb.setEndDate(hotelBookService.listHotelBookByPetId(1).get(0).getEndDate().minusDays(1));
+		hb.setPet(petService.findPetById(1));
+
+		assertThrows(BusyBookException.class, () -> {hotelBookService.saveHotelBook(hb);});
+	}
+	
+	@Test
+	@Transactional
+	@DisplayName("Nuevo HotelBook -- caso negativo(Ya existe una reserva para esas fechas!)")
+	void shouldNotSaveHotelBookThereIsAlreadyBookForTheseDatesThree() throws DataAccessException, EndDateNotAfterStartDateException, BusyBookException, DuplicatedPetNameException {
+		
+		HotelBook hb = new HotelBook();
+		hb.setStartDate(hotelBookService.listHotelBookByPetId(1).get(0).getStartDate().plusDays(2));
+		hb.setEndDate(hotelBookService.listHotelBookByPetId(1).get(0).getEndDate().plusDays(1));
+		hb.setPet(petService.findPetById(1));
+
+	}
+	
+	@Test
+	@Transactional
+	@DisplayName("Nuevo HotelBook -- caso negativo(Ya existe una reserva para esas fechas!)")
+	void shouldNotSaveHotelBookThereIsAlreadyBookForTheseDatesFour() throws DataAccessException, EndDateNotAfterStartDateException, BusyBookException, DuplicatedPetNameException {
+		
+		HotelBook hb = new HotelBook();
+		hb.setStartDate(hotelBookService.listHotelBookByPetId(1).get(0).getStartDate());
+		hb.setEndDate(hotelBookService.listHotelBookByPetId(1).get(0).getEndDate());
+		hb.setPet(petService.findPetById(1));
+
 	}
 	
 	@Test

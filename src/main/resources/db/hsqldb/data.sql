@@ -83,8 +83,8 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
-INSERT INTO hotel_books(id, start_date, end_date, pet_id) VALUES (1, '2021-09-07', '2021-010-07', 1);
-INSERT INTO hotel_books(id, start_date, end_date, pet_id) VALUES (2, '2021-09-07', '2021-10-07', 2);
-INSERT INTO hotel_books(id, start_date, end_date, pet_id) VALUES (3, '2021-09-07', '2021-10-07', 3);
-INSERT INTO hotel_books(id, start_date, end_date, pet_id) VALUES (4, '2021-09-07', '2021-10-07', 4);
+INSERT INTO hotel_books(id, start_date, end_date, pet_id) VALUES (1, '2020-09-07', '2021-10-07', 1);
+INSERT INTO hotel_books(id, start_date, end_date, pet_id) VALUES (2, '2020-09-07', '2021-10-07', 2);
+INSERT INTO hotel_books(id, start_date, end_date, pet_id) VALUES (3, '2020-09-07', '2021-10-07', 3);
+INSERT INTO hotel_books(id, start_date, end_date, pet_id) VALUES (4, '2020-09-07', '2021-10-07', 4);
 
