@@ -45,13 +45,13 @@ public class Cause extends BaseEntity {
 		this.donations = donations;
 	}
 
-	public Boolean getCause_active() {
+	public Boolean getCauseActive() {
 		return causeActive;
 	}
 
 
-	public void setCause_active(Boolean cause_active) {
-		this.causeActive = cause_active;
+	public void setCauseActive(Boolean causeActive) {
+		this.causeActive = causeActive;
 	}
 
 
@@ -106,7 +106,7 @@ public class Cause extends BaseEntity {
 	}
 	
 	public void addDonation(Donation donation) {
-		if(this.getCause_active()==true) {
+		if(this.getCauseActive()==true) {
 		getDonationsInternal().add(donation);
 		donation.setCause(this);
 		}

@@ -45,12 +45,12 @@ public class DonationsService {
 		
 		Cause cause = donation.getCause();
 			if(causeService.currentBudget(cause.getId()) + donation.getAmount() < cause.getBudgetTarget()) {
-				donation.setDonation_date(LocalDate.now());
+				donation.setDonationDate(LocalDate.now());
 				donationRepository.save(donation);
 			}
 			else {
-				cause.setCause_active(false);
-				donation.setDonation_date(LocalDate.now());
+				cause.setCauseActive(false);
+				donation.setDonationDate(LocalDate.now());
 				donationRepository.save(donation);	
 		}
 				

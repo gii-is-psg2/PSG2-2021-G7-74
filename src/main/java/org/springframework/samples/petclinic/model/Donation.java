@@ -41,12 +41,12 @@ public class Donation extends BaseEntity{
 		this.amount = amount;
 	}
 
-	public LocalDate getDonation_date() {
+	public LocalDate getDonationDate() {
 		return donationDate;
 	}
 
-	public void setDonation_date(LocalDate donation_date) {
-		this.donationDate = donation_date;
+	public void setDonationDate(LocalDate donationDate) {
+		this.donationDate = donationDate;
 	}
 
 	public String getClient() {

@@ -41,7 +41,7 @@ public class CausesService {
 	//guardar
 	@Transactional
 	public void saveCause(Cause cause) throws DataAccessException {
-		cause.setCause_active(true);
+		cause.setCauseActive(true);
 		causeRepository.save(cause);
 	}
 	
