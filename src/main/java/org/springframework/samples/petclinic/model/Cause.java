@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="causes")
@@ -16,19 +16,19 @@ import javax.validation.constraints.NotEmpty;
 public class Cause extends BaseEntity {
 	
 	@Column(name = "name")
-	@NotEmpty
+	@NotBlank
 	private String name;
 	
 	@Column(name = "description")
-	@NotEmpty
+	@NotBlank
 	private String description;
 	
 	@Column(name = "budgetTarget")
-	@Min(0)
+	@Min(1)
 	private Double budgetTarget;
 	
 	@Column(name = "organization")
-	@NotEmpty
+	@NotBlank
 	private String organization;
 	
 	@Column(name="cause_active")
