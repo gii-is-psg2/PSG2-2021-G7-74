@@ -86,7 +86,6 @@ class AdoptionsServiceTests {
 		
 		try {
 			adoptionsService.save(adop);
-
 		} catch (DataAccessException e) {
             Logger.getLogger(AdoptionsServiceTests.class.getName()).log(Level.SEVERE, null, e);
 		} catch (DuplicatedAdoptionException e) {
@@ -103,62 +102,29 @@ class AdoptionsServiceTests {
 	@Test
 	@Transactional
 	@DisplayName("Nueva Adopcion Duplicada -- caso negativo")
-	//TODO MIRAR LO DE IS NEW 
 	void shouldNotSaveAdoptionDuplicateAdoption() throws DataAccessException, DuplicatedPetNameException, DuplicatedAdoptionException {
 		
 		//Creamos el solicitante
-		Owner applicant = new Owner();
-		applicant.setFirstName("Antonio");
-		applicant.setLastName("Padilla");
-		applicant.setAddress("4, Avenida Jerez");
-		applicant.setCity("Jerez");
-		applicant.setTelephone("4444444444");
-		
-		
-        //Creamos el usuario del solicitante
-  		User user1=new User();
-  		user1.setUsername("antuan");
-  		user1.setPassword("supersecretpassword");
-  		user1.setEnabled(true);
-  		applicant.setUser(user1);  
-		ownerService.saveOwner(applicant);
+		Owner applicant = ownerService.findOwnerById(1);
 
-		//Creamos el owner de la mascota
-        Owner owner = this.ownerService.findOwnerById(6);
-		
-        
 		// Creamos la mascota
-		Pet pet = new Pet();
-		pet.setName("Antonio Jose");
-		Collection<PetType> types = this.petService.findPetTypes();
-		pet.setType(EntityUtils.getById(types, PetType.class, 2));
-		pet.setBirthDate(LocalDate.now().minusYears(2));
-		pet.setAdoptable(true);
-		owner.addPet(pet);
-		petService.savePet(pet);
-
+		Pet pet = petService.findPetById(12);
+				
 		// Creamos la primera solicitud de adopcion
-		Adoptions adop = new  Adoptions();
-		adop.setDate(LocalDate.now().minusDays(1));
-		adop.setDescription("I want to take care of your pet!");
-		adop.setStatus(Status.EN_PROCESO);
-		applicant.addAdoption(adop);
-		pet.addAdoption(adop);
-		
+		Adoptions adop = adoptionsService.findAdoptionById(1);
+
 		// Creamos la segunda solicitud de adopcion replicada
 		Adoptions adop1 =  new  Adoptions();
-		adop1.setDate(LocalDate.now().minusDays(1));
-		adop1.setDescription("I will care your pet, very well!");
-		adop1.setStatus(Status.EN_PROCESO);
-
-
+		adop1.setDate(adop.getDate());
+		adop1.setDescription(adop.getDescription());
+		adop1.setStatus(adop.getStatus());
+		adop1.setApplicant(applicant);
+		adop1.setPet(pet);
+		
 		assertThrows(DuplicatedAdoptionException.class, () -> {	
-			
-			adoptionsService.save(adop);
-			applicant.addAdoption(adop1);
-			pet.addAdoption(adop1);
 			adoptionsService.save(adop1);});
 		}
+	
 	@Test
 	@Transactional
 	@DisplayName("Encontrar Adopcion Por ID")
