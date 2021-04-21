@@ -46,7 +46,6 @@ public class AdoptionsController {
 	@GetMapping("/owners/{ownerId}/adoptions/{adoptionId}/delete")
 	public String deleteById(@PathVariable("ownerId") int ownerId, @PathVariable("adoptionId") int adoptionId) throws OperationNotSupportedException {
 		Owner loggedOwner = this.ownerService.findByUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
-		
 		if(ownerId == loggedOwner.getId()) {
 			Adoptions adoption = adoptionService.findAdoptionById(adoptionId);
 			Owner own = ownerService.findOwnerById(ownerId);
@@ -54,9 +53,8 @@ public class AdoptionsController {
 			
 			pet.removeAdoption(adoption);
 	    	own.removeAdoption(adoption);
-	    	
 			this.adoptionService.deleteAdoptionById(adoptionId);
-			return "redirect:/owners/{ownerId}";
+			return "redirect:/owners/"+ownerId;
 		} else {
 			throw new OperationNotSupportedException("You cannot delete other user's requests");
 		}
