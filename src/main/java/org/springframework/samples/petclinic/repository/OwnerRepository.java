@@ -62,4 +62,6 @@ public interface OwnerRepository extends Repository<Owner, Integer> {
 
 	void deleteById(int id);
 	
+	public Owner findByUserUsername(String username);
+	
 }
