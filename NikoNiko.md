@@ -44,7 +44,7 @@ In the retrospective meeting, the team has a discussion about those results.
 | Day 8         |               |     :smile:    |      :smile:   |   :smile:      |   :smile:      |  :smile:      |
 | Day 9         |               |                |                |                |                |               |
 | Day 10         |              |                |                |                |   :smile:      |  :smile:      |
-| Day 11         |              |                |                |                |                |   :smile:     |
+| Day 11         |              |                |    :smile:     |                |                |   :smile:     |
 | Day 12         |              |                |      :smile:   |                |                |               |
 | Day 13         |              |                |      :smile:   |                |                |     :smile:   |  
 | Day 14         |              |                |                |                |                |               |
