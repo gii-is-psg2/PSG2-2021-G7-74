@@ -15,6 +15,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.HotelBook;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.service.exceptions.BusyBookException;
 import org.springframework.samples.petclinic.service.exceptions.EndDateNotAfterStartDateException;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +48,8 @@ class HotelBookServiceTests {
 		} catch (DataAccessException e) {
 			 Logger.getLogger(HotelBookServiceTests.class.getName()).log(Level.SEVERE, null, e);
 		} catch (EndDateNotAfterStartDateException e) {
+			 Logger.getLogger(HotelBookServiceTests.class.getName()).log(Level.SEVERE, null, e);
+		}catch (BusyBookException e) {
 			 Logger.getLogger(HotelBookServiceTests.class.getName()).log(Level.SEVERE, null, e);
 		}
 		
