@@ -34,18 +34,18 @@ In the retrospective meeting, the team has a discussion about those results.
 
 | Day           | AMARQUEZ      | Fernando       | Carlos         | Alfonso        | Juan Carlos    | Alejandro     |
 | ------------- | ------------- | -------------  | -------------  | -------------  | -------------  | ------------- |
-| Day 1         | :smile:       |      :smile:   |    :smile:     |     :smile:    |        :smile: |     :smile:   |
+| Day 1         | :smiley:       |      :smiley:   |    :smiley:     |     :smiley:    |        :smiley: |     :smiley:   |
 | Day 2         |               |                |                |                |                |               |
 | Day 3         |               |                |                |                |                |               |
-| Day 4         |               |     :smile:    |     :smile:    |  :smile:       |                |               | 
+| Day 4         |               |     :smiley:    |     :smiley:    |  :smiley:       |                |               | 
 | Day 5         |               |                |                |                |                |               |
 | Day 6         |               |                |                |                |                |               |
-| Day 7         |               |                |                |                |   :smile:      |  :smile:      |
-| Day 8         |               |     :smile:    |      :smile:   |   :smile:      |   :smile:      |  :smile:      |
+| Day 7         |               |                |                |                |   :smiley:      |  :smiley:      |
+| Day 8         |               |     :smiley:    |      :smiley:   |   :smiley:      |   :smiley:      |  :smiley:      |
 | Day 9         |               |                |                |                |                |               |
-| Day 10         |              |                |                |                |   :smile:      |  :smile:      |
-| Day 11         |              |                |    :smile:     |                |                |   :smile:     |
-| Day 12         |              |                |      :smile:   |                |                |               |
-| Day 13         |              |                |      :smiley:   |                |                |     :smile:   |  
+| Day 10         |              |                |                |                |   :smiley:      |  :smiley:      |
+| Day 11         |              |                |    :smiley:     |                |                |   :smiley:     |
+| Day 12         |              |                |      :smiley:   |                |                |               |
+| Day 13         |              |                |      :smiley:   |                |                |     :smiley:   |  
 | Day 14         |              |                |       :neutral_face:        |                |                |         :neutral_face:      |
 | Day 15         |              |                |                |                |                |               |
