@@ -17,7 +17,7 @@ import javax.validation.constraints.PastOrPresent;
 @Table(name = "adoptions")
 
 
-public class Adoptions extends BaseEntity{
+public class Adoption extends BaseEntity{
 	
 	@NotNull
 	@ManyToOne

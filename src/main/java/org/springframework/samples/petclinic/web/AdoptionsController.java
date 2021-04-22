@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.stream.Collectors;
 import javax.naming.OperationNotSupportedException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Adoptions;
+import org.springframework.samples.petclinic.model.Adoption;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Status;
@@ -45,7 +45,7 @@ public class AdoptionsController {
 		Owner loggedOwner = this.ownerService.getLoggedOwner();
 		
 		if(ownerId == loggedOwner.getId()) {
-			Adoptions adoption = adoptionService.findAdoptionById(adoptionId);
+			Adoption adoption = adoptionService.findAdoptionById(adoptionId);
 			Owner own = ownerService.findOwnerById(ownerId);
 			Pet pet = adoption.getPet();
 			
@@ -75,7 +75,7 @@ public class AdoptionsController {
 	@GetMapping("/owners/{ownerId}/adoptions/{adoptionId}/accept")
 	public String acceptRequest(@PathVariable("adoptionId") int adoptionId) {
 		//accept the request
-		Adoptions adoption = this.adoptionService.findAdoptionById(adoptionId);
+		Adoption adoption = this.adoptionService.findAdoptionById(adoptionId);
 		adoption.setStatus(Status.ACEPTADA);
 		
 		//change the pet owner
@@ -112,7 +112,7 @@ public class AdoptionsController {
 	@GetMapping("/owners/{ownerId}/adoptions/{adoptionId}/deny")
 	public String denyRequest(@PathVariable("adoptionId") int adoptionId) {
 		//deny the request
-		Adoptions adoption = this.adoptionService.findAdoptionById(adoptionId);
+		Adoption adoption = this.adoptionService.findAdoptionById(adoptionId);
 		adoption.setStatus(Status.DENEGADA);
 		
 		//save changes
@@ -140,7 +140,7 @@ public class AdoptionsController {
 	}
 	
 	@PostMapping("/adoptions")
-	public String newAdoption(Adoptions adoption, int petId) {
+	public String newAdoption(Adoption adoption, int petId) {
 		Owner loggedOwner = this.ownerService.getLoggedOwner();
 		Pet pet = this.petService.findPetById(petId);
 		
