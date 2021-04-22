@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/donation/{causeId}")
-public class DonationController {
+public class DonationsController {
 	
 	private final DonationsService donationService;
 	private final CausesService causesService;
 
 	@Autowired
-	public DonationController(DonationsService donationService,CausesService causeService) {
+	public DonationsController(DonationsService donationService,CausesService causeService) {
 		this.donationService = donationService;
 		this.causesService = causeService;
 	}

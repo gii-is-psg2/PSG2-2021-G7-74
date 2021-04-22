@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class CauseController {
+public class CausesController {
 
 	private final CausesService causeService;
 
 	@Autowired
-	public CauseController(CausesService causeService) {
+	public CausesController(CausesService causeService) {
 		this.causeService = causeService;
 	}
 	
@@ -77,7 +77,7 @@ public class CauseController {
 	}
 		
 	@GetMapping("/causes/{causesId}")
-	public ModelAndView showOwner(@PathVariable("causesId") int causesId) {
+	public ModelAndView showCause(@PathVariable("causesId") int causesId) {
 		ModelAndView mav = new ModelAndView("causes/causesDetails");
 		mav.addObject(this.causeService.findCause(causesId));
 		return mav;
