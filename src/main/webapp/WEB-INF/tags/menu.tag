@@ -41,12 +41,11 @@
 					<span class="option-text"><fmt:message key="menu.veterinarians"/></span>
 				</petclinic:menuItem>
 
-				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
-					title="trigger a RuntimeException to see how it is handled">
-					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-					<span class="option-text"><fmt:message key="menu.error"/></span>
+				<petclinic:menuItem active="${name eq 'causes'}" url="/causes/find"
+					title="causes">
+					<span class="glyphicon glyphicon-grain" aria-hidden="true"></span>
+					<span class="option-text"><fmt:message key="menu.causes"/></span>
 				</petclinic:menuItem>
-
 			</ul>
 
 

@@ -26,10 +26,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-
 import javax.naming.OperationNotSupportedException;
 import javax.validation.Valid;
-
 import java.util.Collection;
 import org.springframework.beans.BeanUtils;
 import org.springframework.samples.petclinic.service.OwnerService;
