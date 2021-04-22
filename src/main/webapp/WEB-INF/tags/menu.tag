@@ -46,6 +46,13 @@
 					<span class="glyphicon glyphicon-grain" aria-hidden="true"></span>
 					<span class="option-text"><fmt:message key="menu.causes"/></span>
 				</petclinic:menuItem>
+				
+				<petclinic:menuItem active="${name eq 'adoptions'}" url="/adoptions"
+					title="causes">
+					<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+					<span class="option-text"><fmt:message key="menu.adoptions"/></span>
+				</petclinic:menuItem>
+				
 			</ul>
 
 

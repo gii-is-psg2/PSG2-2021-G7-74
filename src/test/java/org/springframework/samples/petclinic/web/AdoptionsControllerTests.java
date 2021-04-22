@@ -181,7 +181,7 @@ class AdoptionsControllerTests {
 	void testDeleteById() throws Exception {
 		
 		given(this.ownerService.findOwnerById(OWNER_ID_TEST)).willReturn(george);
-		given(this.ownerService.findByUsername(any(String.class))).willReturn(george);
+		given(this.ownerService.getLoggedOwner()).willReturn(george);
 		given(this.adoptionsService.findAdoptionById(ADOPTION_ID_TEST)).willReturn(adopcion);
 		
 		Integer numAdoptionsOwner = george.getAdoptions().size();
@@ -202,7 +202,7 @@ class AdoptionsControllerTests {
 	void testDeleteByIdNotOwner() throws Exception {
 		
 		given(this.ownerService.findOwnerById(APPLICANT_ID_TEST)).willReturn(george);
-		given(this.ownerService.findByUsername(any(String.class))).willReturn(paco);
+		given(this.ownerService.getLoggedOwner()).willReturn(paco);
 		given(this.adoptionsService.findAdoptionById(ADOPTION_ID_TEST)).willReturn(adopcion);
 		
 		MvcResult resultException = mockMvc.perform(get("/owners/{ownerId}/adoptions/{adoptionId}/delete",OWNER_ID_TEST,ADOPTION_ID_TEST)
@@ -221,7 +221,7 @@ class AdoptionsControllerTests {
 	void testInitAdoptionsList() throws Exception {
 		
 		given(this.ownerService.findOwnerById(OWNER_ID_TEST)).willReturn(george);
-		given(this.ownerService.findByUsername(any(String.class))).willReturn(george);
+		given(this.ownerService.getLoggedOwner()).willReturn(george);
 		given(this.petService.findPetById(PET_ID_TEST)).willReturn(pet);
 
 		mockMvc.perform(get("/owners/{ownerId}/adoptions/pets/{petId}",OWNER_ID_TEST,PET_ID_TEST))
@@ -235,8 +235,8 @@ class AdoptionsControllerTests {
 	void testInitAdoptionsListNotOwner() throws Exception {
 		
 		given(this.ownerService.findOwnerById(APPLICANT_ID_TEST)).willReturn(george);
-		given(this.ownerService.findByUsername(any(String.class))).willReturn(paco);
-		
+		given(this.ownerService.getLoggedOwner()).willReturn(paco);
+
 		MvcResult resultException = mockMvc.perform(get("/owners/{ownerId}/adoptions/pets/{petId}",OWNER_ID_TEST,PET_ID_TEST))
 		.andExpect(status().isOk())
 		.andExpect(view().name("exception"))
@@ -317,7 +317,7 @@ class AdoptionsControllerTests {
 	@Test
 	void testNewAdoption() throws Exception {
 		
-		given(this.ownerService.findByUsername(any(String.class))).willReturn(paco);
+		given(this.ownerService.getLoggedOwner()).willReturn(paco);
 		given(this.petService.findPetById(PET_ID_TEST)).willReturn(pet);
 		
 		mockMvc.perform(post("/adoptions")

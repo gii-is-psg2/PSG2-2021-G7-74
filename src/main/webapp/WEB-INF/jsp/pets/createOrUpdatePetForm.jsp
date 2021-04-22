@@ -21,6 +21,8 @@
 	        <form:form modelAttribute="pet"
 	                   class="form-horizontal">
 	            <input type="hidden" name="id" value="${pet.id}"/>
+	            <c:if test="${pet['new']}"><input type="hidden" name="adoptable" value="false"/></c:if>
+	            <c:if test="${!pet['new']}">  <input type="hidden" name="adoptable" value="${pet.id}"/></c:if>  
 	            <div class="form-group has-feedback">
 	                <div class="form-group">
 	                    <label class="col-sm-2 control-label"><fmt:message key="createOrUpdatePetForm.owner"/> </label>

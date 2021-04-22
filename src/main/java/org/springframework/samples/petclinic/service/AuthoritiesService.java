@@ -49,6 +49,7 @@ public class AuthoritiesService {
 		authoritiesRepository.save(authorities);
 	}
 	
+	@SuppressWarnings("serial")
 	@Transactional
 	public void saveAuthorities(String username, String role) throws DataAccessException {
 		Authorities authority = new Authorities();

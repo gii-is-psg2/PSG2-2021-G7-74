@@ -162,7 +162,8 @@ class HotelBookServiceTests {
 		hb.setStartDate(hotelBookService.listHotelBookByPetId(1).get(0).getStartDate().plusDays(2));
 		hb.setEndDate(hotelBookService.listHotelBookByPetId(1).get(0).getEndDate().plusDays(1));
 		hb.setPet(petService.findPetById(1));
-
+		
+		assertThrows(BusyBookException.class, () -> {hotelBookService.saveHotelBook(hb);});
 	}
 	
 	@Test
@@ -174,7 +175,8 @@ class HotelBookServiceTests {
 		hb.setStartDate(hotelBookService.listHotelBookByPetId(1).get(0).getStartDate());
 		hb.setEndDate(hotelBookService.listHotelBookByPetId(1).get(0).getEndDate());
 		hb.setPet(petService.findPetById(1));
-
+		
+		assertThrows(BusyBookException.class, () -> {hotelBookService.saveHotelBook(hb);});
 	}
 	
 	@Test

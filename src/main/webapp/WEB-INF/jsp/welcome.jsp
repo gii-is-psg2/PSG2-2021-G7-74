@@ -6,8 +6,10 @@
 
 <petclinic:layout pageName="home">
 	<div class = "welcome-body">
-	    <h2 class = "welcome-message"><fmt:message key="welcome"/></h2>
+		<fmt:message key="welcome" var="ownerWelcome"/>
+	    <h2 class = "welcome-message">${owner.firstName} <b> </b> ${ownerWelcome}</h2>
 		<spring:url value="/resources/images/lince.png" htmlEscape="true" var="linceImage"/>
 		<img class="bg-image" src="${linceImage}"/>
+
 	</div>
 </petclinic:layout>

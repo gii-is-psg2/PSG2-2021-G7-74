@@ -17,6 +17,7 @@
 	            <th style="width: 600px;"><fmt:message key="causesList.description"/></th>
 	            <th><fmt:message key="causesList.budgetTarget"/></th>
 	           	<th><fmt:message key="causesList.achievedTarget"/></th>
+	           	<th><fmt:message key="causes.progressBar"></fmt:message></th>
 	            <th style="width: 120px"><fmt:message key="causesList.organization"/></th>
 	            <th><fmt:message key="causesList.createDonation"/></th>
 	        </tr>
@@ -38,6 +39,9 @@
 	                </td>
 	               	<td>
 	                     <c:out value="${cause.achievedTarget}"/>
+	                </td>
+	                <td>
+	                	<progress max="${cause.budgetTarget}" value="${cause.achievedTarget}"> </progress>
 	                </td>
 	                <td>
 	                    <c:out value="${cause.organization}"/>

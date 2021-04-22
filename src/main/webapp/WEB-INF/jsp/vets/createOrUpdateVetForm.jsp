@@ -39,7 +39,7 @@
 	                        <button class="btn btn-default" type="submit"><fmt:message key="vetForm.add"/></button>
 	                    </c:when>
 	                    <c:otherwise>
-	                        <button class="btn btn-default" type="submit"><fmt:message key="vetForm.update"/></button>
+	                        <button class="btn btn-default" type="submit"><fmt:message key="vet.editVet"/></button>
 	                    </c:otherwise>
 	                </c:choose>
 	            </div>
