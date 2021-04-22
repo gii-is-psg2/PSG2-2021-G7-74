@@ -27,6 +27,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,8 +35,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 
 /**
  * Simple business object representing a pet.
@@ -65,6 +65,22 @@ public class Pet extends NamedEntity {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
 	private Set<HotelBook> hotelBooks;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
+	private Set<Adoption> adoptions;
+	
+	@NotNull
+	@JoinColumn(name = "adoptable")
+	private Boolean adoptable;
+	
+	
+	public Boolean getAdoptable() {
+		return this.adoptable;
+	}
+	
+	public void setAdoptable(Boolean adoptable) {
+		this.adoptable = adoptable;
+	}
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
@@ -103,6 +119,13 @@ public class Pet extends NamedEntity {
 		}
 		return this.hotelBooks;
 	}
+	
+	protected Set<Adoption> getAdoptionsInternal(){
+		if (this.adoptions == null) {
+			this.adoptions = new HashSet<>();
+		}
+		return this.adoptions;
+	}
 
 	protected void setVisitsInternal(Set<Visit> visits) {
 		this.visits = visits;
@@ -110,6 +133,10 @@ public class Pet extends NamedEntity {
 	
 	protected void setHotelBooks(Set<HotelBook> hotelBooks) {
 		this.hotelBooks = hotelBooks;
+	}
+	
+	protected void setAdoptionsInternal(Set<Adoption> adoptions) {
+		this.adoptions = adoptions;
 	}
 
 	public List<Visit> getVisits() {
@@ -123,6 +150,12 @@ public class Pet extends NamedEntity {
 		PropertyComparator.sort(sortedHotelBooks, new MutableSortDefinition("startDate",false,false));
 		return Collections.unmodifiableList(sortedHotelBooks);
 	}
+	
+	public List<Adoption> getAdoptions(){
+		List<Adoption> sortedAdoptions = new ArrayList<>(getAdoptionsInternal());
+		PropertyComparator.sort(sortedAdoptions, new MutableSortDefinition("date",false,false));
+		return Collections.unmodifiableList(sortedAdoptions);
+	}
 
 	public void addVisit(Visit visit) {
 		getVisitsInternal().add(visit);
@@ -133,5 +166,13 @@ public class Pet extends NamedEntity {
 		getHotelBooksInternal().add(hotelBook);
 		hotelBook.setPet(this);
 	}
-
+	
+	public void addAdoption(Adoption adoption) {
+		getAdoptionsInternal().add(adoption);
+		adoption.setPet(this);
+	}
+	
+	public void removeAdoption(Adoption adoption) {
+		getAdoptionsInternal().remove(adoption);
+	}
 }

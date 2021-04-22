@@ -17,7 +17,6 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.service.PetService;
-import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -33,9 +32,6 @@ import org.springframework.test.web.servlet.MockMvc;
 class VisitControllerTests {
 
 	private static final int TEST_PET_ID = 1;
-
-	@Autowired
-	private VisitController visitController;
 
 	@MockBean
 	private PetService clinicService;

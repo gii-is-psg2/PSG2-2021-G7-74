@@ -1,4 +1,5 @@
 /*
+
  * Copyright 2002-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,14 +18,11 @@ package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
 import java.util.Map;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.OwnerService;
-import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -135,7 +133,10 @@ public class OwnerController {
 	 * @return a ModelMap with the model attributes for the view
 	 */
 	@GetMapping("/owners/{ownerId}")
-	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
+	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId,Model model) {	
+		Owner loggedOwner = this.ownerService.getLoggedOwner();
+
+		model.addAttribute("isCurrentUser",loggedOwner.getId()==ownerId);
 		ModelAndView mav = new ModelAndView("owners/ownerDetails");
 		mav.addObject(this.ownerService.findOwnerById(ownerId));
 		return mav;

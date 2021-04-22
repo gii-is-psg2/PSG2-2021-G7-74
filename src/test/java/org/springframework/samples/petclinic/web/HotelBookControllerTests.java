@@ -53,7 +53,8 @@ public class HotelBookControllerTests {
 		
 		given(this.petService.findPetById(PET_ID_TEST)).willReturn(new Pet());
 		given(this.ownerService.findOwnerById(OWNER_ID_TEST)).willReturn(new Owner());
-		
+		given(this.ownerService.findOwnerById(OWNER_ID_TEST)).willReturn(new Owner());
+
 	}
 	
 	@WithMockUser(value="spring")

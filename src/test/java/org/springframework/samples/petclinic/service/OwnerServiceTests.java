@@ -123,9 +123,9 @@ class OwnerServiceTests {
 	@Test
 	@Transactional
 	void shouldDeleteOwner() {
-		this.ownerService.deleteOwnerById(1);
+		this.ownerService.deleteOwnerById(4);
 		
-		Owner owner = this.ownerService.findOwnerById(1);
+		Owner owner = this.ownerService.findOwnerById(4);
 		assertThat(owner).isNull();
 	}
 }
