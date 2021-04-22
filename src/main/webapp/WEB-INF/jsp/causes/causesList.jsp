@@ -42,7 +42,7 @@
 	                <td>
 	                    <c:out value="${cause.organization}"/>
 	                </td>
-	                <c:if test="${cause.cause_active}">
+	                <c:if test="${cause.causeActive}">
 	                  <td>
 	                    <spring:url value="/donation/{causeId}/donation/new" var="addUrl">
 	        				<spring:param name="causeId" value="${cause.id}"/>
@@ -50,7 +50,7 @@
 	    				<a href="${fn:escapeXml(addUrl)}" class="btn btn-default"><fmt:message key="causeDetails.donation.button.add"/></a>
 	                </td>
 	                </c:if>
-  	                <c:if test="${!cause.cause_active}">
+  	                <c:if test="${!cause.causeActive}">
   	                 <td>
   	                	<p style="color: #04c735;"><fmt:message key="causeDetails.causeClosed"/></p>
   	                </td>

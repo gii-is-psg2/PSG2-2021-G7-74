@@ -32,7 +32,7 @@
 	        </tr>
 	        
 	    </table>
-		<c:if test="${cause.cause_active}">
+		<c:if test="${cause.causeActive}">
 	    <spring:url value="/donation/{causeId}/donation/new" var="addUrl">
 	        <spring:param name="causeId" value="${cause.id}"/>
 	    </spring:url>
@@ -52,7 +52,7 @@
 	                        <dt><fmt:message key="donationDetails.amount"/></dt>
 	                        <dd><c:out value="${donation.amount}"/></dd>
 	                        <dt><fmt:message key="donationDetails.donation_date"/></dt>
-	                        <dd><petclinic:localDate date="${donation.donation_date}" pattern="yyyy-MM-dd"/></dd>
+	                        <dd><petclinic:localDate date="${donation.donationDate}" pattern="yyyy-MM-dd"/></dd>
 	                        <dt><fmt:message key="donationDetails.client"/></dt>
 	                        <dd><c:out value="${donation.client}"/></dd>
 	                    </dl>
