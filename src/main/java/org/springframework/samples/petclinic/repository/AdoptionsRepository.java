@@ -5,20 +5,20 @@ import java.util.Optional;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.repository.Repository;
-import org.springframework.samples.petclinic.model.Adoptions;
+import org.springframework.samples.petclinic.model.Adoption;
 
-public interface AdoptionsRepository extends Repository<Adoptions,Integer>{
+public interface AdoptionsRepository extends Repository<Adoption,Integer>{
 	
 	
-	void save(Adoptions adoptions) throws DataAccessException;
+	void save(Adoption adoptions) throws DataAccessException;
 	
 	//List<Adoptions> findByOwner(Integer ownerId);
 	
 	void deleteById(int id);
 	
-	List<Adoptions> findAll();
+	List<Adoption> findAll();
 	
-	Optional<Adoptions> findById(int id);
+	Optional<Adoption> findById(int id);
 	
 	
 

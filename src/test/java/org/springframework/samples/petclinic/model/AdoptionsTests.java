@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 class AdoptionsTests extends ValidatorTests {
 
-	private Adoptions createSUT(Integer pet, String description, Integer owner, String status, String date) {
+	private Adoption createSUT(Integer pet, String description, Integer owner, String status, String date) {
 
 		Pet p = null;
 		Owner own = null;
@@ -24,7 +24,7 @@ class AdoptionsTests extends ValidatorTests {
 			own = new Owner();
 		}
 
-		Adoptions adop = new Adoptions();
+		Adoption adop = new Adoption();
 		adop.setPet(p);
 		adop.setDescription(description);
 		adop.setApplicant(own);
@@ -39,9 +39,9 @@ class AdoptionsTests extends ValidatorTests {
 			"1,I am going to treat Joan very good, 1,EN_PROCESO,21/03/2021",
 			"1,I love your pet!, 1,DENEGADA,21/09/2020", })
 	void validateAdoptionNoErrorTest(Integer pet, String description, Integer owner, String status, String date) {
-		Adoptions adop = this.createSUT(pet, description, owner, status, date);
+		Adoption adop = this.createSUT(pet, description, owner, status, date);
 		Validator validator = createValidator();
-		Set<ConstraintViolation<Adoptions>> constraintViolations = validator.validate(adop);
+		Set<ConstraintViolation<Adoption>> constraintViolations = validator.validate(adop);
 		assertThat(constraintViolations.size()).isEqualTo(0);
 	}
 
@@ -50,9 +50,9 @@ class AdoptionsTests extends ValidatorTests {
 			"0,I am going to treat Joan very good, 1,EN_PROCESO,21/03/2021",
 			"-1,I love your pet!, 1,DENEGADA,21/09/2020", })
 	void validateAdoptionPetIsNull(Integer pet, String description, Integer owner, String status, String date) {
-		Adoptions adop = this.createSUT(pet, description, owner, status, date);
+		Adoption adop = this.createSUT(pet, description, owner, status, date);
 		Validator validator = createValidator();
-		Set<ConstraintViolation<Adoptions>> constraintViolations = validator.validate(adop);
+		Set<ConstraintViolation<Adoption>> constraintViolations = validator.validate(adop);
 		assertThat(constraintViolations.size()).isEqualTo(1);
 	}
 
@@ -61,9 +61,9 @@ class AdoptionsTests extends ValidatorTests {
 		"1,, 1,EN_PROCESO,21/03/2021", })
 	void validateAdoptionDescriptionIsBlank(Integer pet, String description, Integer owner, String status,
 			String date) {
-		Adoptions adop = this.createSUT(pet, description, owner, status, date);
+		Adoption adop = this.createSUT(pet, description, owner, status, date);
 		Validator validator = createValidator();
-		Set<ConstraintViolation<Adoptions>> constraintViolations = validator.validate(adop);
+		Set<ConstraintViolation<Adoption>> constraintViolations = validator.validate(adop);
 		assertThat(constraintViolations.size()).isEqualTo(1);
 	}
 
@@ -72,9 +72,9 @@ class AdoptionsTests extends ValidatorTests {
 			"1,I am going to treat Joan very good,,EN_PROCESO,21/03/2021",
 			"1,I love your pet!,-8,DENEGADA,21/09/2020", })
 	void validateAdoptionApplicantIsNull(Integer pet, String description, Integer owner, String status, String date) {
-		Adoptions adop = this.createSUT(pet, description, owner, status, date);
+		Adoption adop = this.createSUT(pet, description, owner, status, date);
 		Validator validator = createValidator();
-		Set<ConstraintViolation<Adoptions>> constraintViolations = validator.validate(adop);
+		Set<ConstraintViolation<Adoption>> constraintViolations = validator.validate(adop);
 		assertThat(constraintViolations.size()).isEqualTo(1);
 	}
 
@@ -82,9 +82,9 @@ class AdoptionsTests extends ValidatorTests {
 	@CsvSource({ "1,I am going to treat Lucky very good,1,,21/02/2021",
 			"1,I am going to treat Joan very good,1,,21/03/2021", })
 	void validateAdoptionStatusIsNull(Integer pet, String description, Integer owner, String status, String date) {
-		Adoptions adop = this.createSUT(pet, description, owner, status, date);
+		Adoption adop = this.createSUT(pet, description, owner, status, date);
 		Validator validator = createValidator();
-		Set<ConstraintViolation<Adoptions>> constraintViolations = validator.validate(adop);
+		Set<ConstraintViolation<Adoption>> constraintViolations = validator.validate(adop);
 		assertThat(constraintViolations.size()).isEqualTo(1);
 	}
 
@@ -92,9 +92,9 @@ class AdoptionsTests extends ValidatorTests {
 	@CsvSource({ "1,I am going to treat Lucky very good,1,ACEPTADA,",
 			"1,I am going to treat Joan very good,1,EN_PROCESO,", })
 	void validateAdoptiondDateIsNull(Integer pet, String description, Integer owner, String status, String date) {
-		Adoptions adop = this.createSUT(pet, description, owner, status, date);
+		Adoption adop = this.createSUT(pet, description, owner, status, date);
 		Validator validator = createValidator();
-		Set<ConstraintViolation<Adoptions>> constraintViolations = validator.validate(adop);
+		Set<ConstraintViolation<Adoption>> constraintViolations = validator.validate(adop);
 		assertThat(constraintViolations.size()).isEqualTo(1);
 	}
 
@@ -102,9 +102,9 @@ class AdoptionsTests extends ValidatorTests {
 	@CsvSource({ "1,I am going to treat Lucky very good,1,ACEPTADA,21/08/2021",
 			"1,I am going to treat Joan very good,1,EN_PROCESO,31/12/2021", })
 	void validateAdoptiondDateIsFuture(Integer pet, String description, Integer owner, String status, String date) {
-		Adoptions adop = this.createSUT(pet, description, owner, status, date);
+		Adoption adop = this.createSUT(pet, description, owner, status, date);
 		Validator validator = createValidator();
-		Set<ConstraintViolation<Adoptions>> constraintViolations = validator.validate(adop);
+		Set<ConstraintViolation<Adoption>> constraintViolations = validator.validate(adop);
 		assertThat(constraintViolations.size()).isEqualTo(1);
 	}
 }

@@ -31,6 +31,11 @@
 	            <td><c:out value="${cause.organization}"/></td>
 	        </tr>
 	        
+   	        <tr>
+	            <th><fmt:message key="causes.progressBar"/></th>
+	            <td><progress max="${cause.budgetTarget}" value="${cause.achievedTarget}"> </progress></td>
+	        </tr>
+	        
 	    </table>
 		<c:if test="${cause.causeActive}">
 	    <spring:url value="/donation/{causeId}/donation/new" var="addUrl">

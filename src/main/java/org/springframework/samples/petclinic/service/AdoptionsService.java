@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Adoptions;
+import org.springframework.samples.petclinic.model.Adoption;
 import org.springframework.samples.petclinic.model.Status;
 import org.springframework.samples.petclinic.repository.AdoptionsRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedAdoptionException;
@@ -22,8 +22,8 @@ public class AdoptionsService {
 	}
 	
 	@Transactional(rollbackFor = DuplicatedAdoptionException.class)
-	public void save (Adoptions adoptions) throws DataAccessException,DuplicatedAdoptionException {
-		List<Adoptions> list = adoptionsRepository.findAll();
+	public void save (Adoption adoptions) throws DataAccessException,DuplicatedAdoptionException {
+		List<Adoption> list = adoptionsRepository.findAll();
 		if(adoptions.isNew() && list.stream()
 				.anyMatch(a->a.getPet().equals(adoptions.getPet()) 
 						&& a.getApplicant().equals(adoptions.getApplicant()) 
@@ -36,7 +36,7 @@ public class AdoptionsService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Adoptions findAdoptionById(int adoptionId) throws DataAccessException{
+	public Adoption findAdoptionById(int adoptionId) throws DataAccessException{
 		return adoptionsRepository.findById(adoptionId).orElse(null);
 	}
 	
@@ -46,7 +46,7 @@ public class AdoptionsService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<Adoptions> findAll(){
+	public List<Adoption> findAll(){
 		return this.adoptionsRepository.findAll();
 	}
 	

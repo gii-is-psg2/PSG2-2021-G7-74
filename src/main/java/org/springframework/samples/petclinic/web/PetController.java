@@ -33,8 +33,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * @author Juergen Hoeller
@@ -154,8 +152,8 @@ public class PetController {
 
 	@GetMapping(value = "/pets/{petId}/toogleAdoptable")
 	public String toggleAdoptable(@PathVariable("petId") int petId, @PathVariable("ownerId") int ownerId) throws DataAccessException, DuplicatedPetNameException, OperationNotSupportedException {
-		Owner loggedOwner = this.ownerService.findByUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
-		
+		Owner loggedOwner = this.ownerService.getLoggedOwner();
+
 		if(ownerId == loggedOwner.getId()) {
 			Pet pet = this.petService.findPetById(petId);
 			pet.setAdoptable(!pet.getAdoptable());
@@ -163,7 +161,7 @@ public class PetController {
 				pet.getAdoptions().forEach(x -> {if(x.getStatus().equals(Status.EN_PROCESO)) x.setStatus(Status.DENEGADA);});
 			}
 			this.petService.savePet(pet);
-			return "redirect:/owners/{ownerId}";
+			return "redirect:/owners/"+ownerId;
 		} else {
 			throw new OperationNotSupportedException("You cannot set this property from a non-propertary user's account");
 		}

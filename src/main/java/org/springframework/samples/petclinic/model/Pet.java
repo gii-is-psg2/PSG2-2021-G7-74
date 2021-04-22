@@ -67,7 +67,7 @@ public class Pet extends NamedEntity {
 	private Set<HotelBook> hotelBooks;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
-	private Set<Adoptions> adoptions;
+	private Set<Adoption> adoptions;
 	
 	@NotNull
 	@JoinColumn(name = "adoptable")
@@ -120,7 +120,7 @@ public class Pet extends NamedEntity {
 		return this.hotelBooks;
 	}
 	
-	protected Set<Adoptions> getAdoptionsInternal(){
+	protected Set<Adoption> getAdoptionsInternal(){
 		if (this.adoptions == null) {
 			this.adoptions = new HashSet<>();
 		}
@@ -135,7 +135,7 @@ public class Pet extends NamedEntity {
 		this.hotelBooks = hotelBooks;
 	}
 	
-	protected void setAdoptionsInternal(Set<Adoptions> adoptions) {
+	protected void setAdoptionsInternal(Set<Adoption> adoptions) {
 		this.adoptions = adoptions;
 	}
 
@@ -151,8 +151,8 @@ public class Pet extends NamedEntity {
 		return Collections.unmodifiableList(sortedHotelBooks);
 	}
 	
-	public List<Adoptions> getAdoptions(){
-		List<Adoptions> sortedAdoptions = new ArrayList<>(getAdoptionsInternal());
+	public List<Adoption> getAdoptions(){
+		List<Adoption> sortedAdoptions = new ArrayList<>(getAdoptionsInternal());
 		PropertyComparator.sort(sortedAdoptions, new MutableSortDefinition("date",false,false));
 		return Collections.unmodifiableList(sortedAdoptions);
 	}
@@ -167,12 +167,12 @@ public class Pet extends NamedEntity {
 		hotelBook.setPet(this);
 	}
 	
-	public void addAdoption(Adoptions adoption) {
+	public void addAdoption(Adoption adoption) {
 		getAdoptionsInternal().add(adoption);
 		adoption.setPet(this);
 	}
 	
-	public void removeAdoption(Adoptions adoption) {
+	public void removeAdoption(Adoption adoption) {
 		getAdoptionsInternal().remove(adoption);
 	}
 }

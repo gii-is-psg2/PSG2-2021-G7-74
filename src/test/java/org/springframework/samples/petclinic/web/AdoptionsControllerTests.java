@@ -20,7 +20,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
-import org.springframework.samples.petclinic.model.Adoptions;
+import org.springframework.samples.petclinic.model.Adoption;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
@@ -77,13 +77,13 @@ class AdoptionsControllerTests {
 	
 	private Owner jose;
 
-	private Adoptions adopcion;
+	private Adoption adopcion;
 	
-	private Adoptions adopcion2;
+	private Adoption adopcion2;
 
-	private Adoptions adopcion3;
+	private Adoption adopcion3;
 
-	private List<Adoptions> adoptionsList;
+	private List<Adoption> adoptionsList;
 	
 	private Pet pet;
 		
@@ -139,7 +139,7 @@ class AdoptionsControllerTests {
 		george.addPet(pet);
 		
 		//Adopcion 1
-		adopcion = new Adoptions();
+		adopcion = new Adoption();
 		adopcion.setId(ADOPTION_ID_TEST);
 		adopcion.setDate(LocalDate.now().minusDays(1));
 		adopcion.setDescription("Hey, i will take care of your little pet");
@@ -149,7 +149,7 @@ class AdoptionsControllerTests {
 		adopcion.setStatus(Status.EN_PROCESO);
 		
 		//Adopcion 2
-		adopcion2 = new Adoptions();
+		adopcion2 = new Adoption();
 		adopcion2.setId(ADOPTION_ID_TEST_2);
 		adopcion2.setDate(LocalDate.now().minusDays(1));
 		adopcion2.setDescription("I would pleasure to adopt your pet");
@@ -159,7 +159,7 @@ class AdoptionsControllerTests {
 		adopcion2.setStatus(Status.EN_PROCESO);
 		
 		//Adopcion 3
-		adopcion3 = new Adoptions();
+		adopcion3 = new Adoption();
 		adopcion3.setId(ADOPTION_ID_TEST_3);
 		adopcion3.setDate(LocalDate.now().minusDays(1));
 		adopcion3.setDescription("I'm in love with your pet, let me be his new owner!!");
@@ -168,7 +168,7 @@ class AdoptionsControllerTests {
 		adopcion3.setApplicant(jose);
 		adopcion3.setStatus(Status.EN_PROCESO);
 
-		adoptionsList = new ArrayList<Adoptions>();
+		adoptionsList = new ArrayList<Adoption>();
 		adoptionsList.add(adopcion);
 		adoptionsList.add(adopcion2);
 		adoptionsList.add(adopcion3);
@@ -181,7 +181,7 @@ class AdoptionsControllerTests {
 	void testDeleteById() throws Exception {
 		
 		given(this.ownerService.findOwnerById(OWNER_ID_TEST)).willReturn(george);
-		given(this.ownerService.findByUsername(any(String.class))).willReturn(george);
+		given(this.ownerService.getLoggedOwner()).willReturn(george);
 		given(this.adoptionsService.findAdoptionById(ADOPTION_ID_TEST)).willReturn(adopcion);
 		
 		Integer numAdoptionsOwner = george.getAdoptions().size();
@@ -202,7 +202,7 @@ class AdoptionsControllerTests {
 	void testDeleteByIdNotOwner() throws Exception {
 		
 		given(this.ownerService.findOwnerById(APPLICANT_ID_TEST)).willReturn(george);
-		given(this.ownerService.findByUsername(any(String.class))).willReturn(paco);
+		given(this.ownerService.getLoggedOwner()).willReturn(paco);
 		given(this.adoptionsService.findAdoptionById(ADOPTION_ID_TEST)).willReturn(adopcion);
 		
 		MvcResult resultException = mockMvc.perform(get("/owners/{ownerId}/adoptions/{adoptionId}/delete",OWNER_ID_TEST,ADOPTION_ID_TEST)
@@ -221,7 +221,7 @@ class AdoptionsControllerTests {
 	void testInitAdoptionsList() throws Exception {
 		
 		given(this.ownerService.findOwnerById(OWNER_ID_TEST)).willReturn(george);
-		given(this.ownerService.findByUsername(any(String.class))).willReturn(george);
+		given(this.ownerService.getLoggedOwner()).willReturn(george);
 		given(this.petService.findPetById(PET_ID_TEST)).willReturn(pet);
 
 		mockMvc.perform(get("/owners/{ownerId}/adoptions/pets/{petId}",OWNER_ID_TEST,PET_ID_TEST))
@@ -235,8 +235,8 @@ class AdoptionsControllerTests {
 	void testInitAdoptionsListNotOwner() throws Exception {
 		
 		given(this.ownerService.findOwnerById(APPLICANT_ID_TEST)).willReturn(george);
-		given(this.ownerService.findByUsername(any(String.class))).willReturn(paco);
-		
+		given(this.ownerService.getLoggedOwner()).willReturn(paco);
+
 		MvcResult resultException = mockMvc.perform(get("/owners/{ownerId}/adoptions/pets/{petId}",OWNER_ID_TEST,PET_ID_TEST))
 		.andExpect(status().isOk())
 		.andExpect(view().name("exception"))
@@ -317,7 +317,7 @@ class AdoptionsControllerTests {
 	@Test
 	void testNewAdoption() throws Exception {
 		
-		given(this.ownerService.findByUsername(any(String.class))).willReturn(paco);
+		given(this.ownerService.getLoggedOwner()).willReturn(paco);
 		given(this.petService.findPetById(PET_ID_TEST)).willReturn(pet);
 		
 		mockMvc.perform(post("/adoptions")

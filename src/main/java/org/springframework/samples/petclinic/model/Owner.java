@@ -64,7 +64,7 @@ public class Owner extends Person {
 	private Set<Pet> pets;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "applicant")
-	private Set<Adoptions> adoptions;
+	private Set<Adoption> adoptions;
 	
 	//
 	@OneToOne(cascade = CascadeType.ALL)
@@ -121,13 +121,13 @@ public class Owner extends Person {
 		return Collections.unmodifiableList(sortedPets);
 	}
 	
-	public List<Adoptions> getAdoptions(){
-		List<Adoptions> sortedAdoptions = new ArrayList<>(getAdoptionsInternal());
+	public List<Adoption> getAdoptions(){
+		List<Adoption> sortedAdoptions = new ArrayList<>(getAdoptionsInternal());
 		PropertyComparator.sort(sortedAdoptions, new MutableSortDefinition("date", true, true));
 		return Collections.unmodifiableList(sortedAdoptions);
 	}
 	
-	public boolean removeAdoption(Adoptions adoption) {
+	public boolean removeAdoption(Adoption adoption) {
 		return getAdoptionsInternal().remove(adoption);
 	}
 
@@ -180,18 +180,18 @@ public class Owner extends Person {
 		return null;
 	}
 	
-	protected Set<Adoptions> getAdoptionsInternal() {
+	protected Set<Adoption> getAdoptionsInternal() {
 		if (this.adoptions == null) {
 			this.adoptions = new HashSet<>();
 		}
 		return this.adoptions;
 	}
 	
-	protected void setAdoptionsInternal(Set<Adoptions> adoptions) {
+	protected void setAdoptionsInternal(Set<Adoption> adoptions) {
 		this.adoptions = adoptions;
 	}
 	
-	public void addAdoption(Adoptions adoption) {
+	public void addAdoption(Adoption adoption) {
 		getAdoptionsInternal().add(adoption);
 		adoption.setApplicant(this);
 	}

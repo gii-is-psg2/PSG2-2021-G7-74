@@ -102,6 +102,7 @@
 	                        
 	                    </table>
 	                </td>
+	              	<c:if test="${isCurrentUser}">
 	                <td>
                         <table>
                         	<thead>
@@ -170,6 +171,7 @@
                            	</c:if>
                      	</table>
                     </td>
+                    </c:if>                    	    
 	            </tr>
 				
 	        </c:forEach>
@@ -178,8 +180,7 @@
    
 		<div style="display:flex; justify-content: space-between; width: 100%; align-items: flex-end; margin-bottom: 10px;">
 			<h2 style="margin:0px"><fmt:message key="ownerDetails.title.adoptions"/></h2>
-			<spring:url value="/adoptions" var="adoptionList"></spring:url>
-			<a style="height:30px" class="btn btn-default" href = "${fn:escapeXml(adoptionList)}"><fmt:message key="owner.viewAdoptionList"/></a>	
+			
 		</div>
 		<table class="table table-striped">
 	        <c:forEach var="adoption" items="${owner.adoptions}">	
@@ -221,27 +222,28 @@
                             </tr>
 	                    </table>
 	                </td>
-	                
-	                <td valign="top">
-	                    <table class="table-condensed">
-                        	<thead>
-                        	<tr>
-                        		<th><fmt:message key="header.acciones"/></th>
-                        	</tr>
-                        	</thead>
-                        	<c:if test="${adoption.status == 'EN_PROCESO'}">
+                	<c:if test="${isCurrentUser}">
+		                <td valign="top">
+		                    <table class="table-condensed">
+	                        	<thead>
 	                        	<tr>
-		                          	<td>
-		                                <spring:url value="/owners/{ownerId}/adoptions/{adoptionId}/delete" var="adoptionDeleteUrl">
-		                                    <spring:param name="adoptionId" value="${adoption.id}"/>
-		                                    <spring:param name="ownerId" value="${owner.id}"/>     
-		                                </spring:url>
-		                                <a href="${fn:escapeXml(adoptionDeleteUrl)}"><fmt:message key="ownerDetails.petsAndVisits.pet.adoption.button.delete"/></a>
-		                            </td>
-	                            </tr>
-                            </c:if>
-                        </table>
-                    </td>	                
+	                        		<th><fmt:message key="header.acciones"/></th>
+	                        	</tr>
+	                        	</thead>
+	                        	<c:if test="${adoption.status == 'EN_PROCESO'}">
+		                        	<tr>
+			                          	<td>
+			                                <spring:url value="/owners/{ownerId}/adoptions/{adoptionId}/delete" var="adoptionDeleteUrl">
+			                                    <spring:param name="adoptionId" value="${adoption.id}"/>
+			                                    <spring:param name="ownerId" value="${owner.id}"/>     
+			                                </spring:url>
+			                                <a href="${fn:escapeXml(adoptionDeleteUrl)}"><fmt:message key="ownerDetails.petsAndVisits.pet.adoption.button.delete"/></a>
+			                            </td>
+		                            </tr>
+	                            </c:if>
+	                        </table>
+	                    </td>
+                    </c:if>	                
 				</tr>			
 	       </c:forEach>
 		</table>

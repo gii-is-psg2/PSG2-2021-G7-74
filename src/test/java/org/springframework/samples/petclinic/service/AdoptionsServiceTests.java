@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Adoptions;
+import org.springframework.samples.petclinic.model.Adoption;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
@@ -77,7 +77,7 @@ class AdoptionsServiceTests {
 		petService.savePet(pet);
 
 		// Creamos la adopcion
-		Adoptions adop = new  Adoptions();
+		Adoption adop = new  Adoption();
 		adop.setDate(LocalDate.now().minusDays(1));
 		adop.setDescription("I want to take care of your pet!");
 		adop.setStatus(Status.EN_PROCESO);
@@ -111,10 +111,10 @@ class AdoptionsServiceTests {
 		Pet pet = petService.findPetById(12);
 				
 		// Creamos la primera solicitud de adopcion
-		Adoptions adop = adoptionsService.findAdoptionById(1);
+		Adoption adop = adoptionsService.findAdoptionById(1);
 
 		// Creamos la segunda solicitud de adopcion replicada
-		Adoptions adop1 =  new  Adoptions();
+		Adoption adop1 =  new  Adoption();
 		adop1.setDate(adop.getDate());
 		adop1.setDescription(adop.getDescription());
 		adop1.setStatus(adop.getStatus());
