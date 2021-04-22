@@ -7,10 +7,10 @@
 <petclinic:layout pageName="errorpage">
 	
 	<div class = "page-body">
-	    <spring:url value="/resources/images/pets.png" var="petsImage"/>
-	    <img src="${petsImage}"/>
+	    <spring:url value="/resources/images/oops.jpg" var="petsImage"/>
+	    <img src="${petsImage}" width="300" height="300"/>
 	
-	    <h2><fmt:message key="error.message.date"/></h2>
+	    <h2><fmt:message key="error.message.date.duplicated"/></h2>
 	
 	    <p>${exception.message}</p>
 	    

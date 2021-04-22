@@ -10,6 +10,7 @@ import org.springframework.samples.petclinic.model.HotelBook;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.service.HotelBookService;
 import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.service.exceptions.BusyBookException;
 import org.springframework.samples.petclinic.service.exceptions.EndDateNotAfterStartDateException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -64,6 +65,9 @@ public class HotelBookController {
 				return "dateException";
 
 			} catch (EndDateNotAfterStartDateException e) {
+				e.printStackTrace();
+				return "dateException";
+			}catch (BusyBookException e) {
 				e.printStackTrace();
 				return "dateException";
 			}
