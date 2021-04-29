@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.web;
 
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.naming.OperationNotSupportedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,7 +93,7 @@ public class AdoptionsController {
 		try {
 			this.adoptionService.save(adoption);
 		} catch (DuplicatedAdoptionException e) {
-			e.printStackTrace();
+			 Logger.getLogger(AdoptionsController.class.getName()).log(Level.SEVERE, e.getMessage());
 		}
 		
 		//deny the rest of requests
@@ -101,7 +103,7 @@ public class AdoptionsController {
 				try {
 					this.adoptionService.save(a);
 				} catch(Exception e) {
-					e.printStackTrace();
+					 Logger.getLogger(AdoptionsController.class.getName()).log(Level.SEVERE, e.getMessage());
 				}
 			}
 		});
@@ -119,7 +121,7 @@ public class AdoptionsController {
 		try {
 			this.adoptionService.save(adoption);
 		} catch (DuplicatedAdoptionException e) {
-			e.printStackTrace();
+			 Logger.getLogger(AdoptionsController.class.getName()).log(Level.SEVERE, e.getMessage());
 		}
 		
 		return "redirect:/owners/"+ adoption.getPet().getOwner().getId() +"/adoptions/pets/" + adoption.getPet().getId();
@@ -153,7 +155,7 @@ public class AdoptionsController {
 			try {
 				this.adoptionService.save(adoption);
 			} catch (DuplicatedAdoptionException e) {
-				e.printStackTrace();
+				 Logger.getLogger(AdoptionsController.class.getName()).log(Level.SEVERE, e.getMessage());
 			}
 		}
 		return "redirect:/adoptions";

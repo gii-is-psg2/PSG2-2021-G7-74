@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.validation.Valid;
 
@@ -61,14 +63,13 @@ public class HotelBookController {
 				this.hotelBookService.saveHotelBook(hotelBook);
 				return "redirect:/owners/{ownerId}";
 			} catch (DataAccessException e) {
-				e.printStackTrace();
+				Logger.getLogger(HotelBookController.class.getName()).log(Level.SEVERE, e.getMessage());
 				return "dateException";
-
 			} catch (EndDateNotAfterStartDateException e) {
-				e.printStackTrace();
+				Logger.getLogger(HotelBookController.class.getName()).log(Level.SEVERE, e.getMessage());
 				return "dateException";
 			}catch (BusyBookException e) {
-				e.printStackTrace();
+				Logger.getLogger(HotelBookController.class.getName()).log(Level.SEVERE, e.getMessage());
 				return "dateException";
 			}
 			
