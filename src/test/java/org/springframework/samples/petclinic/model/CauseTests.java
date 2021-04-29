@@ -10,7 +10,7 @@ import javax.validation.Validator;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-public class CauseTests extends ValidatorTests{
+class CauseTests extends ValidatorTests{
 	
 	private Cause createSUT(String name, String description, Double budgetTarget, String organization, Boolean active) {
 		// this test does not test donation so we use a dummy donation

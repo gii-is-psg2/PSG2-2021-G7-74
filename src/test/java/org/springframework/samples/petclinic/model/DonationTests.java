@@ -12,7 +12,7 @@ import javax.validation.Validator;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-public class DonationTests extends ValidatorTests{
+class DonationTests extends ValidatorTests{
 	
 	private Donation createSUT(Double amount, String date, String client, Integer cause) {
 		// If cause != 1 then the donation has no cause

@@ -32,7 +32,7 @@ public class CausesService {
 		return causeRepository.findByName(name);
 	}
 	
-	//buscar todos
+	//buscar todas las causas
 	@Transactional(readOnly=true)
 	public Collection<Cause> findAllCauses() throws DataAccessException{
 		return causeRepository.findAll();

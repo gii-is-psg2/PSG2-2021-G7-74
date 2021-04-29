@@ -92,7 +92,7 @@ class VetServiceTests {
 	
 	@Test
 	@Transactional
-	public void shouldInsertVet() {
+	void shouldInsertVet() {
 		Collection<Vet> vets = this.vetService.findVets();
 		int found = vets.size();
 

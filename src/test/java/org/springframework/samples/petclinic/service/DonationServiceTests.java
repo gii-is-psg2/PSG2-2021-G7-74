@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Import(SecurityConfiguration.class)
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @TestInstance(Lifecycle.PER_CLASS)
-public class DonationServiceTests {
+class DonationServiceTests {
 	
 	@Autowired
 	protected DonationsService donationService;

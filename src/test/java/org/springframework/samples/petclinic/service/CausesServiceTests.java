@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Import(SecurityConfiguration.class)
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
-public class CausesServiceTests {
+class CausesServiceTests {
 	
 	@Autowired
 	protected CausesService causesService;
