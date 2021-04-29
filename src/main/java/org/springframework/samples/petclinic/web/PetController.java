@@ -65,13 +65,6 @@ public class PetController {
 		return this.ownerService.findOwnerById(ownerId);
 	}
 
-	/*
-	 * @ModelAttribute("pet") public Pet findPet(@PathVariable("petId") Integer
-	 * petId) { Pet result=null; if(petId!=null)
-	 * result=this.clinicService.findPetById(petId); else result=new Pet(); return
-	 * result; }
-	 */
-
 	@InitBinder("owner")
 	public void initOwnerBinder(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");

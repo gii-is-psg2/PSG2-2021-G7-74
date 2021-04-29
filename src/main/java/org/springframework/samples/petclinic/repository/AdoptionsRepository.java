@@ -11,9 +11,7 @@ public interface AdoptionsRepository extends Repository<Adoption,Integer>{
 	
 	
 	void save(Adoption adoptions) throws DataAccessException;
-	
-	//List<Adoptions> findByOwner(Integer ownerId);
-	
+		
 	void deleteById(int id);
 	
 	List<Adoption> findAll();

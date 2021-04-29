@@ -40,6 +40,12 @@ public abstract class EntityUtils {
 	 * @return the found entity
 	 * @throws ObjectRetrievalFailureException if the entity was not found
 	 */
+	
+	// replaces java implicit public constructor
+	private EntityUtils() { 
+		throw new IllegalStateException("Utility class");
+	}
+	
 	public static <T extends BaseEntity> T getById(Collection<T> entities, Class<T> entityClass, int entityId)
 			throws ObjectRetrievalFailureException {
 		for (T entity : entities) {

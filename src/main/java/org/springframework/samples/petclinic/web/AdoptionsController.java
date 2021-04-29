@@ -135,8 +135,8 @@ public class AdoptionsController {
 		model.put("today", LocalDate.now());
 		model.put("adoptablePet", 
 				this.petService.findAll().stream()
-					.filter(p -> loggedOwner.getAdoptions().stream().noneMatch(a->a.getPet().equals(p)) 
-							&& p.getOwner().getId() != null && !p.getOwner().getId().equals(loggedOwner.getId()) 
+					.filter(p -> (loggedOwner == null || loggedOwner.getAdoptions().stream().noneMatch(a->a.getPet().equals(p)) 
+							&& p.getOwner().getId() != null && !p.getOwner().getId().equals(loggedOwner.getId())) 
 							&& p.getAdoptable())
 					.collect(Collectors.toList()));
 		return "adoptions/adoptionList";
@@ -152,13 +152,12 @@ public class AdoptionsController {
 		pet.addAdoption(adoption);
 		loggedOwner.addAdoption(adoption);
 		
-		if(pet != null && loggedOwner != null) {
-			try {
-				this.adoptionService.save(adoption);
-			} catch (DuplicatedAdoptionException e) {
-				 Logger.getLogger(AdoptionsController.class.getName()).log(Level.SEVERE, e.getMessage());
-			}
+		try {
+			this.adoptionService.save(adoption);
+		} catch (DuplicatedAdoptionException e) {
+			 Logger.getLogger(AdoptionsController.class.getName()).log(Level.SEVERE, e.getMessage());
 		}
+		
 		return "redirect:/adoptions";
 	}
 }
