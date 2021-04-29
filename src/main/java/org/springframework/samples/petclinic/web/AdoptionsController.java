@@ -133,7 +133,7 @@ public class AdoptionsController {
 		model.put("adoptablePet", 
 				this.petService.findAll().stream()
 					.filter(p -> loggedOwner.getAdoptions().stream().noneMatch(a->a.getPet().equals(p)) 
-							&& p.getOwner().getId() != loggedOwner.getId() 
+							&& p.getOwner().getId() != null && !p.getOwner().getId().equals(loggedOwner.getId()) 
 							&& p.getAdoptable())
 					.collect(Collectors.toList()));
 		return "adoptions/adoptionList";
