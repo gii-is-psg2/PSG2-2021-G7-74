@@ -44,6 +44,7 @@ import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNam
 public class PetController {
 
 	private static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = "pets/createOrUpdatePetForm";
+	private static final String OWNERS_PAGE_REDIRECT = "redirect:/owners/{ownerId}";
 
 	private final PetService petService;
 	private final OwnerService ownerService;
@@ -102,7 +103,7 @@ public class PetController {
 				result.rejectValue("name", "duplicate", "already exists");
 				return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
 			}
-			return "redirect:/owners/{ownerId}";
+			return OWNERS_PAGE_REDIRECT;
 		}
 	}
 
@@ -138,7 +139,7 @@ public class PetController {
 				result.rejectValue("name", "duplicate", "already exists");
 				return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
 			}
-			return "redirect:/owners/{ownerId}";
+			return OWNERS_PAGE_REDIRECT;
 		}
 	}
 
@@ -147,7 +148,7 @@ public class PetController {
 		Owner own = ownerService.findOwnerById(ownerId);
 		own.removePet(petService.findPetById(petId));
 		this.petService.deletePetById(petId);
-		return "redirect:/owners/{ownerId}";
+		return OWNERS_PAGE_REDIRECT;
 	}
 
 	@GetMapping(value = "/pets/{petId}/toogleAdoptable")

@@ -29,7 +29,9 @@ public class HotelBookController {
 	private final HotelBookService hotelBookService;
 
 	private final PetService petService;
-
+	
+	private static final String DATE_EXCEPTION_PAGE = "dateException";
+	
 	@Autowired
 	public HotelBookController(HotelBookService hotelBookService, PetService petService) {
 		this.hotelBookService = hotelBookService;
@@ -64,13 +66,13 @@ public class HotelBookController {
 				return "redirect:/owners/{ownerId}";
 			} catch (DataAccessException e) {
 				Logger.getLogger(HotelBookController.class.getName()).log(Level.SEVERE, e.getMessage());
-				return "dateException";
+				return DATE_EXCEPTION_PAGE;
 			} catch (EndDateNotAfterStartDateException e) {
 				Logger.getLogger(HotelBookController.class.getName()).log(Level.SEVERE, e.getMessage());
-				return "dateException";
+				return DATE_EXCEPTION_PAGE;
 			}catch (BusyBookException e) {
 				Logger.getLogger(HotelBookController.class.getName()).log(Level.SEVERE, e.getMessage());
-				return "dateException";
+				return DATE_EXCEPTION_PAGE;
 			}
 			
 		}

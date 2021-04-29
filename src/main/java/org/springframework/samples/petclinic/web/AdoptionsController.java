@@ -28,7 +28,8 @@ public class AdoptionsController {
 	private final AdoptionsService adoptionService;
 	private final OwnerService ownerService;
 	private final PetService petService;
-
+	
+	private static final String OWNERS_PAGE_REDIRECT = "redirect:/owners/";
 	
 	@Autowired
 	public AdoptionsController(AdoptionsService adoptionService, OwnerService ownerService, PetService petService) {
@@ -54,7 +55,7 @@ public class AdoptionsController {
 			pet.removeAdoption(adoption);
 	    	own.removeAdoption(adoption);
 			this.adoptionService.deleteAdoptionById(adoptionId);
-			return "redirect:/owners/"+ownerId;
+			return OWNERS_PAGE_REDIRECT + ownerId;
 		} else {
 			throw new OperationNotSupportedException("You cannot delete other user's requests");
 		}
@@ -108,7 +109,7 @@ public class AdoptionsController {
 			}
 		});
 		
-		return "redirect:/owners/"+ oldOwner.getId();
+		return OWNERS_PAGE_REDIRECT + oldOwner.getId();
 	}
 	
 	@GetMapping("/owners/{ownerId}/adoptions/{adoptionId}/deny")
@@ -124,7 +125,7 @@ public class AdoptionsController {
 			 Logger.getLogger(AdoptionsController.class.getName()).log(Level.SEVERE, e.getMessage());
 		}
 		
-		return "redirect:/owners/"+ adoption.getPet().getOwner().getId() +"/adoptions/pets/" + adoption.getPet().getId();
+		return OWNERS_PAGE_REDIRECT + adoption.getPet().getOwner().getId() +"/adoptions/pets/" + adoption.getPet().getId();
 	}
 	
 	@GetMapping("/adoptions")

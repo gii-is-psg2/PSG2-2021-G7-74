@@ -63,7 +63,7 @@ public class DonationServiceTests {
 		List<Donation> donationsDB = new ArrayList<Donation>(this.causesService.findCause(cause.getId()).getDonations());
 		
 		assertThat(donationsDB.size()).isEqualTo(1);
-		assertThat(donationsDB.get(0).equals(d));
+		assertThat(donationsDB.get(0)).isEqualTo(d);
 	}
 	
 }
