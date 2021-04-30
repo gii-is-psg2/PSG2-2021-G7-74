@@ -49,3 +49,10 @@ In the retrospective meeting, the team has a discussion about those results.
 | Day 13         |              |      -          |      :smiley:   |    -            |       -         |     :smiley:   |  
 | Day 14         |              |       -         |       :neutral_face:        |     -           |        -        |         :neutral_face:      |
 | Day 15         |              |  :smiley:              |       :smiley:         |   :smiley:             |     :smiley:           |   :smiley:            |
+| Day 16         |               |        -        |       -         |      -          |       -         |    -           |
+| Day 17         |               |        -        |       -         |      -          |       -         |    -           |
+| Day 18         |               |        -        |       -         |      -          |       -         |    -           |
+| Day 19         |               |        -        |       -         |      -          |       -         |    -           |
+| Day 20         |               |        -        |       -         |      -          |       -         |    -           |
+| Day 21         |               |        -        |       -         |      -          |       -         |    -           |
+| Day 22         |              |  :smiley:              |       :smiley:         |   :smiley:             |     :smiley:           |   :smiley:            |
