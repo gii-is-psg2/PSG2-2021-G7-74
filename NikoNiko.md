@@ -54,5 +54,5 @@ In the retrospective meeting, the team has a discussion about those results.
 | Day 18         |               |        -        |       -         |      -          |       -         |    -           |
 | Day 19         |               |        -        |       -         |      -          |       -         |    -           |
 | Day 20         |               |        -        |       -         |      -          |       -         |    -           |
-| Day 21         |               |        -        |       -         |      -          |       -         |    -           |
+| Day 21         |               |        -        |       :neutral_face:         |      -          |       -         |    :neutral_face:          |
 | Day 22         |              |  :smiley:              |       :smiley:         |   :smiley:             |     :smiley:           |   :smiley:            |
