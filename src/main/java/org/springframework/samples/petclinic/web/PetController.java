@@ -151,7 +151,7 @@ public class PetController {
 		if(ownerId == loggedOwner.getId()) {
 			Pet pet = this.petService.findPetById(petId);
 			pet.setAdoptable(!pet.getAdoptable());
-			if (!pet.getAdoptable()) {
+			if (!Boolean.TRUE.equals(pet.getAdoptable())) {
 				pet.getAdoptions().forEach(x -> {if(x.getStatus().equals(Status.EN_PROCESO)) x.setStatus(Status.DENEGADA);});
 			}
 			this.petService.savePet(pet);

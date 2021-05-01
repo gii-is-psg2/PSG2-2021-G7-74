@@ -37,7 +37,7 @@ class CauseTests extends ValidatorTests{
 		Cause c = this.createSUT(name, description, budgetTarget, organization, active);
 		Validator validator = createValidator();
 		Set<ConstraintViolation<Cause>> constraintViolations = validator.validate(c);
-		assertThat(constraintViolations.size()).isEqualTo(0);
+		assertThat(constraintViolations.size()).isZero();
 	}
 	
 	@ParameterizedTest

@@ -110,10 +110,10 @@ class VetServiceTests {
             auth.setAuthority("veterinarians");
                 
 		this.vetService.saveVet(vet);
-		assertThat(vet.getId().longValue()).isNotEqualTo(0);
+		assertThat(vet.getId().longValue()).isNotZero();
 
 		vets = this.vetService.findVets();
-		assertThat(vets.size()).isEqualTo(found + 1);
+		assertThat(vets).hasSize(found + 1);
 	}
 	
 	@Test

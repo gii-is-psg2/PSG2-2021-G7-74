@@ -39,7 +39,7 @@ class CausesServiceTests {
 		
 		this.causesService.saveCause(cause);
 		
-		assertThat(causesService.findCauseByName("Test cause").size()).isGreaterThan(0);
+		assertThat(causesService.findCauseByName("Test cause").size()).isPositive();
 	}
 	
 }

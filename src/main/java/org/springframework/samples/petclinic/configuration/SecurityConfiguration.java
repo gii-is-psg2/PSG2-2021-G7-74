@@ -56,11 +56,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // de la BD H2 (deshabilitar las cabeceras de protección contra
                 // ataques de tipo csrf y habilitar los framesets si su contenido
                 // se sirve desde esta misma página.
+		
 				// NOTA: Para versiones de produccion, la H2-Console permanecera desactivada
 				//para garantizar la seguridad a traves de las cabezeras CORS/CSRF
 		
-                //http.csrf().ignoringAntMatchers("/h2-console/**");
-                //http.headers().frameOptions().sameOrigin();
 	}
 
 	@Override

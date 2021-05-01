@@ -145,7 +145,7 @@ class AdoptionsServiceTests {
 	@DisplayName("Eliminar Adopcion Por ID")
 	void shouldDeleteAdoptionById() {
 		adoptionsService.deleteAdoptionById(1);
-		assertThat(adoptionsService.findAdoptionById(1)).isEqualTo(null);
+		assertThat(adoptionsService.findAdoptionById(1)).isNull();
 	}
 
 }

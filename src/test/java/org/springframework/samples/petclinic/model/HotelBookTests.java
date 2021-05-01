@@ -36,7 +36,7 @@ class HotelBookTests extends ValidatorTests {
 		HotelBook hb = this.createSUT(startDate, endDate, pet);
 		Validator validator = createValidator();
 		Set<ConstraintViolation<HotelBook>> constraintViolations = validator.validate(hb);
-		assertThat(constraintViolations.size()).isEqualTo(0);
+		assertThat(constraintViolations.size()).isZero();
 	}
 	
 	@ParameterizedTest

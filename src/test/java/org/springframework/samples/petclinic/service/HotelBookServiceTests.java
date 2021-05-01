@@ -194,7 +194,7 @@ class HotelBookServiceTests {
 	@Transactional
 	@DisplayName("Lista de HotelBook De Una Mascota -- caso negativo(No mascota con ese ID)")
 	void shouldNotListHotelBookByPetId() {
-		assertThat(hotelBookService.listHotelBookByPetId(103).size()).isEqualTo(0);	
+		assertThat(hotelBookService.listHotelBookByPetId(103).size()).isZero();	
 	}
 	
 }
