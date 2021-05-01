@@ -30,7 +30,7 @@ import org.springframework.samples.petclinic.model.BaseEntity;
  * @see org.springframework.samples.petclinic.model.BaseEntity
  * @since 29.10.2003
  */
-public abstract class EntityUtils {
+public interface EntityUtils {
 
 	/**
 	 * Look up the entity of the given class with the given id in the given collection.
@@ -40,6 +40,7 @@ public abstract class EntityUtils {
 	 * @return the found entity
 	 * @throws ObjectRetrievalFailureException if the entity was not found
 	 */
+	
 	public static <T extends BaseEntity> T getById(Collection<T> entities, Class<T> entityClass, int entityId)
 			throws ObjectRetrievalFailureException {
 		for (T entity : entities) {

@@ -136,7 +136,7 @@ public class OwnerController {
 	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId,Model model) {	
 		Owner loggedOwner = this.ownerService.getLoggedOwner();
 
-		model.addAttribute("isCurrentUser",loggedOwner.getId()==ownerId);
+		model.addAttribute("isCurrentUser", loggedOwner != null && loggedOwner.getId()==ownerId);
 		ModelAndView mav = new ModelAndView("owners/ownerDetails");
 		mav.addObject(this.ownerService.findOwnerById(ownerId));
 		return mav;

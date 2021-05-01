@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.web;
 
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.naming.OperationNotSupportedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,8 @@ public class AdoptionsController {
 	private final AdoptionsService adoptionService;
 	private final OwnerService ownerService;
 	private final PetService petService;
-
+	
+	private static final String OWNERS_PAGE_REDIRECT = "redirect:/owners/";
 	
 	@Autowired
 	public AdoptionsController(AdoptionsService adoptionService, OwnerService ownerService, PetService petService) {
@@ -52,7 +55,7 @@ public class AdoptionsController {
 			pet.removeAdoption(adoption);
 	    	own.removeAdoption(adoption);
 			this.adoptionService.deleteAdoptionById(adoptionId);
-			return "redirect:/owners/"+ownerId;
+			return OWNERS_PAGE_REDIRECT + ownerId;
 		} else {
 			throw new OperationNotSupportedException("You cannot delete other user's requests");
 		}
@@ -91,7 +94,7 @@ public class AdoptionsController {
 		try {
 			this.adoptionService.save(adoption);
 		} catch (DuplicatedAdoptionException e) {
-			e.printStackTrace();
+			 Logger.getLogger(AdoptionsController.class.getName()).log(Level.SEVERE, e.getMessage());
 		}
 		
 		//deny the rest of requests
@@ -101,12 +104,12 @@ public class AdoptionsController {
 				try {
 					this.adoptionService.save(a);
 				} catch(Exception e) {
-					e.printStackTrace();
+					 Logger.getLogger(AdoptionsController.class.getName()).log(Level.SEVERE, e.getMessage());
 				}
 			}
 		});
 		
-		return "redirect:/owners/"+ oldOwner.getId();
+		return OWNERS_PAGE_REDIRECT + oldOwner.getId();
 	}
 	
 	@GetMapping("/owners/{ownerId}/adoptions/{adoptionId}/deny")
@@ -119,10 +122,10 @@ public class AdoptionsController {
 		try {
 			this.adoptionService.save(adoption);
 		} catch (DuplicatedAdoptionException e) {
-			e.printStackTrace();
+			 Logger.getLogger(AdoptionsController.class.getName()).log(Level.SEVERE, e.getMessage());
 		}
 		
-		return "redirect:/owners/"+ adoption.getPet().getOwner().getId() +"/adoptions/pets/" + adoption.getPet().getId();
+		return OWNERS_PAGE_REDIRECT + adoption.getPet().getOwner().getId() +"/adoptions/pets/" + adoption.getPet().getId();
 	}
 	
 	@GetMapping("/adoptions")
@@ -132,8 +135,8 @@ public class AdoptionsController {
 		model.put("today", LocalDate.now());
 		model.put("adoptablePet", 
 				this.petService.findAll().stream()
-					.filter(p -> loggedOwner.getAdoptions().stream().noneMatch(a->a.getPet().equals(p)) 
-							&& p.getOwner().getId() != loggedOwner.getId() 
+					.filter(p -> (loggedOwner == null || loggedOwner.getAdoptions().stream().noneMatch(a->a.getPet().equals(p)) 
+							&& p.getOwner().getId() != null && !p.getOwner().getId().equals(loggedOwner.getId())) 
 							&& p.getAdoptable())
 					.collect(Collectors.toList()));
 		return "adoptions/adoptionList";
@@ -149,13 +152,12 @@ public class AdoptionsController {
 		pet.addAdoption(adoption);
 		loggedOwner.addAdoption(adoption);
 		
-		if(pet != null && loggedOwner != null) {
-			try {
-				this.adoptionService.save(adoption);
-			} catch (DuplicatedAdoptionException e) {
-				e.printStackTrace();
-			}
+		try {
+			this.adoptionService.save(adoption);
+		} catch (DuplicatedAdoptionException e) {
+			 Logger.getLogger(AdoptionsController.class.getName()).log(Level.SEVERE, e.getMessage());
 		}
+		
 		return "redirect:/adoptions";
 	}
 }

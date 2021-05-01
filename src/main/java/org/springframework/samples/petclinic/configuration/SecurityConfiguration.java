@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /*
@@ -22,13 +22,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 /**
  * @author japarejo
  */
-@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
+	
 	@Autowired
 	DataSource dataSource;
+	
+	private static final String ADMIN = "admin";
+	private static final String OWNER = "owner";
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -38,9 +40,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/users/new").permitAll()
 				.antMatchers("/causes/**").permitAll()
 				.antMatchers("/donation/**").permitAll()
-				.antMatchers("/admin/**").hasAnyAuthority("admin")
-				.antMatchers("/owners/**").hasAnyAuthority("owner","admin")		
-				.antMatchers("/adoptions/**").hasAnyAuthority("owner", "admin")
+				.antMatchers("/admin/**").hasAnyAuthority(ADMIN)
+				.antMatchers("/owners/**").hasAnyAuthority(OWNER, ADMIN)		
+				.antMatchers("/adoptions/**").hasAnyAuthority(OWNER, ADMIN)
 				.antMatchers("/vets/**").authenticated()
 				.anyRequest().denyAll()
 				.and()
@@ -54,8 +56,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // de la BD H2 (deshabilitar las cabeceras de protección contra
                 // ataques de tipo csrf y habilitar los framesets si su contenido
                 // se sirve desde esta misma página.
-                http.csrf().ignoringAntMatchers("/h2-console/**");
-                http.headers().frameOptions().sameOrigin();
+		
+				// NOTA: Para versiones de produccion, la H2-Console permanecera desactivada
+				//para garantizar la seguridad a traves de las cabezeras CORS/CSRF
+		
 	}
 
 	@Override
@@ -75,8 +79,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {	    
-		PasswordEncoder encoder =  NoOpPasswordEncoder.getInstance();
-	    return encoder;
+	    return new BCryptPasswordEncoder();
 	}
 	
 }

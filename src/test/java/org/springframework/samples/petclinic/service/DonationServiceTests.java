@@ -15,14 +15,17 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
+import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.model.Donation;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Import(SecurityConfiguration.class)
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @TestInstance(Lifecycle.PER_CLASS)
-public class DonationServiceTests {
+class DonationServiceTests {
 	
 	@Autowired
 	protected DonationsService donationService;
@@ -60,7 +63,7 @@ public class DonationServiceTests {
 		List<Donation> donationsDB = new ArrayList<Donation>(this.causesService.findCause(cause.getId()).getDonations());
 		
 		assertThat(donationsDB.size()).isEqualTo(1);
-		assertThat(donationsDB.get(0).equals(d));
+		assertThat(donationsDB.get(0)).isEqualTo(d);
 	}
 	
 }

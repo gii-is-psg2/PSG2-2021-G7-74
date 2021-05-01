@@ -49,6 +49,7 @@ public class VetController {
 	private final VetService vetService;
 
 	private static final String VIEWS_VET_CREATE_OR_UPDATE_FORM = "vets/createOrUpdateVetForm";
+	private static final String VETS_PAGE_REDIRECT = "redirect:/vets";
 	
 	
 	@ModelAttribute("specialties")
@@ -102,7 +103,7 @@ public class VetController {
 			if(specialties != null)
 				Arrays.stream(specialties).forEach(s -> vet.addSpecialty(this.vetService.findSpecialtyByName(s)));
 			this.vetService.saveVet(vet);
-			return "redirect:/vets";
+			return VETS_PAGE_REDIRECT;
 		}
 	}
 
@@ -124,14 +125,14 @@ public class VetController {
 			if(specialties != null)
 				Arrays.stream(specialties).forEach(s -> vet.addSpecialty(this.vetService.findSpecialtyByName(s)));
 			this.vetService.saveVet(vet);
-			return "redirect:/vets";
+			return VETS_PAGE_REDIRECT;
 		}
 	}
 
 	@GetMapping(value = "/vets/delete/{id}")
 	public String deleteVet(@PathVariable int id) {
 		this.vetService.deleteVetById(id);
-		return "redirect:/vets";
+		return VETS_PAGE_REDIRECT;
 	}
 
 }

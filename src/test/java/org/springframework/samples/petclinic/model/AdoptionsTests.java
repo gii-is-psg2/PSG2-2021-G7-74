@@ -42,7 +42,7 @@ class AdoptionsTests extends ValidatorTests {
 		Adoption adop = this.createSUT(pet, description, owner, status, date);
 		Validator validator = createValidator();
 		Set<ConstraintViolation<Adoption>> constraintViolations = validator.validate(adop);
-		assertThat(constraintViolations.size()).isEqualTo(0);
+		assertThat(constraintViolations.size()).isZero();
 	}
 
 	@ParameterizedTest

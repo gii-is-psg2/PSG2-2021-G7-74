@@ -96,7 +96,7 @@ public class Cause extends BaseEntity {
 	
 	protected Set<Donation> getDonationsInternal(){
 		if (this.donations == null) {
-			this.donations = new HashSet<Donation>();
+			this.donations = new HashSet<>();
 		}
 		return this.donations;
 	}
@@ -106,14 +106,14 @@ public class Cause extends BaseEntity {
 	}
 	
 	public void addDonation(Donation donation) {
-		if(this.getCauseActive()==true) {
+		if(Boolean.TRUE.equals(this.getCauseActive())) {
 		getDonationsInternal().add(donation);
 		donation.setCause(this);
 		}
 	}
 
 	public Double getAchievedTarget() {
-		return getDonationsInternal().stream().mapToDouble(x->x.getAmount()).sum();
+		return getDonationsInternal().stream().mapToDouble(Donation::getAmount).sum();
 	}
 
 

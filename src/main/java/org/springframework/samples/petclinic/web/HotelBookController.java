@@ -1,17 +1,16 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.HotelBook;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.service.HotelBookService;
 import org.springframework.samples.petclinic.service.PetService;
-import org.springframework.samples.petclinic.service.exceptions.BusyBookException;
-import org.springframework.samples.petclinic.service.exceptions.EndDateNotAfterStartDateException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -27,7 +26,9 @@ public class HotelBookController {
 	private final HotelBookService hotelBookService;
 
 	private final PetService petService;
-
+	
+	private static final String DATE_EXCEPTION_PAGE = "dateException";
+	
 	@Autowired
 	public HotelBookController(HotelBookService hotelBookService, PetService petService) {
 		this.hotelBookService = hotelBookService;
@@ -60,18 +61,10 @@ public class HotelBookController {
 			try {
 				this.hotelBookService.saveHotelBook(hotelBook);
 				return "redirect:/owners/{ownerId}";
-			} catch (DataAccessException e) {
-				e.printStackTrace();
-				return "dateException";
-
-			} catch (EndDateNotAfterStartDateException e) {
-				e.printStackTrace();
-				return "dateException";
-			}catch (BusyBookException e) {
-				e.printStackTrace();
-				return "dateException";
-			}
-			
+			} catch (Exception e) {
+				Logger.getLogger(HotelBookController.class.getName()).log(Level.SEVERE, e.getMessage());
+				return DATE_EXCEPTION_PAGE;
+			}			
 		}
 	}
 

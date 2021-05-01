@@ -32,7 +32,7 @@ public class CausesService {
 		return causeRepository.findByName(name);
 	}
 	
-	//buscar todos
+	//buscar todas las causas
 	@Transactional(readOnly=true)
 	public Collection<Cause> findAllCauses() throws DataAccessException{
 		return causeRepository.findAll();
@@ -53,7 +53,7 @@ public class CausesService {
 
 	//total alcanzado
 	public Double currentBudget(Integer id) {
-		return causeRepository.findById(id).getDonations().stream().mapToDouble(x->x.getAmount()).sum();
+		return causeRepository.findById(id).getDonations().stream().mapToDouble(Donation::getAmount).sum();
 	}
 
 	
