@@ -39,7 +39,7 @@ class DonationTests extends ValidatorTests{
 		Donation d = this.createSUT(amount, date, client, cause);
 		Validator validator = createValidator();
 		Set<ConstraintViolation<Donation>> constraintViolations = validator.validate(d);
-		assertThat(constraintViolations.size()).isEqualTo(0);
+		assertThat(constraintViolations.size()).isZero();
 	}
 	
 	@ParameterizedTest
