@@ -39,8 +39,7 @@ public class HotelBookService {
 		} else if (fechaInicio.isAfter(fechaFin) || fechaInicio.isEqual(fechaFin)) {
 			throw new EndDateNotAfterStartDateException("La fecha fin debe ser posterior a la fecha de inicio!");
 		}
-
-		if ((fechaInicio != null && fechaFin != null) && ocupado) {
+		if (fechaFin != null && ocupado) {
 			throw new BusyBookException("Ya existe una reserva para esas fechas!");
 		}
 

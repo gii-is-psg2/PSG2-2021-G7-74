@@ -258,7 +258,7 @@ class AdoptionsControllerTests {
 		.andExpect(view().name("redirect:/owners/"+ OWNER_ID_TEST));
 		
 		//La mascota ya no esta en adopcion
-		assertThat(adopcion.getPet().getAdoptable()).isEqualTo(false);
+		assertThat(adopcion.getPet().getAdoptable()).isFalse();
 		//Vemos que ha cambiado de dueño
 		assertThat(pet.getOwner().getFirstName()).isEqualTo(adopcion.getApplicant().getFirstName());
 		assertThat(pet.getOwner().getLastName()).isEqualTo(adopcion.getApplicant().getLastName());
@@ -286,7 +286,7 @@ class AdoptionsControllerTests {
 		.andExpect(view().name("redirect:/owners/"+ OWNER_ID_TEST+"/adoptions/pets/" + PET_ID_TEST));
 		
 		//La mascota sigue en adopcion
-		assertThat(adopcion.getPet().getAdoptable()).isEqualTo(true);
+		assertThat(adopcion.getPet().getAdoptable()).isTrue();
 		//Vemos que no ha cambiado de dueño
 		assertThat(pet.getOwner().getFirstName()).isNotEqualTo(adopcion2.getApplicant().getFirstName());
 		assertThat(pet.getOwner().getLastName()).isNotEqualTo(adopcion2.getApplicant().getLastName());

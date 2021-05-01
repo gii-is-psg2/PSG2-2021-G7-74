@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.HotelBook;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
@@ -20,6 +22,7 @@ import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNam
 import org.springframework.samples.petclinic.service.exceptions.EndDateNotAfterStartDateException;
 import org.springframework.stereotype.Service;
 
+@Import(SecurityConfiguration.class)
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 class HotelBookServiceTests {
 	
@@ -191,7 +194,7 @@ class HotelBookServiceTests {
 	@Transactional
 	@DisplayName("Lista de HotelBook De Una Mascota -- caso negativo(No mascota con ese ID)")
 	void shouldNotListHotelBookByPetId() {
-		assertThat(hotelBookService.listHotelBookByPetId(103).size()).isEqualTo(0);	
+		assertThat(hotelBookService.listHotelBookByPetId(103).size()).isZero();	
 	}
 	
 }

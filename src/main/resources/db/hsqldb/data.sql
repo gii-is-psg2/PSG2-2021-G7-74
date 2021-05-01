@@ -1,17 +1,17 @@
 -- One admin user, named admin1 with passwor 4dm1n and authority admin
-INSERT INTO users(username,password,enabled) VALUES ('admin1','4dm1n',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('admin1','$2a$10$D58s8Ygf94xzAQFtqSqUYuc1Yvkj5ZXytLwOSsXhGbE8lfJ/SJumq',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (1,'admin1','admin');
 -- One owner user, named owner1 with passwor 0wn3r
-INSERT INTO users(username,password,enabled) VALUES ('owner1','0wn3r',TRUE);
-INSERT INTO users(username,password,enabled) VALUES ('owner2','0wn3r',TRUE);
-INSERT INTO users(username,password,enabled) VALUES ('owner3','0wn3r',TRUE);
-INSERT INTO users(username,password,enabled) VALUES ('owner4','0wn3r',TRUE);
-INSERT INTO users(username,password,enabled) VALUES ('owner5','0wn3r',TRUE);
-INSERT INTO users(username,password,enabled) VALUES ('owner6','0wn3r',TRUE);
-INSERT INTO users(username,password,enabled) VALUES ('owner7','0wn3r',TRUE);
-INSERT INTO users(username,password,enabled) VALUES ('owner8','0wn3r',TRUE);
-INSERT INTO users(username,password,enabled) VALUES ('owner9','0wn3r',TRUE);
-INSERT INTO users(username,password,enabled) VALUES ('owner10','0wn3r',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('owner1','$2a$10$vK.yiL5TtQQVXJwko4CQt.k/rAiCYbo5.K/cE6IW5xRI06f0gSQP2',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('owner2','$2a$10$vK.yiL5TtQQVXJwko4CQt.k/rAiCYbo5.K/cE6IW5xRI06f0gSQP2',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('owner3','$2a$10$vK.yiL5TtQQVXJwko4CQt.k/rAiCYbo5.K/cE6IW5xRI06f0gSQP2',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('owner4','$2a$10$vK.yiL5TtQQVXJwko4CQt.k/rAiCYbo5.K/cE6IW5xRI06f0gSQP2',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('owner5','$2a$10$vK.yiL5TtQQVXJwko4CQt.k/rAiCYbo5.K/cE6IW5xRI06f0gSQP2',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('owner6','$2a$10$vK.yiL5TtQQVXJwko4CQt.k/rAiCYbo5.K/cE6IW5xRI06f0gSQP2',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('owner7','$2a$10$vK.yiL5TtQQVXJwko4CQt.k/rAiCYbo5.K/cE6IW5xRI06f0gSQP2',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('owner8','$2a$10$vK.yiL5TtQQVXJwko4CQt.k/rAiCYbo5.K/cE6IW5xRI06f0gSQP2',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('owner9','$2a$10$vK.yiL5TtQQVXJwko4CQt.k/rAiCYbo5.K/cE6IW5xRI06f0gSQP2',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('owner10','$2a$10$vK.yiL5TtQQVXJwko4CQt.k/rAiCYbo5.K/cE6IW5xRI06f0gSQP2',TRUE);
 
 
 INSERT INTO authorities(id,username,authority) VALUES (2,'owner1','owner');
@@ -26,7 +26,7 @@ INSERT INTO authorities(id,username,authority) VALUES (11,'owner9','owner');
 INSERT INTO authorities(id,username,authority) VALUES (12,'owner10','owner');
 
 -- One vet user, named vet1 with passwor v3t
-INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('vet1','$2a$10$6/.bHZ2qFWgADMqng.raW.QHqsrdZE89OAiLx2wi.NemapAfBhmAS',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
 
 INSERT INTO vets VALUES (1, 'James', 'Carter');

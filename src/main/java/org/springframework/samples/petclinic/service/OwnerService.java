@@ -22,6 +22,7 @@ import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.repository.OwnerRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +42,9 @@ public class OwnerService {
 	
 	@Autowired
 	private AuthoritiesService authoritiesService;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	public OwnerService(OwnerRepository ownerRepository) {
@@ -59,6 +63,10 @@ public class OwnerService {
 
 	@Transactional
 	public void saveOwner(Owner owner) throws DataAccessException {
+		//encoding the password using BCrypt
+		String pwd = owner.getUser().getPassword();
+		String encodedPwd = passwordEncoder.encode(pwd);
+		owner.getUser().setPassword(encodedPwd);
 		//creating owner
 		ownerRepository.save(owner);		
 		//creating user

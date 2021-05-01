@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Adoption;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
@@ -24,6 +26,7 @@ import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Import(SecurityConfiguration.class)
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 class AdoptionsServiceTests {
 
@@ -142,7 +145,7 @@ class AdoptionsServiceTests {
 	@DisplayName("Eliminar Adopcion Por ID")
 	void shouldDeleteAdoptionById() {
 		adoptionsService.deleteAdoptionById(1);
-		assertThat(adoptionsService.findAdoptionById(1)).isEqualTo(null);
+		assertThat(adoptionsService.findAdoptionById(1)).isNull();
 	}
 
 }
