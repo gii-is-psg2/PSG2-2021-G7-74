@@ -50,19 +50,9 @@
                			<a href="${fn:escapeXml(editVet)}" class="btn btn-default"><fmt:message key="vet.editVet"/></a>
                 	</td>
                 	</sec:authorize>
-                	
 	            </tr>
 	        </c:forEach>
 	        </tbody>
-	    </table>
-	
-	    <table class="table-buttons">
-	        <tr>
-	            <td>
-	                <a href="<spring:url value="/vets.xml" htmlEscape="true" />"><fmt:message key="vestList.button"/></a>
-	            </td>            
-	            
-	        </tr>
 	    </table>
     </div>
 </petclinic:layout>
