@@ -29,11 +29,13 @@
 					<span class="option-text"><fmt:message key="menu.home"/></span>
 				</petclinic:menuItem>
 
+				<sec:authorize access="!hasAuthority('veterinarian')">
 				<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
 					title="find owners">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					<span class="option-text"><fmt:message key="menu.findOwners"/></span>
 				</petclinic:menuItem>
+				</sec:authorize>
 
 				<petclinic:menuItem active="${name eq 'vets'}" url="/vets"
 					title="veterinarians">
@@ -47,12 +49,13 @@
 					<span class="option-text"><fmt:message key="menu.causes"/></span>
 				</petclinic:menuItem>
 				
+				<sec:authorize access="!hasAuthority('veterinarian')">
 				<petclinic:menuItem active="${name eq 'adoptions'}" url="/adoptions"
 					title="adoptions">
 					<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
 					<span class="option-text"><fmt:message key="menu.adoptions"/></span>
 				</petclinic:menuItem>
-				
+				</sec:authorize>
 			</ul>
 
 
