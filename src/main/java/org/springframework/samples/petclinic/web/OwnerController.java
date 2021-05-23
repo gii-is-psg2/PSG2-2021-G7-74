@@ -43,10 +43,12 @@ public class OwnerController {
 	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
 
 	private final OwnerService ownerService;
+	private final UserService userService;
 
 	@Autowired
 	public OwnerController(OwnerService ownerService, UserService userService, AuthoritiesService authoritiesService) {
 		this.ownerService = ownerService;
+		this.userService = userService;
 	}
 
 	@InitBinder
@@ -134,9 +136,12 @@ public class OwnerController {
 	 */
 	@GetMapping("/owners/{ownerId}")
 	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId,Model model) {	
+		
 		Owner loggedOwner = this.ownerService.getLoggedOwner();
 
 		model.addAttribute("isCurrentUser", loggedOwner != null && loggedOwner.getId()==ownerId);
+		model.addAttribute("isAdm", this.userService.getLoggedRoles().contains("admin"));
+		
 		ModelAndView mav = new ModelAndView("owners/ownerDetails");
 		mav.addObject(this.ownerService.findOwnerById(ownerId));
 		return mav;
