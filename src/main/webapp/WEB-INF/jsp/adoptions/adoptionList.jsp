@@ -38,44 +38,47 @@
 		                        <dd><c:out value="${pet.type.name}"/></dd>
 		                    </dl>
 		                </td>
+		                 
+		                 <c:if test="${!isAdm}">
 		                             
-		                 <td valign="top">
-		                    <table class="table-condensed">
-		                        <thead>
-		                        <tr>
-		                            <th><fmt:message key="header.description"/></th>
-		                        </tr>
-		                        </thead>
-		                        <tr>
-	                                <td>
-	                                	<fmt:message key="adoptions.textarea.placeholder" var="placeholder"/>
-	                               		<textarea 
-	                               			rows=3 
-	                               			style="resize: none; overflow: auto; width: 43vw; padding: 10px" 
-	                               			placeholder="${placeholder}"
-	                               			name="description"
-	                               		></textarea>
-	                               		<input type="hidden" name="petId" value="${pet.id}"/>
-	                               		<input type="hidden" name="status" value="EN_PROCESO"/>                               		    
-	                                </td>
-	                            </tr>
-		                    </table>
-		                </td>
-		                
-		                <td valign="top">
-		                    <table class="table-condensed">
-	                        	<thead>
-	                        	<tr>
-	                        		<th><fmt:message key="header.acciones"/></th>
-	                        	</tr>
-	                        	</thead>
-	                        	<tr>
-		                          	<td>
-		                        		<button class="btn btn-default" type="submit"><fmt:message key="adoptions.submit"/></button>
-		                            </td>
-	                            </tr>
-	                        </table>
-	                    </td>
+			                 <td valign="top">
+			                    <table class="table-condensed">
+			                        <thead>
+			                        <tr>
+			                            <th><fmt:message key="header.description"/></th>
+			                        </tr>
+			                        </thead>
+			                        <tr>
+		                                <td>
+		                                	<fmt:message key="adoptions.textarea.placeholder" var="placeholder"/>
+		                               		<textarea 
+		                               			rows=3 
+		                               			style="resize: none; overflow: auto; width: 43vw; padding: 10px" 
+		                               			placeholder="${placeholder}"
+		                               			name="description"
+		                               		></textarea>
+		                               		<input type="hidden" name="petId" value="${pet.id}"/>
+		                               		<input type="hidden" name="status" value="EN_PROCESO"/>                               		    
+		                                </td>
+		                            </tr>
+			                    </table>
+			                </td>
+			                
+			                <td valign="top">
+			                    <table class="table-condensed">
+		                        	<thead>
+		                        	<tr>
+		                        		<th><fmt:message key="header.acciones"/></th>
+		                        	</tr>
+		                        	</thead>
+		                        	<tr>
+			                          	<td>
+			                        		<button class="btn btn-default" type="submit"><fmt:message key="adoptions.submit"/></button>
+			                            </td>
+		                            </tr>
+		                        </table>
+		                    </td>
+		            	</c:if>
                     </form:form>	                
 				</tr>			
 	       </c:forEach>

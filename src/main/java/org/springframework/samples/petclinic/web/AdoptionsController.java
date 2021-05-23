@@ -13,6 +13,7 @@ import org.springframework.samples.petclinic.model.Status;
 import org.springframework.samples.petclinic.service.AdoptionsService;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedAdoptionException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,14 +29,16 @@ public class AdoptionsController {
 	private final AdoptionsService adoptionService;
 	private final OwnerService ownerService;
 	private final PetService petService;
+	private final UserService userService;
 	
 	private static final String OWNERS_PAGE_REDIRECT = "redirect:/owners/";
 	
 	@Autowired
-	public AdoptionsController(AdoptionsService adoptionService, OwnerService ownerService, PetService petService) {
+	public AdoptionsController(AdoptionsService adoptionService, OwnerService ownerService, PetService petService, UserService userService) {
 		this.adoptionService = adoptionService;
 		this.ownerService = ownerService;
 		this.petService = petService;
+		this.userService = userService;
 	}
 	
 	@InitBinder
@@ -133,6 +136,7 @@ public class AdoptionsController {
 		Owner loggedOwner = this.ownerService.getLoggedOwner();
 		
 		model.put("today", LocalDate.now());
+		model.put("isAdm", this.userService.getLoggedRoles().contains("admin"));
 		model.put("adoptablePet", 
 				this.petService.findAll().stream()
 					.filter(p -> (loggedOwner == null || loggedOwner.getAdoptions().stream().noneMatch(a->a.getPet().equals(p)) 
