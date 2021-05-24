@@ -32,6 +32,7 @@ import java.util.Collection;
 import org.springframework.beans.BeanUtils;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 
 /**
@@ -48,11 +49,13 @@ public class PetController {
 
 	private final PetService petService;
 	private final OwnerService ownerService;
+	private final UserService userService;
 
 	@Autowired
-	public PetController(PetService petService, OwnerService ownerService) {
+	public PetController(PetService petService, OwnerService ownerService, UserService userService) {
 		this.petService = petService;
 		this.ownerService = ownerService;
+		this.userService = userService;
 	}
 
 	@ModelAttribute("types")
@@ -147,8 +150,9 @@ public class PetController {
 	@GetMapping(value = "/pets/{petId}/toogleAdoptable")
 	public String toggleAdoptable(@PathVariable("petId") int petId, @PathVariable("ownerId") int ownerId) throws DataAccessException, DuplicatedPetNameException, OperationNotSupportedException {
 		Owner loggedOwner = this.ownerService.getLoggedOwner();
-
-		if(ownerId == loggedOwner.getId()) {
+		
+		if(this.userService.getLoggedRoles().contains("admin") || ownerId == loggedOwner.getId()) {
+			
 			Pet pet = this.petService.findPetById(petId);
 			pet.setAdoptable(!pet.getAdoptable());
 			if (!Boolean.TRUE.equals(pet.getAdoptable())) {

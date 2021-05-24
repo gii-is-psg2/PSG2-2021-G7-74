@@ -50,7 +50,7 @@ public class AdoptionsController {
 	public String deleteById(@PathVariable("ownerId") int ownerId, @PathVariable("adoptionId") int adoptionId) throws OperationNotSupportedException {
 		Owner loggedOwner = this.ownerService.getLoggedOwner();
 		
-		if(ownerId == loggedOwner.getId()) {
+		if(this.userService.getLoggedRoles().contains("admin") || ownerId == loggedOwner.getId()) {
 			Adoption adoption = adoptionService.findAdoptionById(adoptionId);
 			Owner own = ownerService.findOwnerById(ownerId);
 			Pet pet = adoption.getPet();
@@ -68,7 +68,7 @@ public class AdoptionsController {
 	public String initAdoptionsList(@PathVariable("petId") int petId, ModelMap model, @PathVariable("ownerId") int ownerId) throws OperationNotSupportedException {
 		Owner loggedOwner = this.ownerService.getLoggedOwner();
 		
-		if(ownerId == loggedOwner.getId()) {
+		if(this.userService.getLoggedRoles().contains("admin") || ownerId == loggedOwner.getId()) {
 
 			Pet pet = this.petService.findPetById(petId);
 			model.put("pet", pet);
