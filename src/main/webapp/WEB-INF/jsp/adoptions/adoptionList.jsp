@@ -23,8 +23,11 @@
 	
 	<div class="page-body">
 		<h2 class = "page-title"><fmt:message key="adoptions.title"/></h2>
-		
+
 		<table class="table table-striped">
+			<c:if test = "${adoptablePet.isEmpty()}">
+				<br><h3><fmt:message key="adoptions.noPets"/></h3>
+			</c:if>
 	        <c:forEach var="pet" items="${adoptablePet}">	
 			     <tr>
 			     	<form:form modelAttribute="adoption" id="add-adoption">
