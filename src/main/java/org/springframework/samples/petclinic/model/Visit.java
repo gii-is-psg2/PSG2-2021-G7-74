@@ -23,7 +23,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import java.time.LocalDate;
@@ -49,7 +48,6 @@ public class Visit extends BaseEntity {
 	 */
 	@NotBlank
 	@Size(min=6)
-	@NotEmpty
 	@Column(name = "description")
 	private String description;
 
