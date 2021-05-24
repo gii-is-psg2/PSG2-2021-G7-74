@@ -22,7 +22,10 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 /**
@@ -44,6 +47,8 @@ public class Visit extends BaseEntity {
 	/**
 	 * Holds value of property description.
 	 */
+	@NotBlank
+	@Size(min=6)
 	@NotEmpty
 	@Column(name = "description")
 	private String description;
@@ -82,6 +87,7 @@ public class Visit extends BaseEntity {
 	 * Getter for property description.
 	 * @return Value of property description.
 	 */
+	
 	public String getDescription() {
 		return this.description;
 	}
@@ -90,6 +96,7 @@ public class Visit extends BaseEntity {
 	 * Setter for property description.
 	 * @param description New value of property description.
 	 */
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
