@@ -56,7 +56,20 @@
 	
 	        <br/>
 	        <b><fmt:message key="createOrUpdateHotelBookForm.hotelBook.previousHotelBooks"/></b>
-
+    		<table class="table table-striped">
+            <tr>
+                <th><fmt:message key="createOrUpdateHotelBookForm.hotelBook.startDate"/></th>
+                <th><fmt:message key="createOrUpdateHotelBookForm.hotelBook.endDate"/></th>
+            </tr>
+            <c:forEach var="reserva" items="${hotelBook.pet.hotelBooks}">
+                <c:if test="${!reserva['new']}">
+                    <tr>
+                        <td><petclinic:localDate date="${reserva.startDate}" pattern="yyyy/MM/dd"/></td>
+                        <td><petclinic:localDate date="${reserva.endDate}" pattern="yyyy/MM/dd"/></td>
+                    </tr>
+                </c:if>
+            </c:forEach>
+        </table>
         </div>
     </jsp:body>
 

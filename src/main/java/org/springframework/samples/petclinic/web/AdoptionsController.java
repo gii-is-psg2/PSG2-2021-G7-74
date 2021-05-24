@@ -13,6 +13,7 @@ import org.springframework.samples.petclinic.model.Status;
 import org.springframework.samples.petclinic.service.AdoptionsService;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedAdoptionException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,14 +29,16 @@ public class AdoptionsController {
 	private final AdoptionsService adoptionService;
 	private final OwnerService ownerService;
 	private final PetService petService;
+	private final UserService userService;
 	
 	private static final String OWNERS_PAGE_REDIRECT = "redirect:/owners/";
 	
 	@Autowired
-	public AdoptionsController(AdoptionsService adoptionService, OwnerService ownerService, PetService petService) {
+	public AdoptionsController(AdoptionsService adoptionService, OwnerService ownerService, PetService petService, UserService userService) {
 		this.adoptionService = adoptionService;
 		this.ownerService = ownerService;
 		this.petService = petService;
+		this.userService = userService;
 	}
 	
 	@InitBinder
@@ -47,7 +50,7 @@ public class AdoptionsController {
 	public String deleteById(@PathVariable("ownerId") int ownerId, @PathVariable("adoptionId") int adoptionId) throws OperationNotSupportedException {
 		Owner loggedOwner = this.ownerService.getLoggedOwner();
 		
-		if(ownerId == loggedOwner.getId()) {
+		if(this.userService.getLoggedRoles().contains("admin") || ownerId == loggedOwner.getId()) {
 			Adoption adoption = adoptionService.findAdoptionById(adoptionId);
 			Owner own = ownerService.findOwnerById(ownerId);
 			Pet pet = adoption.getPet();
@@ -65,7 +68,7 @@ public class AdoptionsController {
 	public String initAdoptionsList(@PathVariable("petId") int petId, ModelMap model, @PathVariable("ownerId") int ownerId) throws OperationNotSupportedException {
 		Owner loggedOwner = this.ownerService.getLoggedOwner();
 		
-		if(ownerId == loggedOwner.getId()) {
+		if(this.userService.getLoggedRoles().contains("admin") || ownerId == loggedOwner.getId()) {
 
 			Pet pet = this.petService.findPetById(petId);
 			model.put("pet", pet);
@@ -133,6 +136,7 @@ public class AdoptionsController {
 		Owner loggedOwner = this.ownerService.getLoggedOwner();
 		
 		model.put("today", LocalDate.now());
+		model.put("isAdm", this.userService.getLoggedRoles().contains("admin"));
 		model.put("adoptablePet", 
 				this.petService.findAll().stream()
 					.filter(p -> (loggedOwner == null || loggedOwner.getAdoptions().stream().noneMatch(a->a.getPet().equals(p)) 

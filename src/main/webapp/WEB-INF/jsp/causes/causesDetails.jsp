@@ -45,12 +45,16 @@
 	   	</c:if>
 	    <br/>
 	    <br/>	      
-	    <h2><fmt:message key="causesDetails.title.donations"/></h2>
-
-	
+	    
+		<c:if test="${cause.donations.size() == 0}">
+		<h2><fmt:message key="causesDetails.donations.notFound"/></h2>
+		</c:if>
+		
+		<c:if test="${cause.donations.size() >= 1}">
+		<h2><fmt:message key="causesDetails.title.donations"/></h2>
 	    	<table class="table table-striped">
 	        <c:forEach var="donation" items="${cause.donations}">
-	
+			
 	            <tr>
 	                <td valign="top">
 	                    <dl class="dl-horizontal">
@@ -67,5 +71,6 @@
 				
 	        </c:forEach>
 	    </table>
+	   </c:if>
 	</div>
 </petclinic:layout>

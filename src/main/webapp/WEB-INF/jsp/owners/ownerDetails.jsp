@@ -102,7 +102,7 @@
 	                        
 	                    </table>
 	                </td>
-	              	<c:if test="${isCurrentUser}">
+	              	<c:if test="${isCurrentUser || isAdm}">
 	                <td>
                         <table>
                         	<thead>
@@ -222,7 +222,7 @@
                             </tr>
 	                    </table>
 	                </td>
-                	<c:if test="${isCurrentUser}">
+                	<c:if test="${isCurrentUser || isAdm}">
 		                <td valign="top">
 		                    <table class="table-condensed">
 	                        	<thead>
