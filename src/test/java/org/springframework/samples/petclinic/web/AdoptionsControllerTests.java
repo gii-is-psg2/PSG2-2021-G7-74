@@ -28,6 +28,7 @@ import org.springframework.samples.petclinic.model.Status;
 import org.springframework.samples.petclinic.service.AdoptionsService;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -65,6 +66,9 @@ class AdoptionsControllerTests {
 	
 	@MockBean
 	private PetService petService;
+	
+	@MockBean
+	private UserService userService;
 	
 	@Autowired
 	private MockMvc mockMvc;
