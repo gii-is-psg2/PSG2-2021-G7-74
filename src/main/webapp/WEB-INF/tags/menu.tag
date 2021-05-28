@@ -56,6 +56,12 @@
 					<span class="option-text"><fmt:message key="menu.adoptions"/></span>
 				</petclinic:menuItem>
 				</sec:authorize>
+				
+				<petclinic:menuItem active="${name eq 'iTop'}" url="/itop"
+					title="causes">
+					<span class="glyphicon glyphicon-education" aria-hidden="true"></span>
+					<span class="option-text"><fmt:message key="menu.iTop"/></span>
+				</petclinic:menuItem>
 			</ul>
 
 
